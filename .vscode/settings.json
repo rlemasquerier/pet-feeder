@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.enable": true,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "files.associations": {
+    "Fastfile": "ruby",
+    "yarn.lock": "text"
+  }
+}

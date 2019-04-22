@@ -1,3 +1,7 @@
+// Those two import fix a crash on Android release : https://github.com/BugiDev/react-native-calendar-strip/issues/110
+import 'moment';
+import 'moment/locale/fr';
+
 export const locale = {
   name: 'fr',
   config: {

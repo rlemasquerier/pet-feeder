@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from 'react-native';
-import { Card } from '../../components';
+import { Card, Calendar } from '../../components';
 import theme from '../../theme';
 
 export class Home extends Component {
@@ -21,6 +21,7 @@ export class Home extends Component {
           <View style={styles.topBanner}>
             <Text style={styles.topBannerText}>Bonjour Rodolphe !</Text>
           </View>
+          <Calendar />
           <View style={styles.content}>
             <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
             <Card title="Soir" content="La gamelle de Gaïa est vide !" />

@@ -1,0 +1,279 @@
+fastlane_require 'dotenv'
+fastlane_require 'spaceship'
+release_notes_command = "git log HEAD --pretty=format:\"%s\" -1"
+
+# Check Git Status
+
+lane :check_git_status do |options|
+  ensure_git_branch(
+    branch: "#{options[:name]}"
+  )
+  ensure_git_status_clean
+  git_pull
+
+end
+
+# JS Environments
+
+lane :set_js_env do |options|
+  backup_file(path: 'src/environment/index.js')
+  sh "cp ../src/environment/index.#{ENV['ENV']}.js ../src/environment/index.js"
+end
+
+before_all do |lane, options|
+  Dotenv.load(".env.#{ENV['ENV']}.secret")
+end
+
+after_all do |lane, options|
+  if File.exist?('../src/environment/index.js.back')
+    restore_file(path: 'src/environment/index.js')
+  end
+end
+
+error do |lane, exception, options|
+  if File.exist?('../src/environment/index.js.back')
+    restore_file(path: 'src/environment/index.js')
+  end
+end
+
+# IOS
+
+platform :ios do
+  lane :restore_files do |options|
+    plist_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
+    if File.exist?("../#{plist_path}.back")
+      restore_file(path: plist_path)
+    end
+    pbxproj_path="#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcodeproj/project.pbxproj"
+    if File.exist?("../#{pbxproj_path}.back")
+      restore_file(path: pbxproj_path)
+    end
+    appcenter_plist_path="#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}/AppCenter-Config.plist"
+    if File.exist?("../#{appcenter_plist_path}.back")
+      restore_file(path: appcenter_plist_path)
+    end
+  end
+
+  error do |lane, exception, options|
+    restore_files
+  end
+
+  lane :setup do |options|
+    produce(
+      app_name: ENV['IOS_APP_NAME'],
+      skip_itc: true
+    )
+    match(
+      type: 'development',
+      shallow_clone: true,
+      clone_branch_directly: true,
+      force_for_new_devices: true
+    )
+    match(
+      shallow_clone: true,
+      clone_branch_directly: true,
+      force_for_new_devices: true
+    )
+  end
+
+  lane :setup_push do
+    Spaceship.login
+    Spaceship.select_team
+    keyName = "Push JWT #{ENV['IOS_APP_NAME']} #{ENV['ENV']}".gsub!(/[^0-9A-Za-z ]/, '')
+    key = Spaceship::Portal::Key.create(name: keyName, apns: true)
+    puts "Key ID is"
+    puts key.id
+    File.write("#{keyName}.p8", key.download)
+  end
+
+  lane :build do |options|
+    plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
+    backup_file(path: plist_full_path)
+    xcodeproj = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcodeproj"
+    xcworkspace = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}.xcworkspace"
+    pbxproj_full_path="#{xcodeproj}/project.pbxproj"
+    backup_file(path: pbxproj_full_path)
+    update_info_plist(
+      xcodeproj: xcodeproj,
+      plist_path: ENV['IOS_PLIST_PATH'],
+      block: lambda { |plist|
+        plist['CFBundleName'] = ENV['IOS_APP_NAME']
+        plist['CFBundleDisplayName'] = ENV['IOS_APP_NAME']
+        plist['CFBundleShortVersionString'] = ENV['IOS_VERSION']
+        plist['CFBundleVersion'] = ENV['IOS_VERSION_BUILD_NUMBER']
+      },
+    )
+    if ENV['IOS_CODEPUSH_DEPLOYMENT_KEY'] then
+      set_info_plist_value(path: plist_full_path, key:'CodePushDeploymentKey', value: ENV['IOS_CODEPUSH_DEPLOYMENT_KEY'])
+    end
+    if ENV['IOS_APPCENTER_APP_SECRET'] then
+      appcenter_plist_full_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PROJECT_NAME']}/AppCenter-Config.plist"
+      backup_file(path: appcenter_plist_full_path)
+      set_info_plist_value(path: appcenter_plist_full_path, key:'AppSecret', value: ENV['IOS_APPCENTER_APP_SECRET'])
+    end
+    update_app_identifier(
+      xcodeproj: xcodeproj,
+      plist_path: ENV['IOS_PLIST_PATH'],
+      app_identifier: ENV['IOS_APP_ID']
+    )
+    profile_env_name = "sigh_#{ENV['IOS_APP_ID']}_#{ENV['MATCH_TYPE']}_profile-name"
+    gymOptions = ({
+      silent: true,
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{ENV[profile_env_name]}' DEVELOPMENT_TEAM='#{ENV['IOS_TEAM_ID']}'"
+    }).merge(
+      File.directory?("../#{xcworkspace}") ?
+        {workspace: xcworkspace} :
+        {project: xcodeproj}
+    )
+    gym(gymOptions)
+    restore_files
+  end
+
+  lane :deploy_hockey do |options|
+    hockey(
+      notify: '0',
+      ipa: ENV['IOS_IPA_PATH']
+    )
+  end
+
+  lane :deploy_appCenter do |options|
+    appcenter_upload(
+      api_token: ENV['FL_APPCENTER_API_TOKEN'],
+      owner_name: ENV['APPCENTER_USERNAME'],
+      app_name: ENV['IOS_APPCENTER_APP_ID'],
+      ipa: ENV['IOS_IPA_PATH'],
+      release_notes: %x[#{release_notes_command}]
+    )
+  end
+
+  lane :deploy do |options|
+    set_js_env
+    if options[:codepush] then
+      release_notes = %x[#{release_notes_command}]
+      sh "cd .. && appcenter codepush release-react -d #{ENV['IOS_CODEPUSH_DEPLOYMENT_NAME']} -a #{ENV['APPCENTER_USERNAME']}/#{ENV['IOS_APPCENTER_APP_ID']} --target-binary-version \"#{ENV['IOS_VERSION']}\" --description \"#{release_notes}\" --disable-duplicate-release-error"
+    else
+      match(
+        shallow_clone: true,
+        clone_branch_directly: true,
+        readonly: true
+      )
+      build
+      if ENV['DEPLOYMENT_PLATFORM'] === 'hockeyapp' then
+        deploy_hockey
+      elsif ENV['DEPLOYMENT_PLATFORM'] === 'appcenter' then
+        deploy_appCenter
+      else
+        pilot(
+          distribute_external: false,
+          skip_waiting_for_build_processing: true
+        )
+      end
+    end
+  end
+
+  lane :deploy_local do |options|
+    check_git_status(name: ENV['REPO_GIT_BRANCH'])
+    deploy
+  end
+
+  lane :add_devices do |options|
+    if ['development','adhoc'].include?(ENV['MATCH_TYPE']) then
+      register_devices(
+        team_id: ENV['IOS_TEAM_ID'],
+        devices_file: "./fastlane/ios_devices.txt"
+      )
+      match(
+        shallow_clone: true,
+        clone_branch_directly: true,
+        force_for_new_devices: true
+      )
+    else
+      puts 'Environment not associated to an ad-hoc or development app'
+    end
+  end
+
+end
+
+#  ANDROID
+
+platform :android do
+  lane :restore_files do |options|
+    appcenter_config_path = "#{ENV['ANDROID_PROJECT_DIR']}/app/src/main/assets/appcenter-config.json"
+    if File.exist?("../#{appcenter_config_path}.back")
+      restore_file(path: appcenter_config_path)
+    end
+    android_strings_path = "#{ENV['ANDROID_PROJECT_DIR']}/app/src/main/res/values/strings.xml"
+    if File.exist?("../#{android_strings_path}.back")
+      restore_file(path: android_strings_path)
+    end
+  end
+
+  error do |lane, exception, options|
+    restore_files
+  end
+
+  lane :set_keys do |options|
+    if ENV['ANDROID_APPCENTER_APP_SECRET'] then
+      appcenter_config_path = "#{ENV['ANDROID_PROJECT_DIR']}/app/src/main/assets/appcenter-config.json"
+      backup_file(path: appcenter_config_path)
+      appcenter_config = load_json(json_path: appcenter_config_path)
+      appcenter_config['app_secret'] = ENV['ANDROID_APPCENTER_APP_SECRET']
+      File.open("../#{appcenter_config_path}","w") do |f|
+        f.write(appcenter_config.to_json)
+      end
+    end
+    if ENV['ANDROID_CODEPUSH_DEPLOYMENT_KEY'] then
+      android_strings_path = "#{ENV['ANDROID_PROJECT_DIR']}/app/src/main/res/values/strings.xml"
+      # backup_file(path: android_strings_path) We can't backup this way because android can't build if there is a non-xml file in values folder. Solution to be found.
+      xml = Nokogiri::XML(File.open("../#{android_strings_path}"))
+      xml.at("//string[@name=\"reactNativeCodePush_androidDeploymentKey\"]").content = ENV['ANDROID_CODEPUSH_DEPLOYMENT_KEY']
+      File.write("../#{android_strings_path}", xml.to_xml)
+    end
+  end
+
+  lane :build do |options|
+    set_keys
+    gradle(
+      task: "assembleRelease",
+      project_dir: ENV['ANDROID_PROJECT_DIR']
+    )
+    restore_files
+  end
+
+  lane :deploy_hockey do |options|
+    hockey(
+      notify: '0',
+      apk: ENV['ANDROID_APK_PATH']
+    )
+  end
+
+  lane :deploy_appCenter do |options|
+    appcenter_upload(
+      api_token: ENV['FL_APPCENTER_API_TOKEN'],
+      owner_name: ENV['APPCENTER_USERNAME'],
+      app_name: ENV['ANDROID_APPCENTER_APP_ID'],
+      apk: ENV['ANDROID_APK_PATH'],
+      release_notes: %x[#{release_notes_command}]
+    )
+  end
+
+  lane :deploy do |options|
+    set_js_env
+    if options[:codepush] then
+      release_notes = %x[#{release_notes_command}]
+      sh "cd .. && appcenter codepush release-react -d #{ENV['ANDROID_CODEPUSH_DEPLOYMENT_NAME']} -a #{ENV['APPCENTER_USERNAME']}/#{ENV['ANDROID_APPCENTER_APP_ID']} --target-binary-version \"#{ENV['ANDROID_VERSION_NAME']}\" --description \"#{release_notes}\" --disable-duplicate-release-error"
+    else
+      build
+      if ENV['DEPLOYMENT_PLATFORM'] === 'hockeyapp' then
+        deploy_hockey
+      elsif ENV['DEPLOYMENT_PLATFORM'] === 'appcenter' then
+        deploy_appCenter
+      end
+    end
+  end
+
+  lane :deploy_local do |options|
+    check_git_status(name: ENV['REPO_GIT_BRANCH'])
+    deploy
+  end
+end

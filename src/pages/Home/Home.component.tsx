@@ -49,12 +49,14 @@ const styles = StyleSheet.create<Style>({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: theme.colors.white,
   },
   content: {
     flex: 1,
     paddingHorizontal: 20,
     alignItems: 'stretch',
     justifyContent: 'center',
+    backgroundColor: theme.colors.backgroundColor,
   },
   topBanner: {
     height: 50,

@@ -1,42 +1,11 @@
 import React, { Component, ReactNode } from 'react';
-import { Calendar as RNCalendar, LocaleConfig } from 'react-native-calendars';
+import CalendarStrip from 'react-native-calendar-strip';
+import { locale } from './utils/locale';
 
-LocaleConfig.locales['fr'] = {
-  monthNames: [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre',
-  ],
-  monthNamesShort: [
-    'Janv.',
-    'Févr.',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juil.',
-    'Août',
-    'Sept.',
-    'Oct.',
-    'Nov.',
-    'Déc.',
-  ],
-  dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-  dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-};
-
-LocaleConfig.defaultLocale = 'fr';
 export class Calendar extends Component<{}, {}> {
   public render(): ReactNode {
-    return <RNCalendar />;
+    return (
+      <CalendarStrip style={{ height: 100, paddingTop: 20, paddingBottom: 10 }} locale={locale} />
+    );
   }
 }

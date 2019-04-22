@@ -1,56 +1,32 @@
 import React, { Component, ReactNode } from 'react';
-import {
-  Text,
-  View,
-  ViewStyle,
-  StyleSheet,
-  TextStyle,
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
-import { Card, Calendar } from '../../components';
+import { Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
+import { Page, Card, Calendar } from '../../components';
 import theme from '../../theme';
 
 export class Home extends Component {
   public render(): ReactNode {
     return (
-      <>
-        <StatusBar barStyle="light-content" />
-        <SafeAreaView style={styles.statusBar} />
-        <SafeAreaView style={styles.container}>
-          <View style={styles.topBanner}>
-            <Text style={styles.topBannerText}>Bonjour Rodolphe !</Text>
-          </View>
-          <Calendar />
-          <View style={styles.content}>
-            <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
-            <Card title="Soir" content="La gamelle de Gaïa est vide !" />
-          </View>
-        </SafeAreaView>
-      </>
+      <Page>
+        <View style={styles.topBanner}>
+          <Text style={styles.topBannerText}>Bonjour Rodolphe !</Text>
+        </View>
+        <Calendar />
+        <View style={styles.content}>
+          <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
+          <Card title="Soir" content="La gamelle de Gaïa est vide !" />
+        </View>
+      </Page>
     );
   }
 }
 
 interface Style {
-  statusBar: ViewStyle;
-  container: ViewStyle;
   content: ViewStyle;
   topBanner: ViewStyle;
   topBannerText: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
-  statusBar: {
-    flex: 0,
-    backgroundColor: theme.colors.banner,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.white,
-  },
   content: {
     flex: 1,
     paddingHorizontal: 20,

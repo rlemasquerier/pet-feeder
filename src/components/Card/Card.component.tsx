@@ -1,18 +1,24 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, StyleSheet, View, ViewStyle } from 'react-native';
+import { Text, StyleSheet, View, ViewStyle, TextStyle } from 'react-native';
 import theme from '../../theme';
 
 const TITLE_HEIGHT = 40;
 
-export class Card extends Component {
+interface Props {
+  title: string;
+  content: string;
+}
+
+export class Card extends Component<Props> {
   public render(): ReactNode {
+    const { title, content } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Text>Titre</Text>
+          <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.contentContainer}>
-          <Text>Contenu</Text>
+          <Text style={styles.content}>{content}</Text>
         </View>
       </View>
     );
@@ -23,14 +29,16 @@ interface Style {
   container: ViewStyle;
   titleContainer: ViewStyle;
   contentContainer: ViewStyle;
+  title: TextStyle;
+  content: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
   container: {
-    margin: 3,
+    marginVertical: 2 * theme.margins.unit,
     height: 140,
     borderRadius: theme.borders.radius,
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     ...theme.borders.shadow,
@@ -44,10 +52,18 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: theme.colors.primary,
   },
   contentContainer: {
+    flex: 1,
     borderBottomLeftRadius: theme.borders.radius,
     borderBottomRightRadius: theme.borders.radius,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.white,
+  },
+  title: {
+    ...theme.fonts.strong,
+    color: theme.colors.white,
+  },
+  content: {
+    ...theme.fonts.regular,
   },
 });

@@ -7,7 +7,8 @@ export class Home extends Component {
     return (
       <View style={styles.container}>
         <Text>Welcome on Home</Text>
-        <Card />
+        <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
+        <Card title="Soir" content="La gamelle de Gaïa est vide !" />
       </View>
     );
   }

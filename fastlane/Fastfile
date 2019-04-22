@@ -16,8 +16,8 @@ end
 # JS Environments
 
 lane :set_js_env do |options|
-  backup_file(path: 'src/environment/index.js')
-  sh "cp ../src/environment/index.#{ENV['ENV']}.js ../src/environment/index.js"
+  backup_file(path: 'src/environment/index.ts')
+  sh "cp ../src/environment/index.#{ENV['ENV']}.ts ../src/environment/index.ts"
 end
 
 before_all do |lane, options|
@@ -25,14 +25,14 @@ before_all do |lane, options|
 end
 
 after_all do |lane, options|
-  if File.exist?('../src/environment/index.js.back')
-    restore_file(path: 'src/environment/index.js')
+  if File.exist?('../src/environment/index.ts.back')
+    restore_file(path: 'src/environment/index.ts')
   end
 end
 
 error do |lane, exception, options|
-  if File.exist?('../src/environment/index.js.back')
-    restore_file(path: 'src/environment/index.js')
+  if File.exist?('../src/environment/index.ts.back')
+    restore_file(path: 'src/environment/index.ts')
   end
 end
 

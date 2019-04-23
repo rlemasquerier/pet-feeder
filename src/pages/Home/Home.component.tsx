@@ -10,8 +10,8 @@ export class Home extends Component {
         <View style={styles.topBanner}>
           <Text style={styles.topBannerText}>Bonjour Rodolphe !</Text>
         </View>
-        <Calendar />
         <View style={styles.content}>
+          <Calendar />
           <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
           <Card title="Soir" content="La gamelle de Gaïa est vide !" />
         </View>
@@ -29,9 +29,10 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   content: {
     flex: 1,
-    paddingHorizontal: 20,
+    overflow: 'hidden',
+    paddingHorizontal: theme.margins.pagePadding,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: theme.colors.backgroundColor,
   },
   topBanner: {

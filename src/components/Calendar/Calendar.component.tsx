@@ -21,11 +21,12 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
+    marginHorizontal: -theme.margins.pagePadding,
+    marginBottom: 2 * theme.margins.unit,
     backgroundColor: theme.colors.white,
     ...theme.borders.shadow,
   },
   calendar: {
-    overflow: 'hidden',
     backgroundColor: theme.colors.white,
     height: 100,
     paddingTop: 20,

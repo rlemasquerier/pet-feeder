@@ -5,6 +5,7 @@ import theme from './../../theme';
 
 const ICON_SIZE = 35;
 const BUTTON_SIZE = 76;
+const BUTTON_ACTIVE_OPACITY = 0.7;
 
 interface Props {
   iconName: string;
@@ -15,7 +16,7 @@ interface Props {
 export class RoundButton extends Component<Props> {
   public render(): ReactNode {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity activeOpacity={BUTTON_ACTIVE_OPACITY}>
         <View style={[styles.container, { backgroundColor: this.props.color }]}>
           <Icon name={this.props.iconName} size={ICON_SIZE} color={this.props.iconColor} />
         </View>

@@ -2,6 +2,7 @@
   "name": "PetFeeder",
   "version": "0.0.1",
   "private": true,
+  "rnpm": { "assets": [ "assets/icons" ] },
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "yarn test:lint && yarn test:types && yarn test:unit",

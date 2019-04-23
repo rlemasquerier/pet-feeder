@@ -3,6 +3,8 @@ import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-
 import { Page, Card, Calendar, RoundButton } from '../../components';
 import theme from '../../theme';
 
+const TOP_BANNER_HEIGHT = 50;
+
 export class Home extends Component {
   public render(): ReactNode {
     return (
@@ -51,7 +53,7 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: theme.colors.backgroundColor,
   },
   topBanner: {
-    height: 50,
+    height: TOP_BANNER_HEIGHT,
     backgroundColor: theme.colors.banner,
     paddingHorizontal: 2 * theme.margins.unit,
     alignItems: 'stretch',

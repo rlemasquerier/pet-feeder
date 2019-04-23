@@ -1,14 +1,37 @@
 import React, { Component, ReactNode } from 'react';
-import { View, ViewStyle, StyleSheet } from 'react-native';
+import { View, Text, ViewStyle, StyleSheet } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
+import { dateToFromNowDaily } from './utils/dateHelpers';
+import moment, { Moment } from 'moment';
 import theme from '../../theme';
 import { locale } from './utils/locale';
 
-export class Calendar extends Component<{}, {}> {
+//@ts-ignore
+const daySelectionAnimation: IDaySelectionAnimationBackground = {
+  type: 'background',
+  duration: 200,
+  highlightColor: theme.colors.backgroundColor,
+};
+
+interface State {
+  selectedDate: Date | Moment;
+}
+
+export class Calendar extends Component<{}, State> {
+  public state = { selectedDate: moment() };
   public render(): ReactNode {
     return (
       <View style={styles.container}>
-        <CalendarStrip style={styles.calendar} locale={locale} />
+        <CalendarStrip
+          style={styles.calendar}
+          calendarColor={theme.colors.banner}
+          locale={locale}
+          daySelectionAnimation={daySelectionAnimation}
+          onDateSelected={date => {
+            this.setState({ selectedDate: date });
+          }}
+        />
+        <Text>{this.state.selectedDate && dateToFromNowDaily(this.state.selectedDate)}</Text>
       </View>
     );
   }

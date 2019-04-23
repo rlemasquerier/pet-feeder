@@ -1,6 +1,6 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
-import { Page, Card, Calendar } from '../../components';
+import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
+import { Page, Card, Calendar, RoundButton } from '../../components';
 import theme from '../../theme';
 
 export class Home extends Component {
@@ -12,8 +12,22 @@ export class Home extends Component {
         </View>
         <View style={styles.content}>
           <Calendar />
-          <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
-          <Card title="Soir" content="La gamelle de Gaïa est vide !" />
+          <ScrollView>
+            <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
+            <Card title="Soir" content="La gamelle de Gaïa est vide !" />
+            <View style={styles.buttonsContainer}>
+              <RoundButton
+                iconName="cross"
+                color={theme.colors.secondaryAction}
+                iconColor={theme.colors.white}
+              />
+              <RoundButton
+                iconName="spoon-knife"
+                color={theme.colors.action}
+                iconColor={theme.colors.black}
+              />
+            </View>
+          </ScrollView>
         </View>
       </Page>
     );
@@ -24,6 +38,7 @@ interface Style {
   content: ViewStyle;
   topBanner: ViewStyle;
   topBannerText: TextStyle;
+  buttonsContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -45,5 +60,11 @@ const styles = StyleSheet.create<Style>({
   topBannerText: {
     ...theme.fonts.regular,
     color: theme.colors.white,
+  },
+  buttonsContainer: {
+    marginVertical: 5 * theme.margins.unit,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
 });

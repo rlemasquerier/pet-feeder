@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { View, Text, ViewStyle, StyleSheet } from 'react-native';
+import { View, Text, ViewStyle, StyleSheet, TextStyle } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import { dateToFromNowDaily } from './utils/dateHelpers';
 import moment, { Moment } from 'moment';
@@ -31,7 +31,11 @@ export class Calendar extends Component<{}, State> {
             this.setState({ selectedDate: date });
           }}
         />
-        <Text>{this.state.selectedDate && dateToFromNowDaily(this.state.selectedDate)}</Text>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.bottomText}>
+            {this.state.selectedDate && dateToFromNowDaily(this.state.selectedDate)}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -40,6 +44,8 @@ export class Calendar extends Component<{}, State> {
 interface Style {
   container: ViewStyle;
   calendar: ViewStyle;
+  bottomContainer: ViewStyle;
+  bottomText: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -54,5 +60,15 @@ const styles = StyleSheet.create<Style>({
     height: 100,
     paddingTop: 20,
     paddingBottom: 10,
+  },
+  bottomContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5 * theme.margins.unit,
+  },
+  bottomText: {
+    ...theme.fonts.regular,
+    fontWeight: 'bold',
+    color: theme.colors.banner,
   },
 });

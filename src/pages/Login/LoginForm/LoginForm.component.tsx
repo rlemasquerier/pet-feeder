@@ -1,14 +1,18 @@
 import React, { Component, ReactNode } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { FormInput } from '../../../components';
+import { FormInput, Button } from '../../../components';
 import theme from '../../../theme';
 
-export class LoginForm extends Component<{}, {}> {
+interface Props {
+  onSubmit: () => void;
+}
+export class LoginForm extends Component<Props, {}> {
   public render(): ReactNode {
     return (
       <View style={styles.container}>
         <FormInput label="Email" />
         <FormInput label="Password" />
+        <Button label="Se connecter" onPress={this.props.onSubmit} />
       </View>
     );
   }

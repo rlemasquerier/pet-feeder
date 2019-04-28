@@ -94,7 +94,7 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.petfeeder'
+def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'tech.datmos.PetFeeder.staging'
 def _appName = System.getenv("GRADLE_APP_NAME") ?: 'PetFeeder debug'
 def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
 def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
@@ -175,3 +175,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

@@ -10,17 +10,25 @@ const initialValues = {
   email: '',
   password: '',
 };
+
+interface Values {
+  email: string;
+  password: string;
+}
 export class Login extends Component<NavigationScreenProps, {}> {
-  public onSubmitForm = () => {
+  public onSubmitForm = (values: Values) => {
+    console.log(values);
     this.props.navigation.navigate('Home');
   };
   public render(): ReactNode {
     return (
       <Page>
         <View style={styles.container}>
-          <Formik onSubmit={this.onSubmitForm} initialValues={initialValues}>
-            <LoginForm onSubmit={this.onSubmitForm} />
-          </Formik>
+          <Formik
+            onSubmit={this.onSubmitForm}
+            initialValues={initialValues}
+            component={LoginForm}
+          />
         </View>
       </Page>
     );

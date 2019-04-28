@@ -3,8 +3,13 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import { FormInput, Button } from '../../../components';
 import theme from '../../../theme';
 
+export interface Values {
+  email: string;
+  password: string;
+}
 interface Props {
-  onSubmit: () => void;
+  handleSubmit: () => void;
+  values: Values;
 }
 export class LoginForm extends Component<Props, {}> {
   public render(): ReactNode {
@@ -12,7 +17,7 @@ export class LoginForm extends Component<Props, {}> {
       <View style={styles.container}>
         <FormInput label="Email" />
         <FormInput label="Password" secureTextEntry />
-        <Button label="Se connecter" onPress={this.props.onSubmit} />
+        <Button label="Se connecter" onPress={this.props.handleSubmit} />
       </View>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import { TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { LoginForm } from './LoginForm';
 import { Page } from '../../components';

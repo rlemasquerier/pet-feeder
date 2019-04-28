@@ -22,6 +22,7 @@ export class FormInput extends Component<Props, State> {
           value={this.state.value}
           onChangeText={text => this.setState({ value: text })}
           style={styles.inputStyle}
+          theme={theme.material}
         />
       </View>
     );

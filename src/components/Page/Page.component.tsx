@@ -28,6 +28,6 @@ const styles = StyleSheet.create<Style>({
     flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.backgroundColor,
   },
 });

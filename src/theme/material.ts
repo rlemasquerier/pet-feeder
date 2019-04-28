@@ -11,7 +11,7 @@ const material = {
     surface: colors.black,
     text: colors.black,
     disabled: colors.backgroundColor,
-    placeholder: colors.backgroundColor,
+    placeholder: colors.black,
     backdrop: '#00000055',
     error: colors.action,
   },

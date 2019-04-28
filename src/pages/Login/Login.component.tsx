@@ -1,10 +1,15 @@
 import React, { Component, ReactNode } from 'react';
 import { TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
+import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
 import { Page } from '../../components';
 import theme from './../../theme';
 
+const initialValues = {
+  email: '',
+  password: '',
+};
 export class Login extends Component<NavigationScreenProps, {}> {
   public onSubmitForm = () => {
     this.props.navigation.navigate('Home');
@@ -13,7 +18,9 @@ export class Login extends Component<NavigationScreenProps, {}> {
     return (
       <Page>
         <View style={styles.container}>
-          <LoginForm onSubmit={this.onSubmitForm} />
+          <Formik onSubmit={this.onSubmitForm} initialValues={initialValues}>
+            <LoginForm onSubmit={this.onSubmitForm} />
+          </Formik>
         </View>
       </Page>
     );

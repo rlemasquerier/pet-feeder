@@ -11,7 +11,7 @@ export class LoginForm extends Component<Props, {}> {
     return (
       <View style={styles.container}>
         <FormInput label="Email" />
-        <FormInput label="Password" />
+        <FormInput label="Password" secureTextEntry />
         <Button label="Se connecter" onPress={this.props.onSubmit} />
       </View>
     );

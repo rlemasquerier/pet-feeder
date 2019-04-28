@@ -5,6 +5,7 @@ import theme from '../../theme';
 
 interface Props {
   label: string;
+  secureTextEntry?: boolean;
 }
 
 interface State {
@@ -22,7 +23,9 @@ export class FormInput extends Component<Props, State> {
           value={this.state.value}
           onChangeText={text => this.setState({ value: text })}
           style={styles.inputStyle}
+          underlineColor={theme.colors.black}
           theme={theme.material}
+          secureTextEntry={this.props.secureTextEntry}
         />
       </View>
     );
@@ -42,5 +45,6 @@ const styles = StyleSheet.create<Style>({
   },
   inputStyle: {
     width: '100%',
+    backgroundColor: theme.colors.backgroundColor,
   },
 });

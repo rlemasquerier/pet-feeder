@@ -1,16 +1,30 @@
 import React, { Component, ReactNode } from 'react';
 import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 import { Page, Card, Calendar, RoundButton } from '../../components';
 import theme from '../../theme';
+import firebase from 'react-native-firebase';
 
 const TOP_BANNER_HEIGHT = 50;
 
-export class Home extends Component {
+export class Home extends Component<NavigationScreenProps, {}> {
+  private logout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.props.navigation.navigate('Login');
+      });
+  };
+
   public render(): ReactNode {
     return (
       <Page>
         <View style={styles.topBanner}>
           <Text style={styles.topBannerText}>Bonjour Rodolphe !</Text>
+          <Text style={styles.topBannerText} onPress={this.logout}>
+            Logout
+          </Text>
         </View>
         <View style={styles.content}>
           <Calendar />
@@ -56,8 +70,9 @@ const styles = StyleSheet.create<Style>({
     height: TOP_BANNER_HEIGHT,
     backgroundColor: theme.colors.banner,
     paddingHorizontal: 2 * theme.margins.unit,
-    alignItems: 'stretch',
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   topBannerText: {
     ...theme.fonts.regular,

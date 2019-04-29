@@ -9,14 +9,34 @@ export interface Values {
 }
 interface Props {
   handleSubmit: () => void;
+  handleChange: () => void;
+  handleBlur: () => void;
   values: Values;
 }
 export class LoginForm extends Component<Props, {}> {
   public render(): ReactNode {
+    const { values, handleChange, handleBlur } = this.props;
     return (
       <View style={styles.container}>
-        <FormInput label="Email" />
-        <FormInput label="Password" secureTextEntry />
+        <FormInput
+          type="email"
+          label="Email"
+          name="email"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.email}
+        />
+        <FormInput
+          type="password"
+          label="Mot de passe"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          secureTextEntry
+        />
         <Button label="Se connecter" onPress={this.props.handleSubmit} />
       </View>
     );

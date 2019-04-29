@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle, Image, ImageStyle, Text, TextStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import firebase from 'react-native-firebase';
@@ -32,21 +32,32 @@ export class Login extends Component<NavigationScreenProps, {}> {
   };
   public render(): ReactNode {
     return (
-      <Page>
-        <View style={styles.container}>
-          <Formik
-            onSubmit={this.onSubmitForm}
-            initialValues={initialValues}
-            component={LoginForm}
-          />
-        </View>
-      </Page>
+      <>
+        <Page>
+          <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
+          <View style={styles.container}>
+            <View style={styles.welcomeTextContainer}>
+              <Text style={styles.text}>Bonjour !</Text>
+            </View>
+            <View style={styles.formContainer}>
+              <Formik
+                onSubmit={this.onSubmitForm}
+                initialValues={initialValues}
+                component={LoginForm}
+              />
+            </View>
+          </View>
+        </Page>
+      </>
     );
   }
 }
 
 interface Style {
   container: ViewStyle;
+  formContainer: ViewStyle;
+  welcomeTextContainer: ViewStyle;
+  image: ImageStyle;
   text: TextStyle;
 }
 
@@ -56,7 +67,25 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'stretch',
     justifyContent: 'center',
   },
+  formContainer: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  welcomeTextContainer: {
+    flex: 1,
+    marginLeft: 5 * theme.margins.unit,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+  image: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    height: '50%',
+  },
   text: {
-    ...theme.fonts.regular,
+    ...theme.fonts.title,
+    color: theme.colors.white,
   },
 });

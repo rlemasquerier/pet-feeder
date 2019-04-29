@@ -6,6 +6,9 @@ const fonts = {
     fontSize: 14,
     fontWeight: 'bold' as 'bold',
   },
+  title: {
+    fontSize: 32,
+  },
 };
 
 export default fonts;

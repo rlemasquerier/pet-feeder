@@ -5,7 +5,7 @@ const material = {
   dark: false,
   roundness: borders.radius,
   colors: {
-    primary: colors.primary,
+    primary: colors.banner,
     accent: colors.banner,
     background: colors.backgroundColor,
     surface: colors.black,

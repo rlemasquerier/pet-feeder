@@ -32,28 +32,27 @@ export class Login extends Component<NavigationScreenProps, {}> {
   };
   public render(): ReactNode {
     return (
-      <>
-        <Page>
-          <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
-          <View style={styles.container}>
-            <View style={styles.welcomeTextContainer}>
-              <Text style={styles.text}>Bonjour !</Text>
-            </View>
-            <View style={styles.formContainer}>
-              <Formik
-                onSubmit={this.onSubmitForm}
-                initialValues={initialValues}
-                component={LoginForm}
-              />
-            </View>
+      <View style={styles.page}>
+        <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
+        <View style={styles.container}>
+          <View style={styles.welcomeTextContainer}>
+            <Text style={styles.text}>Bonjour !</Text>
           </View>
-        </Page>
-      </>
+          <View style={styles.formContainer}>
+            <Formik
+              onSubmit={this.onSubmitForm}
+              initialValues={initialValues}
+              component={LoginForm}
+            />
+          </View>
+        </View>
+      </View>
     );
   }
 }
 
 interface Style {
+  page: ViewStyle;
   container: ViewStyle;
   formContainer: ViewStyle;
   welcomeTextContainer: ViewStyle;
@@ -62,6 +61,12 @@ interface Style {
 }
 
 const styles = StyleSheet.create<Style>({
+  page: {
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.backgroundColor,
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',

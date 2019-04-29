@@ -1,1 +1,1 @@
-export { FormInput } from './FormInput.component';
+export { FormInputContainer as FormInput } from './FormInput.container';

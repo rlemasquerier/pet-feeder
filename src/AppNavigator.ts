@@ -2,6 +2,9 @@ import { createAppContainer, NavigationContainer, createSwitchNavigator } from '
 import * as Pages from './pages';
 
 export const RootNavigator: NavigationContainer = createSwitchNavigator({
+  Loader: {
+    screen: Pages.Loader,
+  },
   Login: {
     screen: Pages.Login,
   },

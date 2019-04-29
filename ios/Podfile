@@ -20,3 +20,4 @@ target 'PetFeeder' do
 end
 
 pod 'Firebase/Core'
+pod 'Firebase/Auth', '~> 5.20.1'

@@ -4,7 +4,6 @@ import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import firebase from 'react-native-firebase';
 import { LoginForm } from './LoginForm';
-import { Page } from '../../components';
 import theme from './../../theme';
 
 const initialValues = {
@@ -18,17 +17,13 @@ interface Values {
 }
 export class Login extends Component<NavigationScreenProps, {}> {
   public onSubmitForm = (values: Values) => {
-    console.log(values);
     firebase
       .auth()
       .signInWithEmailAndPassword(values.email, values.password)
       .then(() => {
-        console.log('success');
         this.props.navigation.navigate('Home');
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(() => {});
   };
   public render(): ReactNode {
     return (

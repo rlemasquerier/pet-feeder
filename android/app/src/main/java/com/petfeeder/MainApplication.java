@@ -4,7 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;  
+import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.database.RNFirebaseDatabasePackage;  
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNFirebasePackage(),
           new RNFirebaseAuthPackage(),
+          new RNFirebaseDatabasePackage(),
           new RNGestureHandlerPackage(),
           new VectorIconsPackage(),
           new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG)

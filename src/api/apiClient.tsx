@@ -33,6 +33,23 @@ export const getAllUsers = async (): Promise<AllUsersResponse> => {
   });
 };
 
+export const getUser = async (firebaseUid: string): Promise<User> => {
+  initializeFirebase();
+  const ref = firebase.database().ref(`/Users/${firebaseUid}`);
+  return new Promise((resolve, reject) => {
+    ref.on(
+      'value',
+      snapshot => {
+        const users = snapshot.val();
+        resolve(users);
+      },
+      error => {
+        reject(error);
+      }
+    );
+  });
+};
+
 export const login = async (credentials: {
   email: string;
   password: string;

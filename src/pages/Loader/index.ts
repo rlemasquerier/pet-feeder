@@ -1,1 +1,1 @@
-export { Loader } from './Loader.component';
+export { LoaderContainer as Loader } from './Loader.container';

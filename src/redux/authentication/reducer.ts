@@ -10,7 +10,7 @@ export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
-  payload: {};
+  payload: { firebaseUid: string; email: string | null };
 }
 export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE'> {
   meta: { error: Error };
@@ -29,9 +29,9 @@ export const authenticationActionCreators = {
     type: LOGIN_REQUEST,
     payload: { email, password },
   }),
-  loginSuccess: (): LoginSuccessAction => ({
+  loginSuccess: (firebaseUid: string, email: string | null): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,
-    payload: {},
+    payload: { firebaseUid, email },
   }),
   loginFailure: (error: Error): LoginFailureAction => ({
     type: LOGIN_FAILURE,
@@ -44,7 +44,7 @@ export const authenticationActionCreators = {
 
 export interface AuthenticationState {
   firebaseUid?: string;
-  email?: string;
+  email?: string | null;
   name?: string;
   role?: string;
 }
@@ -64,7 +64,7 @@ export const authenticationReducer = (
     case LOGIN_REQUEST:
       return state;
     case LOGIN_SUCCESS:
-      return state;
+      return { ...state, firebaseUid: action.payload.firebaseUid, email: action.payload.email };
     case LOGIN_FAILURE:
       return state;
     case LOGOUT:

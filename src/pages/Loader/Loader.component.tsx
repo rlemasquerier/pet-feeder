@@ -19,8 +19,9 @@ export class Loader extends Component<NavigationScreenProps & Props, {}> {
       const userData = await getUser(credentials.uid);
       this.props.onUserDataSuccess(userData);
       this.props.navigation.navigate('Home');
+    } else {
+      this.props.navigation.navigate('Login');
     }
-    this.props.navigation.navigate('Login');
   }
   public render(): ReactNode {
     return (

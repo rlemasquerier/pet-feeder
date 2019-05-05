@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { Credentials } from '../../types/types';
 
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
@@ -6,7 +7,7 @@ export const LOGIN_FAILURE = 'authentication/LOGIN_FAILURE';
 export const LOGOUT = 'authentication/LOGOUT';
 
 export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {
-  payload: { email: string; password: string };
+  payload: Credentials;
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
@@ -25,9 +26,9 @@ export type AuthenticationActions =
   | LogoutAction;
 
 export const authenticationActionCreators = {
-  loginRequest: (email: string, password: string): LoginRequestAction => ({
+  loginRequest: (credentials: Credentials): LoginRequestAction => ({
     type: LOGIN_REQUEST,
-    payload: { email, password },
+    payload: { ...credentials },
   }),
   loginSuccess: (firebaseUid: string, email: string | null): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,

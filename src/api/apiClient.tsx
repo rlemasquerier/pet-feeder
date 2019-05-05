@@ -1,5 +1,6 @@
-import firebase, { RNFirebase } from 'react-native-firebase';
+import firebase from 'react-native-firebase';
 import environment from '../environment';
+import { AuthenticationInformation } from '../types/types';
 
 const initializeFirebase = () => {
   if (!firebase.apps.length) {
@@ -53,13 +54,18 @@ export const getUser = async (firebaseUid: string): Promise<User> => {
 export const login = async (credentials: {
   email: string;
   password: string;
-}): Promise<RNFirebase.UserCredential> => {
+}): Promise<AuthenticationInformation> => {
   return new Promise((resolve, reject) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(credentials => {
-        resolve(credentials);
+      .then(() => {
+        const loggedUser = firebase.auth().currentUser;
+        if (loggedUser) {
+          resolve({ firebaseUid: loggedUser.uid, email: loggedUser.email });
+        } else {
+          reject({ message: 'loggedUser is not defined' });
+        }
       })
       .catch(error => {
         reject(error);

@@ -4,7 +4,6 @@ import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
 import theme from '../../theme';
-import { login } from '../../api/apiClient';
 
 const initialValues = {
   email: '',
@@ -15,9 +14,13 @@ interface Values {
   email: string;
   password: string;
 }
-export class Login extends Component<NavigationScreenProps, {}> {
+
+export interface Props {
+  onPressLogin: (values: Values) => void;
+}
+export class Login extends Component<NavigationScreenProps & Props, {}> {
   public onSubmitForm = async (values: Values) => {
-    await login(values);
+    this.props.onPressLogin(values);
     this.props.navigation.navigate('Home');
   };
   public render(): ReactNode {

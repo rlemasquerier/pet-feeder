@@ -1,1 +1,1 @@
-export { Login } from './Login.component';
+export { LoginContainer as Login } from './Login.container';

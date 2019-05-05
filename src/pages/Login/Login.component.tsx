@@ -2,9 +2,9 @@ import React, { Component, ReactNode } from 'react';
 import { StyleSheet, View, ViewStyle, Image, ImageStyle, Text, TextStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
-import firebase from 'react-native-firebase';
 import { LoginForm } from './LoginForm';
-import theme from './../../theme';
+import theme from '../../theme';
+import { login } from '../../api/apiClient';
 
 const initialValues = {
   email: '',
@@ -16,14 +16,9 @@ interface Values {
   password: string;
 }
 export class Login extends Component<NavigationScreenProps, {}> {
-  public onSubmitForm = (values: Values) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(values.email, values.password)
-      .then(() => {
-        this.props.navigation.navigate('Home');
-      })
-      .catch(() => {});
+  public onSubmitForm = async (values: Values) => {
+    await login(values);
+    this.props.navigation.navigate('Home');
   };
   public render(): ReactNode {
     return (
@@ -83,6 +78,7 @@ const styles = StyleSheet.create<Style>({
     top: 0,
     left: 0,
     height: '50%',
+    width: '100%',
   },
   text: {
     ...theme.fonts.title,

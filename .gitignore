@@ -66,6 +66,9 @@ fastlane/report.xml
 fastlane/.env.*.secret
 *.back
 
+# Environment
+src/environment/
+
 # JEST
 .jest/
 coverage/

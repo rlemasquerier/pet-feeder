@@ -1,0 +1,75 @@
+import { Action } from 'redux';
+
+export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'authentication/LOGIN_FAILURE';
+export const LOGOUT = 'authentication/LOGOUT';
+
+export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {
+  payload: { email: string; password: string };
+}
+
+export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
+  payload: {};
+}
+export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE'> {
+  meta: { error: Error };
+}
+
+export interface LogoutAction extends Action<'authentication/LOGOUT'> {}
+
+export type AuthenticationActions =
+  | LoginRequestAction
+  | LoginSuccessAction
+  | LoginFailureAction
+  | LogoutAction;
+
+export const authenticationActionCreators = {
+  loginRequest: (email: string, password: string): LoginRequestAction => ({
+    type: LOGIN_REQUEST,
+    payload: { email, password },
+  }),
+  loginSuccess: (): LoginSuccessAction => ({
+    type: LOGIN_SUCCESS,
+    payload: {},
+  }),
+  loginFailure: (error: Error): LoginFailureAction => ({
+    type: LOGIN_FAILURE,
+    meta: { error },
+  }),
+  logout: (): LogoutAction => ({
+    type: LOGOUT,
+  }),
+};
+
+export interface AuthenticationState {
+  firebaseUid?: string;
+  email?: string;
+  name?: string;
+  role?: string;
+}
+
+export const initialState: AuthenticationState = {
+  firebaseUid: undefined,
+  email: undefined,
+  name: undefined,
+  role: undefined,
+};
+
+export const authenticationReducer = (
+  state: AuthenticationState = initialState,
+  action: AuthenticationActions
+): AuthenticationState => {
+  switch (action.type) {
+    case LOGIN_REQUEST:
+      return state;
+    case LOGIN_SUCCESS:
+      return state;
+    case LOGIN_FAILURE:
+      return state;
+    case LOGOUT:
+      return initialState;
+    default:
+      return state;
+  }
+};

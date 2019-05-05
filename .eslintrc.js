@@ -32,6 +32,7 @@ module.exports = {
     jest: true,
     browser: true,
     node: true,
+    es6: true,
   },
   // Glob based definitions
   overrides: [

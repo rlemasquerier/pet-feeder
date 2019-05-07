@@ -12,3 +12,15 @@ export interface AuthenticationInformation {
   email: string | undefined | null;
   firebaseUid: string | undefined;
 }
+
+export interface Record {
+  feeder: string;
+  timestamp: number;
+}
+
+export interface Records {
+  [dateString: string]: {
+    morning: Record;
+    evening: Record;
+  };
+}

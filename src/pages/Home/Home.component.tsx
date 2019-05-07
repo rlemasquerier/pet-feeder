@@ -3,24 +3,27 @@ import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-
 import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
+import { getAllRecords } from '../../api/apiClient';
+import { dateToString } from '../../services';
 import { Page, Card, Calendar, RoundButton } from '../../components';
-import { User } from '../../types/types';
+import { User, Records } from '../../types/types';
 import theme from '../../theme';
 
 const TOP_BANNER_HEIGHT = 50;
 
 interface State {
-  selectedDate: Date | Moment;
+  selectedDate: Moment;
+  records: Records | undefined;
 }
 export interface Props {
   user: User;
 }
 
-export class Home extends Component<NavigationScreenProps & Props, {}> {
-  public state = { selectedDate: moment() };
+export class Home extends Component<NavigationScreenProps & Props, State> {
+  public state = { selectedDate: moment(), records: undefined };
 
   public onDateChange = (date: Date) => {
-    this.setState({ selectedDate: date });
+    this.setState({ selectedDate: moment(date) });
   };
 
   private logout = () => {
@@ -30,6 +33,35 @@ export class Home extends Component<NavigationScreenProps & Props, {}> {
       .then(() => {
         this.props.navigation.navigate('Login');
       });
+  };
+
+  public componentDidMount = async () => {
+    const records = await getAllRecords();
+    this.setState({ records: records as Records });
+  };
+
+  public getMorningLabel = () => {
+    if (!this.state.records) {
+      return 'Chargement...';
+    }
+    // @ts-ignore
+    const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
+    if (!todayRecord || !todayRecord.morning) {
+      return 'La gamelle de Gaïa est vide !';
+    }
+    return `Gaïa a été nourrie par ${todayRecord.morning.feeder}`;
+  };
+
+  public getEveningLabel = () => {
+    if (!this.state.records) {
+      return 'Chargement...';
+    }
+    // @ts-ignore
+    const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
+    if (!todayRecord || !todayRecord.evening) {
+      return 'La gamelle de Gaïa est vide !';
+    }
+    return `Gaïa a été nourrie par ${todayRecord.evening.feeder}`;
   };
 
   public render(): ReactNode {
@@ -44,8 +76,8 @@ export class Home extends Component<NavigationScreenProps & Props, {}> {
         <View style={styles.content}>
           <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
           <ScrollView>
-            <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
-            <Card title="Soir" content="La gamelle de Gaïa est vide !" />
+            <Card title="Matin" content={this.getMorningLabel()} />
+            <Card title="Soir" content={this.getEveningLabel()} />
             <View style={styles.buttonsContainer}>
               <RoundButton
                 iconName="cross"

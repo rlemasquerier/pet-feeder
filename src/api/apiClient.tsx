@@ -72,3 +72,19 @@ export const login = async (credentials: {
       });
   });
 };
+
+export const getAllRecords = async () => {
+  const ref = firebase.database().ref('/Records');
+  return new Promise((resolve, reject) => {
+    ref.on(
+      'value',
+      snapshot => {
+        const records = snapshot.val();
+        resolve(records);
+      },
+      error => {
+        reject(error);
+      }
+    );
+  });
+};

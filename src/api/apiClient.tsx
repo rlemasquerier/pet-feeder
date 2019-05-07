@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import firebase from 'react-native-firebase';
 import environment from '../environment';
 import { AuthenticationInformation } from '../types/types';
@@ -84,6 +86,31 @@ export const getAllRecords = async () => {
       },
       error => {
         reject(error);
+      }
+    );
+  });
+};
+
+export const postRecordByDate = (dateString: string, feeder: string): Promise<boolean> => {
+  const ref = firebase.database().ref('/Records');
+  return new Promise((resolve, reject) => {
+    ref.update(
+      {
+        [dateString]: {
+          morning: {
+            feeder: feeder,
+            timestamp: '1234',
+          },
+        },
+      },
+      error => {
+        if (error) {
+          // eslintignore
+          console.warn(error);
+          reject(false);
+        } else {
+          resolve(true);
+        }
       }
     );
   });

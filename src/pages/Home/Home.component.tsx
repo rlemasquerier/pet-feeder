@@ -3,7 +3,7 @@ import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-
 import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
-import { getAllRecords } from '../../api/apiClient';
+import { getAllRecords, postRecordByDate } from '../../api/apiClient';
 import { dateToString } from '../../services';
 import { Page, Card, Calendar, RoundButton } from '../../components';
 import { User, Records } from '../../types/types';
@@ -24,6 +24,12 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
 
   public onDateChange = (date: Date) => {
     this.setState({ selectedDate: moment(date) });
+  };
+
+  public onPressFeed = async () => {
+    await postRecordByDate(dateToString(this.state.selectedDate), this.props.user.name as string);
+    const updatedRecords = await getAllRecords();
+    this.setState({ records: updatedRecords as Records });
   };
 
   private logout = () => {
@@ -83,11 +89,13 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
                 iconName="cross"
                 color={theme.colors.secondaryAction}
                 iconColor={theme.colors.white}
+                onPress={() => {}}
               />
               <RoundButton
                 iconName="spoon-knife"
                 color={theme.colors.action}
                 iconColor={theme.colors.black}
+                onPress={this.onPressFeed}
               />
             </View>
           </ScrollView>

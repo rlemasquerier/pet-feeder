@@ -11,12 +11,13 @@ interface Props {
   iconName: string;
   color: string;
   iconColor: string;
+  onPress: () => void;
 }
 
 export class RoundButton extends Component<Props> {
   public render(): ReactNode {
     return (
-      <TouchableOpacity activeOpacity={BUTTON_ACTIVE_OPACITY}>
+      <TouchableOpacity activeOpacity={BUTTON_ACTIVE_OPACITY} onPress={this.props.onPress}>
         <View style={[styles.container, { backgroundColor: this.props.color }]}>
           <Icon name={this.props.iconName} size={ICON_SIZE} color={this.props.iconColor} />
         </View>

@@ -2,7 +2,7 @@ import moment, { Moment } from 'moment';
 
 // https://stackoverflow.com/questions/35441820/moment-js-tomorrow-today-and-yesterday
 
-export const dateToFromNowDaily = (myDate: Moment): string => {
+export const dateToFromNowDaily = (myDate: Moment | Date): string => {
   // get from-now for this date
   var fromNow = moment(myDate).fromNow();
 

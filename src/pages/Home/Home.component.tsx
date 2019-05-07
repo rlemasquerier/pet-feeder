@@ -2,17 +2,27 @@ import React, { Component, ReactNode } from 'react';
 import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
+import moment, { Moment } from 'moment';
 import { Page, Card, Calendar, RoundButton } from '../../components';
 import { User } from '../../types/types';
 import theme from '../../theme';
 
 const TOP_BANNER_HEIGHT = 50;
 
+interface State {
+  selectedDate: Date | Moment;
+}
 export interface Props {
   user: User;
 }
 
 export class Home extends Component<NavigationScreenProps & Props, {}> {
+  public state = { selectedDate: moment() };
+
+  public onDateChange = (date: Date) => {
+    this.setState({ selectedDate: date });
+  };
+
   private logout = () => {
     firebase
       .auth()
@@ -32,7 +42,7 @@ export class Home extends Component<NavigationScreenProps & Props, {}> {
           </Text>
         </View>
         <View style={styles.content}>
-          <Calendar />
+          <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
           <ScrollView>
             <Card title="Matin" content="Gaïa a été nourrie par Yoann !" />
             <Card title="Soir" content="La gamelle de Gaïa est vide !" />

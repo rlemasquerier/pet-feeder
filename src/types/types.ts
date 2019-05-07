@@ -1,14 +1,14 @@
 export interface User {
-  name: string;
-  role: string;
+  name: string | undefined;
+  role: string | undefined;
 }
 
 export interface Credentials {
-  email: string;
-  password: string;
+  email: string | undefined;
+  password: string | undefined;
 }
 
 export interface AuthenticationInformation {
-  email: string | null;
-  firebaseUid: string;
+  email: string | undefined | null;
+  firebaseUid: string | undefined;
 }

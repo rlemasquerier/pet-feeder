@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { User } from '../../types/types';
+import { RootState } from '../reducer';
 
 export const USER_DATA_REQUEST = 'user/USER_DATA_REQUEST';
 export const USER_DATA_SUCCESS = 'user/USER_DATA_SUCCESS';
@@ -33,17 +34,12 @@ export const userActionCreators = {
   }),
 };
 
-export interface UserState {
-  name?: string;
-  role?: string;
-}
-
-export const initialState: UserState = {
+export const initialState: User = {
   name: undefined,
   role: undefined,
 };
 
-export const userReducer = (state: UserState = initialState, action: UserActions): UserState => {
+export const userReducer = (state: User = initialState, action: UserActions): User => {
   switch (action.type) {
     case USER_DATA_REQUEST:
       return state;
@@ -55,3 +51,7 @@ export const userReducer = (state: UserState = initialState, action: UserActions
       return state;
   }
 };
+
+// SELECTORS
+
+export const selectUser = (state: RootState): User => state.user;

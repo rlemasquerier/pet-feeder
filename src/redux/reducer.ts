@@ -1,10 +1,11 @@
 import { Action, combineReducers } from 'redux';
-import { authenticationReducer, AuthenticationState } from './authentication/reducer';
-import { userReducer, UserState } from './user/reducer';
+import { authenticationReducer } from './authentication/reducer';
+import { userReducer } from './user/reducer';
+import { User, AuthenticationInformation } from '../types/types';
 
 export interface RootState {
-  authentication: AuthenticationState;
-  user: UserState;
+  authentication: AuthenticationInformation;
+  user: User;
 }
 
 export const appReducer = combineReducers({

@@ -1,3 +1,6 @@
 export { Home } from './Home';
 export { Login } from './Login';
 export { Loader } from './Loader';
+export { Profile } from './Profile';
+export { Reminders } from './Reminders';
+export { Statistics } from './Statistics';

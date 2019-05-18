@@ -1,5 +1,17 @@
-import { createAppContainer, NavigationContainer, createSwitchNavigator } from 'react-navigation';
+import {
+  createAppContainer,
+  NavigationContainer,
+  createSwitchNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
 import * as Pages from './pages';
+
+const ConnectedTabNavigator = createBottomTabNavigator({
+  Home: Pages.Home,
+  Reminders: Pages.Reminders,
+  Statistics: Pages.Statistics,
+  Profile: Pages.Profile,
+});
 
 export const RootNavigator: NavigationContainer = createSwitchNavigator({
   Loader: {
@@ -8,9 +20,7 @@ export const RootNavigator: NavigationContainer = createSwitchNavigator({
   Login: {
     screen: Pages.Login,
   },
-  Home: {
-    screen: Pages.Home,
-  },
+  Home: ConnectedTabNavigator,
 });
 
 export const AppNavigator = createAppContainer(RootNavigator);

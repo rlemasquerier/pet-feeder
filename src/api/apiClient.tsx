@@ -54,13 +54,16 @@ export const getUser = async (firebaseUid: string): Promise<User> => {
 };
 
 export const login = async (credentials: {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
 }): Promise<AuthenticationInformation> => {
   return new Promise((resolve, reject) => {
+    if (!credentials.email || !credentials.password) {
+      reject(Error('At least one credential is missing'));
+    }
     firebase
       .auth()
-      .signInWithEmailAndPassword(credentials.email, credentials.password)
+      .signInWithEmailAndPassword(credentials.email as string, credentials.password as string)
       .then(() => {
         const loggedUser = firebase.auth().currentUser;
         if (loggedUser) {

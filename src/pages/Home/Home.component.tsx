@@ -46,6 +46,17 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
     this.setState({ records: records as Records });
   };
 
+  public getMorningTitle = () => {
+    if (this.state.records) {
+      // @ts-ignore
+      const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
+      if (!!todayRecord && !!todayRecord.morning) {
+        return `Ce matin à ${todayRecord.morning.timestamp}`;
+      }
+    }
+    return 'Ce matin';
+  };
+
   public getMorningLabel = () => {
     if (!this.state.records) {
       return 'Chargement...';
@@ -56,6 +67,17 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
       return 'La gamelle de Gaïa est vide !';
     }
     return `Gaïa a été nourrie par ${todayRecord.morning.feeder}`;
+  };
+
+  public getEveningTitle = () => {
+    if (this.state.records) {
+      // @ts-ignore
+      const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
+      if (!!todayRecord && !!todayRecord.evening) {
+        return `Ce soir à ${todayRecord.evening.timestamp}`;
+      }
+    }
+    return 'Ce soir';
   };
 
   public getEveningLabel = () => {
@@ -84,8 +106,8 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
             <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
           </View>
           <ScrollView>
-            <Card title="Matin" content={this.getMorningLabel()} />
-            <Card title="Soir" content={this.getEveningLabel()} />
+            <Card title={this.getMorningTitle()} content={this.getMorningLabel()} />
+            <Card title={this.getEveningTitle()} content={this.getEveningLabel()} />
             <View style={styles.buttonsContainer}>
               <LargeButton
                 label="NOURRIR GAÏA"

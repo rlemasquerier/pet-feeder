@@ -104,7 +104,7 @@ export const postRecordByDate = (dateString: string, feeder: string): Promise<bo
     ref.update(
       {
         feeder: feeder,
-        timestamp: currentDateTime.format('DD/MM/YYYY hh:mm:ss'),
+        timestamp: currentDateTime.format('HH:mm'),
       },
       error => {
         if (error) {

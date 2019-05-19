@@ -11,7 +11,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "yarn test:lint && yarn test:types && yarn test:unit",
     "test:lint": "eslint . --ext .js,.ts,.tsx",
-    "test:types": "tsc --noEmit",
+    "test:types": "tsc --noEmit --skipLibCheck",
     "test:unit": "jest"
   },
   "dependencies": {

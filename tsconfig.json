@@ -18,6 +18,8 @@
     "metro.config.js",
     "jest.config.js",
     "rn-cli.config.js",
+    "android",
+    "ios",
     "src/**/*.test.ts",
     "src/**/*.test.tsx"
   ]

@@ -46,7 +46,7 @@ const ConnectedTabNavigator = createBottomTabNavigator(
       showLabel: false,
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
-        const color = focused ? theme.colors.banner : theme.colors.secondaryAction;
+        const color = focused ? theme.colors.primary : theme.colors.secondaryAction;
         let iconName;
         switch (routeName) {
           case 'Home':

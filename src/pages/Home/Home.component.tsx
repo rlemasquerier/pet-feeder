@@ -5,7 +5,7 @@ import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
 import { getAllRecords, postRecordByDate } from '../../api/apiClient';
 import { dateToString } from '../../services';
-import { Page, Card, Calendar, RoundButton } from '../../components';
+import { Page, Card, Calendar, LargeButton } from '../../components';
 import { User, Records } from '../../types/types';
 import theme from '../../theme';
 
@@ -85,16 +85,9 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
             <Card title="Matin" content={this.getMorningLabel()} />
             <Card title="Soir" content={this.getEveningLabel()} />
             <View style={styles.buttonsContainer}>
-              <RoundButton
-                iconName="cross"
-                color={theme.colors.secondaryAction}
-                iconColor={theme.colors.white}
-                onPress={() => {}}
-              />
-              <RoundButton
-                iconName="spoon-knife"
-                color={theme.colors.action}
-                iconColor={theme.colors.black}
+              <LargeButton
+                label="NOURRIR GAÏA"
+                color={theme.colors.secondary}
                 onPress={this.onPressFeed}
               />
             </View>
@@ -116,7 +109,6 @@ const styles = StyleSheet.create<Style>({
   content: {
     flex: 1,
     overflow: 'hidden',
-    paddingHorizontal: theme.margins.pagePadding,
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     backgroundColor: theme.colors.backgroundColor,
@@ -135,8 +127,7 @@ const styles = StyleSheet.create<Style>({
   },
   buttonsContainer: {
     marginVertical: 5 * theme.margins.unit,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    alignItems: 'stretch',
+    justifyContent: 'center',
   },
 });

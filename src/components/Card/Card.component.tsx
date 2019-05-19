@@ -2,7 +2,8 @@ import React, { Component, ReactNode } from 'react';
 import { Text, StyleSheet, View, ViewStyle, TextStyle } from 'react-native';
 import theme from '../../theme';
 
-const TITLE_HEIGHT = 40;
+const TITLE_HEIGHT = 30;
+const CARD_HEIGHT = 103;
 
 interface Props {
   title: string;
@@ -36,7 +37,8 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   container: {
     marginVertical: 2 * theme.margins.unit,
-    height: 140,
+    marginHorizontal: theme.margins.pagePadding,
+    height: CARD_HEIGHT,
     borderRadius: theme.borders.radius,
     backgroundColor: theme.colors.white,
     alignItems: 'stretch',

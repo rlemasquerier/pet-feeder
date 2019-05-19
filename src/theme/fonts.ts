@@ -6,6 +6,10 @@ const fonts = {
     fontSize: 14,
     fontWeight: 'bold' as 'bold',
   },
+  bigStrong: {
+    fontSize: 16,
+    fontWeight: 'bold' as 'bold',
+  },
   title: {
     fontSize: 32,
   },

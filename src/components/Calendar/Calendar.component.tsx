@@ -24,7 +24,7 @@ export class Calendar extends Component<Props, {}> {
       <View style={styles.container}>
         <CalendarStrip
           style={styles.calendar}
-          calendarColor={theme.colors.banner}
+          calendarColor={theme.colors.primary}
           locale={locale}
           daySelectionAnimation={daySelectionAnimation}
           onDateSelected={this.props.onDateChange}
@@ -67,6 +67,6 @@ const styles = StyleSheet.create<Style>({
   bottomText: {
     ...theme.fonts.regular,
     fontWeight: 'bold',
-    color: theme.colors.banner,
+    color: theme.colors.primary,
   },
 });

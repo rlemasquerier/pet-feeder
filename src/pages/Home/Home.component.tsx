@@ -80,7 +80,9 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
           </Text>
         </View>
         <View style={styles.content}>
-          <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
+          <View style={styles.calendarContainer}>
+            <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
+          </View>
           <ScrollView>
             <Card title="Matin" content={this.getMorningLabel()} />
             <Card title="Soir" content={this.getEveningLabel()} />
@@ -102,6 +104,7 @@ interface Style {
   content: ViewStyle;
   topBanner: ViewStyle;
   topBannerText: TextStyle;
+  calendarContainer: ViewStyle;
   buttonsContainer: ViewStyle;
 }
 
@@ -124,6 +127,9 @@ const styles = StyleSheet.create<Style>({
   topBannerText: {
     ...theme.fonts.regular,
     color: theme.colors.white,
+  },
+  calendarContainer: {
+    paddingHorizontal: 4 * theme.margins.unit,
   },
   buttonsContainer: {
     marginVertical: 5 * theme.margins.unit,

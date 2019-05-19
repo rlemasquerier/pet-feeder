@@ -1,8 +1,10 @@
 /* eslint-disable no-console */
 
 import firebase from 'react-native-firebase';
+import moment from 'moment';
 import environment from '../environment';
 import { AuthenticationInformation } from '../types/types';
+import { computeDayHalf } from '../services';
 
 const initializeFirebase = () => {
   if (!firebase.apps.length) {
@@ -95,16 +97,14 @@ export const getAllRecords = async () => {
 };
 
 export const postRecordByDate = (dateString: string, feeder: string): Promise<boolean> => {
-  const ref = firebase.database().ref('/Records');
+  const currentDateTime = moment();
+  const dayHalf = computeDayHalf(currentDateTime);
+  const ref = firebase.database().ref(`/Records/${dateString}/${dayHalf}`);
   return new Promise((resolve, reject) => {
     ref.update(
       {
-        [dateString]: {
-          morning: {
-            feeder: feeder,
-            timestamp: '1234',
-          },
-        },
+        feeder: feeder,
+        timestamp: currentDateTime.format('DD/MM/YYYY hh:mm:ss'),
       },
       error => {
         if (error) {

@@ -5,8 +5,8 @@ const material = {
   dark: false,
   roundness: borders.radius,
   colors: {
-    primary: colors.banner,
-    accent: colors.banner,
+    primary: colors.primary,
+    accent: colors.primary,
     background: colors.backgroundColor,
     surface: colors.black,
     text: colors.black,

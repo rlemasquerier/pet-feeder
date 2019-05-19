@@ -3,6 +3,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST } from './reducer';
 import { userActionCreators } from '../user/reducer';
 import { login, getUser } from '../../api/apiClient';
+import { navigator } from '../../services/navigation';
 
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {
@@ -13,6 +14,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     );
     const user = yield call(getUser, loginResult.firebaseUid);
     yield put(userActionCreators.userDataSuccess(user));
+    yield call(navigator.navigate, 'Home');
   } catch (error) {
     // eslint-disable-next-line no-console
     console.warn('[loginSaga/error]', error.message);

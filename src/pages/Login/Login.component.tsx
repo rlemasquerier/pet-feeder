@@ -21,7 +21,6 @@ export interface Props {
 export class Login extends Component<NavigationScreenProps & Props, {}> {
   public onSubmitForm = async (values: Values) => {
     this.props.onPressLogin(values);
-    this.props.navigation.navigate('Home');
   };
   public render(): ReactNode {
     return (

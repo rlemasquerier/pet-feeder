@@ -19,8 +19,8 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     yield put(userActionCreators.userDataSuccess(user));
     yield call(navigator.navigate, 'Home');
   } catch (error) {
-    // eslint-disable-next-line no-console
     yield put(apiCallError('authentication', error));
+    // eslint-disable-next-line no-console
     console.warn('[loginSaga/error]', error.message);
   }
 }

@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from 'react';
 import { TouchableOpacity, StyleSheet, View, ViewStyle, Text, TextStyle } from 'react-native';
 import theme from './../../theme';
 
-const BUTTON_SIZE = 76;
+const BUTTON_SIZE = 50;
 const BUTTON_ACTIVE_OPACITY = 0.7;
 
 interface Props {

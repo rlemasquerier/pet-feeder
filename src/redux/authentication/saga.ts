@@ -11,12 +11,12 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     const { email, password } = action.payload;
     yield put(apiCallStart('authentication'));
     const loginResult = yield call(login, { email, password });
-    yield put(apiCallSuccess('authentication'));
     yield put(
       authenticationActionCreators.loginSuccess(loginResult.firebaseUid, loginResult.email)
     );
     const user = yield call(getUser, loginResult.firebaseUid);
     yield put(userActionCreators.userDataSuccess(user));
+    yield put(apiCallSuccess('authentication'));
     yield call(navigator.navigate, 'Home');
   } catch (error) {
     yield put(apiCallError('authentication', error));

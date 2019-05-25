@@ -7,11 +7,12 @@ export interface Values {
   email: string;
   password: string;
 }
-interface Props {
+export interface Props {
   handleSubmit: () => void;
   handleChange: () => void;
   handleBlur: () => void;
   values: Values;
+  isSubmitting: boolean;
 }
 export class LoginForm extends Component<Props, {}> {
   public render(): ReactNode {
@@ -37,7 +38,11 @@ export class LoginForm extends Component<Props, {}> {
           onBlur={handleBlur}
           secureTextEntry
         />
-        <Button label="Se connecter" onPress={this.props.handleSubmit} />
+        <Button
+          isLoading={this.props.isSubmitting}
+          label="Se connecter"
+          onPress={this.props.handleSubmit}
+        />
       </View>
     );
   }

@@ -1,5 +1,13 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, TextStyle, TouchableOpacity, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  ViewStyle,
+  ActivityIndicator,
+} from 'react-native';
 import theme from './../../theme';
 
 const BUTTON_HEIGHT = 50;
@@ -7,6 +15,7 @@ const BUTTON_HEIGHT = 50;
 interface Props {
   label: string;
   onPress: () => void;
+  isLoading: boolean;
 }
 
 export class Button extends Component<Props, {}> {
@@ -15,7 +24,7 @@ export class Button extends Component<Props, {}> {
     return (
       <TouchableOpacity onPress={onPress} style={styles.touchable}>
         <View style={styles.container}>
-          <Text style={styles.text}>{label}</Text>
+          {this.props.isLoading ? <ActivityIndicator /> : <Text style={styles.text}>{label}</Text>}
         </View>
       </TouchableOpacity>
     );

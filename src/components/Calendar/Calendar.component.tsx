@@ -6,6 +6,8 @@ import { Moment } from 'moment';
 import theme from '../../theme';
 import { locale } from './utils/locale';
 
+const CALENDAR_HEIGHT = 130;
+
 //@ts-ignore
 const daySelectionAnimation: IDaySelectionAnimationBackground = {
   type: 'background',
@@ -28,7 +30,7 @@ export class Calendar extends Component<Props, {}> {
           locale={locale}
           daySelectionAnimation={daySelectionAnimation}
           onDateSelected={this.props.onDateChange}
-          calendarHeaderContainerStyle={{ marginBottom: 4 * theme.margins.unit }}
+          calendarHeaderContainerStyle={{ marginBottom: 6 * theme.margins.unit }}
           iconStyle={{ marginHorizontal: 2 * theme.margins.unit }}
         />
         <View style={styles.bottomContainer}>
@@ -57,13 +59,15 @@ const styles = StyleSheet.create<Style>({
   },
   calendar: {
     backgroundColor: theme.colors.white,
-    height: 100,
+    height: CALENDAR_HEIGHT,
     paddingTop: 20,
     paddingBottom: 20,
+    marginBottom: 2 * theme.margins.unit,
   },
   bottomContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 3 * theme.margins.unit,
     marginBottom: 3 * theme.margins.unit,
   },
   bottomText: {

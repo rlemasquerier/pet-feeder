@@ -12,7 +12,8 @@ import { Icon } from './components';
 import theme from './theme';
 import * as Pages from './pages';
 
-const ICON_SIZE = 25;
+const TAB_BAR_ICON_SIZE = 25;
+const TAB_BAR_HEIGHT = 55;
 
 const ConnectedTabNavigator = createBottomTabNavigator(
   {
@@ -64,10 +65,13 @@ const ConnectedTabNavigator = createBottomTabNavigator(
           default:
             throw Error('Error: no icon name defined for this route name');
         }
-        return <Icon name={iconName} size={ICON_SIZE} color={color} />;
+        return <Icon name={iconName} size={TAB_BAR_ICON_SIZE} color={color} />;
       },
     }),
     tabBarOptions: {
+      style: {
+        height: TAB_BAR_HEIGHT,
+      },
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
     },

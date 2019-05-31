@@ -4,8 +4,9 @@ import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
 import { getAllRecords, postRecordByDate } from '../../api/apiClient';
-import { dateToString } from '../../services';
-import { Page, Card, Calendar, LargeButton } from '../../components';
+import { dateToString, computeDayHalf } from '../../services';
+import { Page, Card, Calendar } from '../../components';
+import { FeedPetButton } from './components/FeedPetButton';
 import { User, Records } from '../../types/types';
 import theme from '../../theme';
 
@@ -64,7 +65,7 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
     // @ts-ignore
     const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
     if (!todayRecord || !todayRecord.morning) {
-      return 'La gamelle de Gaïa est vide !';
+      return "Gaïa attend d'être nourrie";
     }
     return `Gaïa a été nourrie par ${todayRecord.morning.feeder}`;
   };
@@ -87,9 +88,26 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
     // @ts-ignore
     const todayRecord = this.state.records[dateToString(this.state.selectedDate)];
     if (!todayRecord || !todayRecord.evening) {
-      return 'La gamelle de Gaïa est vide !';
+      return "Gaïa attend d'être nourrie";
     }
     return `Gaïa a été nourrie par ${todayRecord.evening.feeder}`;
+  };
+
+  public getButtonStatus = () => {
+    const selectedDate = this.state.selectedDate;
+    if (!this.state.records) {
+      return 'invisible';
+    }
+    const isToday = moment().isSame(selectedDate, 'days');
+    if (!isToday) {
+      return 'invisible';
+    }
+    // @ts-ignore
+    const todayRecord = this.state.records[dateToString(selectedDate)];
+    if (!todayRecord || !todayRecord[computeDayHalf(selectedDate)]) {
+      return 'active';
+    }
+    return 'inactive';
   };
 
   public render(): ReactNode {
@@ -108,13 +126,7 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
           <ScrollView>
             <Card title={this.getMorningTitle()} content={this.getMorningLabel()} />
             <Card title={this.getEveningTitle()} content={this.getEveningLabel()} />
-            <View style={styles.buttonsContainer}>
-              <LargeButton
-                label="NOURRIR GAÏA"
-                color={theme.colors.secondary}
-                onPress={this.onPressFeed}
-              />
-            </View>
+            <FeedPetButton onPress={this.onPressFeed} status={this.getButtonStatus()} />
           </ScrollView>
         </View>
       </Page>
@@ -127,7 +139,6 @@ interface Style {
   topBanner: ViewStyle;
   topBannerText: TextStyle;
   calendarContainer: ViewStyle;
-  buttonsContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -152,10 +163,5 @@ const styles = StyleSheet.create<Style>({
   },
   calendarContainer: {
     paddingHorizontal: 4 * theme.margins.unit,
-  },
-  buttonsContainer: {
-    marginVertical: 5 * theme.margins.unit,
-    alignItems: 'stretch',
-    justifyContent: 'center',
   },
 });

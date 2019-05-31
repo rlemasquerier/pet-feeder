@@ -4,18 +4,30 @@ import theme from './../../theme';
 
 const BUTTON_SIZE = 50;
 const BUTTON_ACTIVE_OPACITY = 0.7;
+const BUTTON_DISABLED_OPACITY = 0.5;
 
 interface Props {
   label: string;
   color: string;
   onPress: () => void;
+  disabled?: boolean;
 }
 
 export class LargeButton extends Component<Props> {
   public render(): ReactNode {
     return (
-      <TouchableOpacity activeOpacity={BUTTON_ACTIVE_OPACITY} onPress={this.props.onPress}>
-        <View style={[styles.container, { backgroundColor: this.props.color }]}>
+      <TouchableOpacity
+        activeOpacity={BUTTON_ACTIVE_OPACITY}
+        onPress={this.props.onPress}
+        disabled={!!this.props.disabled}
+      >
+        <View
+          style={[
+            styles.container,
+            { backgroundColor: this.props.color },
+            this.props.disabled && { opacity: BUTTON_DISABLED_OPACITY },
+          ]}
+        >
           <Text style={styles.label}>{this.props.label}</Text>
         </View>
       </TouchableOpacity>

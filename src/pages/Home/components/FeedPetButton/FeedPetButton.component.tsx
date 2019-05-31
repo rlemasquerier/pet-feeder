@@ -3,6 +3,8 @@ import { View, ViewStyle, StyleSheet, Image, ImageStyle } from 'react-native';
 import { LargeButton } from '../../../../components';
 import theme from './../../../../theme';
 
+const IMAGE_PLACEHOLDER_SIZE = 100;
+
 interface Props {
   onPress: () => void;
   status: 'active' | 'inactive' | 'invisible';
@@ -55,7 +57,7 @@ const styles = StyleSheet.create<Style>({
   },
   imageStyle: {
     alignSelf: 'center',
-    height: 100,
-    width: 100,
+    height: IMAGE_PLACEHOLDER_SIZE,
+    width: IMAGE_PLACEHOLDER_SIZE,
   },
 });

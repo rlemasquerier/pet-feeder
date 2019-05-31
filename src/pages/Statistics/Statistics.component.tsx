@@ -1,29 +1,20 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import { BarChart, Grid } from 'react-native-svg-charts';
 import theme from './../../theme';
 
 export class Statistics extends Component<{}, {}> {
   public render(): ReactNode {
+    const fill = theme.colors.primary;
+    const data = [50, 10, 40, 95];
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Statistics</Text>
-      </View>
+      <BarChart
+        style={{ height: 200 }}
+        data={data}
+        svg={{ fill }}
+        contentInset={{ top: 30, bottom: 30 }}
+      >
+        <Grid />
+      </BarChart>
     );
   }
 }
-
-interface Style {
-  container: ViewStyle;
-  text: TextStyle;
-}
-
-const styles = StyleSheet.create<Style>({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    ...theme.fonts.regular,
-  },
-});

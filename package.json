@@ -12,7 +12,8 @@
     "test": "yarn test:lint && yarn test:types && yarn test:unit",
     "test:lint": "eslint . --ext .js,.ts,.tsx",
     "test:types": "tsc --noEmit --skipLibCheck",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "deploy": "./scripts/deploy.sh"
   },
   "dependencies": {
     "formik": "^1.5.4",

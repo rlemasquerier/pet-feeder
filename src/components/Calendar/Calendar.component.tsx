@@ -28,6 +28,8 @@ export class Calendar extends Component<Props, {}> {
           locale={locale}
           daySelectionAnimation={daySelectionAnimation}
           onDateSelected={this.props.onDateChange}
+          calendarHeaderContainerStyle={{ marginBottom: 4 * theme.margins.unit }}
+          iconStyle={{ marginHorizontal: 2 * theme.margins.unit }}
         />
         <View style={styles.bottomContainer}>
           <Text style={styles.bottomText}>
@@ -57,12 +59,12 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: theme.colors.white,
     height: 100,
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
   bottomContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 5 * theme.margins.unit,
+    marginBottom: 3 * theme.margins.unit,
   },
   bottomText: {
     ...theme.fonts.regular,

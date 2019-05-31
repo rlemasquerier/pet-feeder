@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import { View, ViewStyle, StyleSheet } from 'react-native';
+import { View, ViewStyle, StyleSheet, Image, ImageStyle } from 'react-native';
 import { LargeButton } from '../../../../components';
 import theme from './../../../../theme';
 
@@ -33,13 +33,18 @@ export class FeedPetButton extends Component<Props> {
           </View>
         );
       default:
-        return null;
+        return (
+          <View style={styles.container}>
+            <Image source={theme.images.cheersGif} style={styles.imageStyle} resizeMode="stretch" />
+          </View>
+        );
     }
   }
 }
 
 interface Style {
   container: ViewStyle;
+  imageStyle: ImageStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -47,5 +52,10 @@ const styles = StyleSheet.create<Style>({
     marginVertical: 5 * theme.margins.unit,
     alignItems: 'stretch',
     justifyContent: 'center',
+  },
+  imageStyle: {
+    alignSelf: 'center',
+    height: 100,
+    width: 100,
   },
 });

@@ -5,7 +5,7 @@ import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
 import { getAllRecords, postRecordByDate } from '../../api/apiClient';
 import { dateToString, computeDayHalf } from '../../services';
-import { Page, Card, Calendar } from '../../components';
+import { Page, Card, Calendar, TopBanner } from '../../components';
 import { FeedPetButton } from './components/FeedPetButton';
 import { User, Records } from '../../types/types';
 import theme from '../../theme';
@@ -113,12 +113,12 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
   public render(): ReactNode {
     return (
       <Page>
-        <View style={styles.topBanner}>
+        <TopBanner>
           <Text style={styles.topBannerText}>Bonjour {this.props.user.name} !</Text>
           <Text style={styles.topBannerText} onPress={this.logout}>
             Logout
           </Text>
-        </View>
+        </TopBanner>
         <View style={styles.content}>
           <View style={styles.calendarContainer}>
             <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />

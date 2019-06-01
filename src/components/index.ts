@@ -6,3 +6,5 @@ export { RoundButton } from './RoundButton';
 export { Button } from './Button';
 export { FormInput } from './FormInput';
 export { LargeButton } from './LargeButton';
+export { TopBanner } from './TopBanner';
+export { BarChart } from './BarChart';

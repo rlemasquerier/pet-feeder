@@ -1,4 +1,7 @@
 const fonts = {
+  small: {
+    fontSize: 12,
+  },
   regular: {
     fontSize: 14,
   },

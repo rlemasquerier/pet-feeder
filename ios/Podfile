@@ -2,35 +2,27 @@
 # platform :ios, '9.0'
 
 target 'PetFeeder' do
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth', '~> 5.20.1'
+  pod 'Firebase/Database', '~> 5.20.1'
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'RCTImage',
+    'CxxBridge', 
+    'Core',
+    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
+    'RCTText',
+    'RCTNetwork',
+    'RCTWebSocket', # needed for debugging
+    # Add any other subspecs you want to use in your project
+  ]
+  pod 'Folly', :podspec => "../node_modules/react-native/third-party-podspecs/Folly.podspec"
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
 
-  # Pods for PetFeeder
-
-  target 'PetFeeder-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-    pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
-  end
-
-  target 'PetFeederTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
-
-pod 'Firebase/Core'
-pod 'Firebase/Auth', '~> 5.20.1'
-pod 'Firebase/Database', '~> 5.20.1'
-pod 'React', :path => '../node_modules/react-native'
-pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-
-post_install do |installer|
-  installer.pods_project.targets.each do |target|
-    if target.name == "React"
-      target.remove_from_project
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "React"
+        target.remove_from_project
+      end
     end
   end
 end

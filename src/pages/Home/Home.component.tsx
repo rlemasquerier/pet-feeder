@@ -1,5 +1,14 @@
 import React, { Component, ReactNode } from 'react';
-import { ScrollView, Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
+import {
+  ScrollView,
+  Text,
+  View,
+  ViewStyle,
+  StyleSheet,
+  TextStyle,
+  AppState,
+  AppStateStatus,
+} from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
@@ -15,13 +24,32 @@ const TOP_BANNER_HEIGHT = 50;
 interface State {
   selectedDate: Moment;
   records: Records | undefined;
+  appState: AppStateStatus;
 }
 export interface Props {
   user: User;
 }
 
 export class Home extends Component<NavigationScreenProps & Props, State> {
-  public state = { selectedDate: moment(), records: undefined };
+  public state = { selectedDate: moment(), records: undefined, appState: AppState.currentState };
+
+  public didFocusSubscription = this.props.navigation.addListener('didFocus', async () => {
+    const records = await getAllRecords();
+    this.setState({ records: records as Records });
+  });
+
+  private _handleAppStateChange = async (nextAppState: AppStateStatus) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      const records = await getAllRecords();
+      this.setState({ records: records as Records });
+    }
+    this.setState({ appState: nextAppState });
+  };
+
+  public componentWillUnmount = () => {
+    this.didFocusSubscription.remove();
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  };
 
   public onDateChange = (date: Date) => {
     this.setState({ selectedDate: moment(date) });
@@ -43,8 +71,7 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
   };
 
   public componentDidMount = async () => {
-    const records = await getAllRecords();
-    this.setState({ records: records as Records });
+    AppState.addEventListener('change', this._handleAppStateChange);
   };
 
   public getMorningTitle = () => {

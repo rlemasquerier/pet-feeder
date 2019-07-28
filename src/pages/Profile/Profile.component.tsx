@@ -22,8 +22,13 @@ export class Profile extends Component<{}, {}> {
           <View style={styles.centralIconsArea}>
             <View style={styles.centralIconsContainer}>
               <View style={{ alignItems: 'center' }}>
-                <Icon name="spoon-knife" size={CENTRAL_ICONS_SIZE} color={theme.colors.primary} />
-                <Text style={styles.text}>32</Text>
+                <Icon
+                  style={{ marginBottom: 2 * theme.margins.unit }}
+                  name="spoon-knife"
+                  size={CENTRAL_ICONS_SIZE}
+                  color={theme.colors.action}
+                />
+                <Text style={styles.text}>32 fois</Text>
               </View>
             </View>
           </View>

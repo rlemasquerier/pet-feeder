@@ -5,6 +5,7 @@ const baseColors = {
   blue: '#1C203F',
   lightBlue: '#313A87',
   lightGrey: '#F5F5F5',
+  mediumGrey: '#E9ECEF',
   red: '#F5544F',
   brown: '#3C3C3B',
 };
@@ -16,6 +17,7 @@ const styleguideColors = {
   secondary: baseColors.orange,
   banner: baseColors.blue,
   action: baseColors.red,
+  placeholderColor: baseColors.mediumGrey,
   secondaryAction: baseColors.brown,
   backgroundColor: baseColors.lightGrey,
 };

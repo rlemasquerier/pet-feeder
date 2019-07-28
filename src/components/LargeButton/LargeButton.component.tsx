@@ -11,26 +11,29 @@ interface Props {
   color: string;
   onPress: () => void;
   disabled?: boolean;
+  style?: ViewStyle;
 }
 
 export class LargeButton extends Component<Props> {
   public render(): ReactNode {
     return (
-      <TouchableOpacity
-        activeOpacity={BUTTON_ACTIVE_OPACITY}
-        onPress={this.props.onPress}
-        disabled={!!this.props.disabled}
-      >
-        <View
-          style={[
-            styles.container,
-            { backgroundColor: this.props.color },
-            this.props.disabled && { opacity: BUTTON_DISABLED_OPACITY },
-          ]}
+      <View style={this.props.style}>
+        <TouchableOpacity
+          activeOpacity={BUTTON_ACTIVE_OPACITY}
+          onPress={this.props.onPress}
+          disabled={!!this.props.disabled}
         >
-          <Text style={styles.label}>{this.props.label}</Text>
-        </View>
-      </TouchableOpacity>
+          <View
+            style={[
+              styles.container,
+              { backgroundColor: this.props.color },
+              this.props.disabled && { opacity: BUTTON_DISABLED_OPACITY },
+            ]}
+          >
+            <Text style={styles.label}>{this.props.label}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   }
 }

@@ -74,6 +74,8 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - React (0.59.5):
+    - React/Core (= 0.59.5)
   - React/Core (0.59.5):
     - yoga (= 0.59.5.React)
   - React/CxxBridge (0.59.5):
@@ -115,6 +117,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNReanimated (1.1.0):
+    - React
   - yoga (0.59.5.React)
 
 DEPENDENCIES:
@@ -129,6 +133,7 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -154,6 +159,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   React:
     :path: "../node_modules/react-native"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -175,8 +182,9 @@ SPEC CHECKSUMS:
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
+  RNReanimated: 45d9313b7a62318ed00d60a811937321e43e076e
   yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: 11ad3609d9c63b40a7ec1608c7ebd728749bc33b
+PODFILE CHECKSUM: 101ed5a7d5f0514197e2a898d29106c7710157d4
 
 COCOAPODS: 1.5.3

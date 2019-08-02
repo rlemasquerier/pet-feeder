@@ -157,6 +157,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-reanimated')
     implementation project(':react-native-svg')
     implementation project(':react-native-firebase')
     implementation 'com.google.firebase:firebase-core:16.0.1'

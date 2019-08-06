@@ -9,6 +9,7 @@ import {
   createBottomTabNavigator,
 } from 'react-navigation';
 import { Icon } from './components';
+import { IconName } from './components/Icon/Icon.component';
 import theme from './theme';
 import * as Pages from './pages';
 
@@ -48,7 +49,7 @@ const ConnectedTabNavigator = createBottomTabNavigator(
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         const color = focused ? theme.colors.primary : theme.colors.secondaryAction;
-        let iconName;
+        let iconName: IconName;
         switch (routeName) {
           case 'Home':
             iconName = 'home3';

@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { TouchableOpacity, StyleSheet, View, ViewStyle } from 'react-native';
 import { Icon } from '../Icon';
+import { IconName } from '../Icon/Icon.component';
 import theme from './../../theme';
 
 const ICON_SIZE = 35;
@@ -8,7 +9,7 @@ const BUTTON_SIZE = 76;
 const BUTTON_ACTIVE_OPACITY = 0.7;
 
 interface Props {
-  iconName: string;
+  iconName: IconName;
   color: string;
   iconColor: string;
   onPress: () => void;

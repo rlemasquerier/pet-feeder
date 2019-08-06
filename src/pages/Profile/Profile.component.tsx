@@ -1,7 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle, Image, ImageStyle } from 'react-native';
 import theme from './../../theme';
-import { LargeButton, Icon } from '../../components';
+import { LargeButton, Icon, Page } from '../../components';
 
 const PROFILE_PICTURE_SIZE = 150;
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
@@ -13,7 +13,7 @@ const CENTRAL_ICONS_SIZE = 40;
 export class Profile extends Component<{}, {}> {
   public render(): ReactNode {
     return (
-      <View style={styles.container}>
+      <Page>
         <View style={styles.header}>
           <Image style={styles.profileImage} source={theme.images.profilePicturePlaceholder} />
         </View>
@@ -59,13 +59,12 @@ export class Profile extends Component<{}, {}> {
             onPress={() => {}}
           />
         </View>
-      </View>
+      </Page>
     );
   }
 }
 
 interface Style {
-  container: ViewStyle;
   text: TextStyle;
   profileImage: ImageStyle;
   header: ViewStyle;
@@ -78,12 +77,6 @@ interface Style {
 }
 
 const styles = StyleSheet.create<Style>({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.backgroundColor,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
   text: {
     ...theme.fonts.regular,
   },

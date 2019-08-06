@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
-import { StyleSheet, View, ViewStyle, Dimensions } from 'react-native';
+import { StyleSheet, ViewStyle, Dimensions } from 'react-native';
 import { computeHeaderRadius } from './utils';
+import Animated from 'react-native-reanimated';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
@@ -8,6 +9,7 @@ interface Props {
   color: string;
   height: number;
   ratio: number;
+  translateY: Animated.Node<number>;
 }
 
 export class RoundHeader extends Component<Props, {}> {
@@ -24,7 +26,16 @@ export class RoundHeader extends Component<Props, {}> {
     };
   };
   public render(): ReactNode {
-    return <View style={[styles.roundHeader, this.getHeaderDynamicStyle()]} />;
+    return (
+      <Animated.View
+        // @ts-ignore
+        style={[
+          styles.roundHeader,
+          this.getHeaderDynamicStyle(),
+          { transform: [{ translateY: this.props.translateY }] },
+        ]}
+      />
+    );
   }
 }
 

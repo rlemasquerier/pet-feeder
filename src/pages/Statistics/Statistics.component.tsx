@@ -103,7 +103,10 @@ export class Statistics extends Component<{}, State> {
                 ],
               },
             ]}
-            source={theme.images.profilePicturePlaceholder}
+            source={{
+              uri:
+                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+            }}
           />
           <Text style={styles.userNameText}>Jean-Mich</Text>
         </RoundHeader>

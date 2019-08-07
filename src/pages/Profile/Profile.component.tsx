@@ -15,7 +15,13 @@ export class Profile extends Component<{}, {}> {
     return (
       <Page>
         <View style={styles.header}>
-          <Image style={styles.profileImage} source={theme.images.profilePicturePlaceholder} />
+          <Image
+            style={styles.profileImage}
+            source={{
+              uri:
+                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+            }}
+          />
         </View>
         <View style={styles.content}>
           <Text style={styles.username}>John Doe</Text>

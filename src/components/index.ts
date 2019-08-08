@@ -10,3 +10,4 @@ export { TopBanner } from './TopBanner';
 export { BarChart } from './BarChart';
 export { RoundHeader } from './RoundHeader';
 export { FiguresDisplay } from './FiguresDisplay';
+export { Loader } from './Loader';

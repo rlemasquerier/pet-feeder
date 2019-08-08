@@ -20,6 +20,10 @@ target 'PetFeeder' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
+  pod 'lottie-ios', :path => '../node_modules/lottie-ios'
+
+  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
+
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       if target.name == "React"

@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import { RoundHeader } from '../../components';
+import { RoundHeader, Loader } from '../../components';
 import theme from './../../theme';
 
 const HEADER = {
@@ -13,18 +13,30 @@ const HEADER = {
 
 interface State {
   scrollY: Animated.Value<number>;
+  isLoading: boolean;
 }
 
 export class Reminders extends Component<{}, State> {
   public state = {
     scrollY: new Animated.Value(0),
+    isLoading: true,
   };
+
+  public componentDidMount() {
+    setTimeout(() => {
+      this.setState({ isLoading: false });
+    }, 3000);
+  }
+
   public render(): ReactNode {
     const translateY = this.state.scrollY.interpolate({
       inputRange: [0, HEADER.FOLDED_HEIGHT],
       outputRange: [0, -HEADER.FOLDED_HEIGHT],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
+    if (this.state.isLoading) {
+      return <Loader size={30} />;
+    }
     return (
       <View style={styles.container}>
         <RoundHeader

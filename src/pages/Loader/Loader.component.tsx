@@ -27,7 +27,7 @@ export class Loader extends Component<NavigationScreenProps & Props, {}> {
   public render(): ReactNode {
     return (
       <View style={styles.container}>
-        <LoadingIndicator size={30} />
+        <LoadingIndicator size={100} />
       </View>
     );
   }

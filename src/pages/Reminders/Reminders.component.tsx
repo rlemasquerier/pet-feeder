@@ -35,7 +35,7 @@ export class Reminders extends Component<{}, State> {
       extrapolate: Animated.Extrapolate.CLAMP,
     });
     if (this.state.isLoading) {
-      return <Loader size={30} />;
+      return <Loader size={100} />;
     }
     return (
       <View style={styles.container}>

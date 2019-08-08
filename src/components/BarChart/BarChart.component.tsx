@@ -4,6 +4,8 @@ import { BarChart as SVGBarChart } from 'react-native-svg-charts';
 import { Text as SVGText } from 'react-native-svg';
 import theme from './../../theme';
 
+const HEIGHT = 300;
+
 const CONTENT_PADDING = 4 * theme.margins.unit;
 const LABEL_WIDTH = (Dimensions.get('window').width - 2 * CONTENT_PADDING) / 4;
 
@@ -76,7 +78,7 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
+    height: HEIGHT,
     justifyContent: 'center',
     alignItems: 'stretch',
     paddingHorizontal: CONTENT_PADDING,

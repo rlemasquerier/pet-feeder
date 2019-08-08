@@ -1,10 +1,11 @@
 import React, { Component, ReactNode } from 'react';
-import { Text, TextStyle, StyleSheet, View, ViewStyle, ActivityIndicator } from 'react-native';
+import { TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { getUser } from '../../api/apiClient';
 import theme from '../../theme';
 import { User } from '../../types/types';
+import { Loader as LoadingIndicator } from '../../components/Loader';
 
 export interface Props {
   onLoginSuccess: (firebaseUid: string, email: string | null) => void;
@@ -26,8 +27,7 @@ export class Loader extends Component<NavigationScreenProps & Props, {}> {
   public render(): ReactNode {
     return (
       <View style={styles.container}>
-        <Text>Loading</Text>
-        <ActivityIndicator size="large" />
+        <LoadingIndicator size={30} />
       </View>
     );
   }

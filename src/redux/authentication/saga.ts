@@ -10,12 +10,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     const { email, password } = action.payload;
     yield put(apiCallStart('authentication'));
     const loginResult: LoginAxiosResponse = yield call(login, email, password);
-    yield put(
-      authenticationActionCreators.loginSuccess(
-        loginResult.data.accessToken,
-        loginResult.data.refreshToken
-      )
-    );
+    yield put(authenticationActionCreators.loginSuccess(loginResult.data));
     yield put(apiCallSuccess('authentication'));
     yield call(navigator.navigate, 'Home');
   } catch (error) {

@@ -4,9 +4,10 @@ const API_URL = 'http://104.155.115.209:3000';
 
 export const publicApi = axios.create();
 
-interface LoginAPIResponse {
+export interface LoginAPIResponse {
   accessToken: string;
   refreshToken: string;
+  userId: string;
 }
 
 export type LoginAxiosResponse = AxiosResponse<LoginAPIResponse>;

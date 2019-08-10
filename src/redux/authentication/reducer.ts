@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { Credentials } from '../../types/types';
 import { RootState } from '../reducer';
+import { LoginAPIResponse } from '../../api/apiClient';
 
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
@@ -12,7 +13,7 @@ export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
-  payload: { accessToken: string; refreshToken: string };
+  payload: LoginAPIResponse;
 }
 export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE'> {
   meta: { error: Error };
@@ -31,9 +32,9 @@ export const authenticationActionCreators = {
     type: LOGIN_REQUEST,
     payload: { ...credentials },
   }),
-  loginSuccess: (accessToken: string, refreshToken: string): LoginSuccessAction => ({
+  loginSuccess: (loginData: LoginAPIResponse): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,
-    payload: { accessToken, refreshToken },
+    payload: loginData,
   }),
   loginFailure: (error: Error): LoginFailureAction => ({
     type: LOGIN_FAILURE,
@@ -47,11 +48,13 @@ export const authenticationActionCreators = {
 export interface AuthenticationState {
   accessToken?: string;
   refreshToken?: string;
+  userId?: string;
 }
 
 export const initialState: AuthenticationState = {
   accessToken: undefined,
   refreshToken: undefined,
+  userId: undefined,
 };
 
 export const authenticationReducer = (
@@ -62,11 +65,7 @@ export const authenticationReducer = (
     case LOGIN_REQUEST:
       return state;
     case LOGIN_SUCCESS:
-      return {
-        ...state,
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
-      };
+      return action.payload;
     case LOGIN_FAILURE:
       return state;
     case LOGOUT:

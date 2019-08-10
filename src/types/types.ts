@@ -9,8 +9,8 @@ export interface Credentials {
 }
 
 export interface AuthenticationInformation {
-  email?: string | undefined | null;
-  firebaseUid?: string | undefined;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export interface Record {

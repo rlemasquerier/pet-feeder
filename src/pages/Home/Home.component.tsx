@@ -10,9 +10,7 @@ import {
   AppStateStatus,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
-import firebase from 'react-native-firebase';
 import moment, { Moment } from 'moment';
-import { getAllRecords, postRecordByDate } from '../../api/apiClient';
 import { dateToString, computeDayHalf } from '../../services';
 import { Page, Card, Calendar, TopBanner } from '../../components';
 import { FeedPetButton } from './components/FeedPetButton';
@@ -28,19 +26,22 @@ interface State {
 }
 export interface Props {
   user: User;
+  logout: () => void;
 }
 
 export class Home extends Component<NavigationScreenProps & Props, State> {
   public state = { selectedDate: moment(), records: undefined, appState: AppState.currentState };
 
   public didFocusSubscription = this.props.navigation.addListener('didFocus', async () => {
-    const records = await getAllRecords();
+    // Load records as records
+    const records = {};
     this.setState({ records: records as Records });
   });
 
   private _handleAppStateChange = async (nextAppState: AppStateStatus) => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      const records = await getAllRecords();
+      // Load records as records
+      const records = {};
       this.setState({ records: records as Records });
     }
     this.setState({ appState: nextAppState });
@@ -56,18 +57,14 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
   };
 
   public onPressFeed = async () => {
-    await postRecordByDate(dateToString(this.state.selectedDate), this.props.user.name as string);
-    const updatedRecords = await getAllRecords();
+    // post record
+    const updatedRecords = {};
     this.setState({ records: updatedRecords as Records });
   };
 
   private logout = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        this.props.navigation.navigate('Login');
-      });
+    this.props.logout();
+    this.props.navigation.navigate('Login');
   };
 
   public componentDidMount = async () => {

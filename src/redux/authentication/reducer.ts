@@ -1,5 +1,6 @@
 import { Action } from 'redux';
 import { Credentials } from '../../types/types';
+import { RootState } from '../reducer';
 
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
@@ -11,7 +12,7 @@ export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
-  payload: { firebaseUid: string; email: string | null };
+  payload: { accessToken: string; refreshToken: string };
 }
 export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE'> {
   meta: { error: Error };
@@ -30,9 +31,9 @@ export const authenticationActionCreators = {
     type: LOGIN_REQUEST,
     payload: { ...credentials },
   }),
-  loginSuccess: (firebaseUid: string, email: string | null): LoginSuccessAction => ({
+  loginSuccess: (accessToken: string, refreshToken: string): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,
-    payload: { firebaseUid, email },
+    payload: { accessToken, refreshToken },
   }),
   loginFailure: (error: Error): LoginFailureAction => ({
     type: LOGIN_FAILURE,
@@ -44,17 +45,13 @@ export const authenticationActionCreators = {
 };
 
 export interface AuthenticationState {
-  firebaseUid?: string;
-  email?: string | null;
-  name?: string;
-  role?: string;
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export const initialState: AuthenticationState = {
-  firebaseUid: undefined,
-  email: undefined,
-  name: undefined,
-  role: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
 };
 
 export const authenticationReducer = (
@@ -65,7 +62,11 @@ export const authenticationReducer = (
     case LOGIN_REQUEST:
       return state;
     case LOGIN_SUCCESS:
-      return { ...state, firebaseUid: action.payload.firebaseUid, email: action.payload.email };
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
+      };
     case LOGIN_FAILURE:
       return state;
     case LOGOUT:
@@ -74,3 +75,8 @@ export const authenticationReducer = (
       return state;
   }
 };
+
+export const selectAccessToken = (state: RootState): string | undefined =>
+  state.authentication.accessToken;
+export const selectRefreshToken = (state: RootState): string | undefined =>
+  state.authentication.refreshToken;

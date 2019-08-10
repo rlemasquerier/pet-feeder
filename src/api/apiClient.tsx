@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
+import environment from '../environment';
 
-const API_URL = 'http://104.155.115.209:3000';
+const API_URL = environment.API_URL;
 
 export const publicApi = axios.create();
 

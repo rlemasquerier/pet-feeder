@@ -1,0 +1,1 @@
+export { getConnectedUser } from './getConnectedUser';

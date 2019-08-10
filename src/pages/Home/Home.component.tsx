@@ -25,7 +25,7 @@ interface State {
   appState: AppStateStatus;
 }
 export interface Props {
-  user: User;
+  user?: User;
   logout: () => void;
 }
 
@@ -138,7 +138,9 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
     return (
       <Page>
         <TopBanner>
-          <Text style={styles.topBannerText}>Bonjour {this.props.user.name} !</Text>
+          <Text style={styles.topBannerText}>
+            Bonjour {this.props.user && this.props.user.name} !
+          </Text>
           <Text style={styles.topBannerText} onPress={this.logout}>
             Logout
           </Text>

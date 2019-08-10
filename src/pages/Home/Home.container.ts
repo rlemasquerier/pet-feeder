@@ -1,21 +1,25 @@
 import { connect } from 'react-redux';
+import { graphql } from 'react-apollo';
 import { Home, Props } from './Home.component';
+import { getConnectedUser } from '../../graphql/queries';
 import { RootState } from '../../redux/reducer';
-import { selectUser } from '../../redux/user/reducer';
 import { authenticationActionCreators } from '../../redux/authentication/reducer';
-
-const mapStateToProps = (state: RootState) => ({
-  user: selectUser(state),
-});
+import { compose } from 'recompose';
 
 const mapDispatchToProps = {
   logout: authenticationActionCreators.logout,
 };
 
-type MapStateToProps = ReturnType<typeof mapStateToProps>;
 type MapDispatchToProps = typeof mapDispatchToProps;
 
-export const HomeContainer = connect<MapStateToProps, MapDispatchToProps, Props, RootState>(
-  mapStateToProps,
-  mapDispatchToProps
+export const HomeContainer = compose(
+  connect<null, MapDispatchToProps, Props, RootState>(
+    null,
+    mapDispatchToProps
+  ),
+  graphql(getConnectedUser, {
+    props: ({ data: { me } }) => ({
+      user: me,
+    }),
+  })
 )(Home);

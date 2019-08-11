@@ -6,6 +6,7 @@ import { LoginAPIResponse } from '../../api/apiClient';
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'authentication/LOGIN_FAILURE';
+export const REFRESH_TOKENS = 'authentication/REFRESH_TOKENS';
 export const LOGOUT = 'authentication/LOGOUT';
 
 export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {
@@ -19,12 +20,17 @@ export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE
   meta: { error: Error };
 }
 
+export interface RefreshTokensAction extends Action<'authentication/REFRESH_TOKENS'> {
+  payload: { accessToken: string; refreshToken: string };
+}
+
 export interface LogoutAction extends Action<'authentication/LOGOUT'> {}
 
 export type AuthenticationActions =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
+  | RefreshTokensAction
   | LogoutAction;
 
 export const authenticationActionCreators = {
@@ -40,6 +46,10 @@ export const authenticationActionCreators = {
     type: LOGIN_FAILURE,
     meta: { error },
   }),
+  refreshTokens: (tokens: { accessToken: string; refreshToken: string }): RefreshTokensAction => ({
+    type: REFRESH_TOKENS,
+    payload: tokens,
+  }),
   logout: (): LogoutAction => ({
     type: LOGOUT,
   }),
@@ -49,12 +59,14 @@ export interface AuthenticationState {
   accessToken?: string;
   refreshToken?: string;
   userId?: string;
+  email?: string;
 }
 
 export const initialState: AuthenticationState = {
   accessToken: undefined,
   refreshToken: undefined,
   userId: undefined,
+  email: undefined,
 };
 
 export const authenticationReducer = (
@@ -68,6 +80,12 @@ export const authenticationReducer = (
       return action.payload;
     case LOGIN_FAILURE:
       return state;
+    case REFRESH_TOKENS:
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
+      };
     case LOGOUT:
       return initialState;
     default:

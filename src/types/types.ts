@@ -11,6 +11,8 @@ export interface Credentials {
 export interface AuthenticationInformation {
   accessToken?: string;
   refreshToken?: string;
+  userId?: string;
+  email: string;
 }
 
 export interface Record {

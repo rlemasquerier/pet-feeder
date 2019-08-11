@@ -1,6 +1,6 @@
 import { SagaIterator } from 'redux-saga';
 import { takeLatest, call, put } from 'redux-saga/effects';
-import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST } from './reducer';
+import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT } from './reducer';
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
@@ -20,6 +20,11 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
   }
 }
 
+export function* logoutSaga(): SagaIterator {
+  yield call(navigator.navigate, 'Login');
+}
+
 export function* authenticationSaga(): SagaIterator {
   yield takeLatest(LOGIN_REQUEST, loginSaga);
+  yield takeLatest(LOGOUT, logoutSaga);
 }

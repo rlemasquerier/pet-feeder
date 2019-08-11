@@ -1,4 +1,11 @@
-import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from 'apollo-client-preset';
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  ApolloLink,
+  Operation,
+  NextLink,
+} from 'apollo-client-preset';
 import environment from '../environment';
 import { customFetch } from './customFetch';
 import { store } from '../redux/store';
@@ -8,7 +15,10 @@ const httpLink = new HttpLink({
   fetch: customFetch,
 });
 
-const authLink = new ApolloLink((operation, forward) => {
+const authLink = new ApolloLink((operation: Operation, forward?: NextLink) => {
+  if (!forward) {
+    return null;
+  }
   const token = store.getState().authentication.accessToken;
   operation.setContext({
     headers: {

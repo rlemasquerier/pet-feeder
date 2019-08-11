@@ -1,11 +1,11 @@
 import { Action, combineReducers } from 'redux';
-import { authenticationReducer } from './authentication/reducer';
+import { authenticationReducer, AuthenticationState } from './authentication/reducer';
 import { userReducer } from './user/reducer';
 import { apiReducer, ApiState } from './api/reducer';
-import { User, AuthenticationInformation } from '../types/types';
+import { User } from '../types/types';
 
 export interface RootState {
-  authentication: AuthenticationInformation;
+  authentication: AuthenticationState;
   user: User;
   api: ApiState;
 }

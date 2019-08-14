@@ -12,6 +12,7 @@ interface State {
 }
 interface OwnProps {
   user?: User;
+  resetOnLogout: () => void;
   logout: () => void;
 }
 
@@ -26,6 +27,7 @@ export class Home extends Component<Props, State> {
 
   private logout = () => {
     this.props.logout();
+    this.props.resetOnLogout();
     this.props.navigation.navigate('Login');
   };
 

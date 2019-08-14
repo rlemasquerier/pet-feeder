@@ -21,10 +21,3 @@ export interface Record {
   id: string;
   timestamp: number;
 }
-
-export interface Records {
-  [dateString: string]: {
-    morning: Record;
-    evening: Record;
-  };
-}

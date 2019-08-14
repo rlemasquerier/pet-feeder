@@ -1,9 +1,7 @@
 import React, { Component, ReactNode } from 'react';
-import { View, ViewStyle, StyleSheet, Image, ImageStyle } from 'react-native';
-import { LargeButton } from '../../../../components';
+import { View, ViewStyle, StyleSheet } from 'react-native';
+import { LargeButton, LottieAnimation } from '../../../../components';
 import theme from './../../../../theme';
-
-const IMAGE_PLACEHOLDER_SIZE = 100;
 
 interface Props {
   onPress: () => void;
@@ -36,8 +34,8 @@ export class FeedPetButton extends Component<Props> {
         );
       default:
         return (
-          <View style={styles.container}>
-            <Image source={theme.images.cheersGif} style={styles.imageStyle} resizeMode="stretch" />
+          <View style={styles.animation}>
+            <LottieAnimation size={150} name={theme.animations.cat} />
           </View>
         );
     }
@@ -46,7 +44,7 @@ export class FeedPetButton extends Component<Props> {
 
 interface Style {
   container: ViewStyle;
-  imageStyle: ImageStyle;
+  animation: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -55,9 +53,7 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'stretch',
     justifyContent: 'center',
   },
-  imageStyle: {
+  animation: {
     alignSelf: 'center',
-    height: IMAGE_PLACEHOLDER_SIZE,
-    width: IMAGE_PLACEHOLDER_SIZE,
   },
 });

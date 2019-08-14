@@ -4,6 +4,7 @@ import borders from './borders';
 import fonts from './fonts';
 import material from './material';
 import images from './imagesMapper';
+import animations from './animationsMapper';
 
 const theme = {
   colors,
@@ -12,6 +13,7 @@ const theme = {
   fonts,
   material,
   images,
+  animations,
 };
 
 export default theme;

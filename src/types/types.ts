@@ -16,7 +16,9 @@ export interface AuthenticationInformation {
 }
 
 export interface Record {
-  feeder: string;
+  feederId: string;
+  feederName: string;
+  id: string;
   timestamp: number;
 }
 

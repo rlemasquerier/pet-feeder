@@ -3,7 +3,8 @@ import { ScrollView } from 'react-native';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
-import { Card, Loader } from '../../../../components';
+import { Loader } from '../../../../components';
+import { HalfDayCard } from './HalfDayCard';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -42,29 +43,15 @@ export const DayScrollView: React.FC<Props> = ({ dayString }: Props) => {
   const [addRecord] = useMutation(ADD_RECORD);
 
   const loading = morningQueryResult.loading || eveningQueryResult.loading;
+  if (loading) return <Loader size={30} />;
+
   const morningData = morningQueryResult.data;
   const eveningData = eveningQueryResult.data;
 
-  if (loading) return <Loader size={30} />;
-
   return (
     <ScrollView>
-      <Card
-        title={'Ce matin'}
-        content={
-          morningData.dailyRecords && morningData.dailyRecords.length > 0
-            ? `Gaïa a été nourrie par ${morningData.dailyRecords[0].feederName}`
-            : "Gaïa attend d'être nourrie"
-        }
-      />
-      <Card
-        title={'Ce soir'}
-        content={
-          eveningData.dailyRecords && eveningData.dailyRecords.length > 0
-            ? `Gaïa a été nourrie par ${eveningData.dailyRecords[0].feederName}`
-            : "Gaïa attend d'être nourrie"
-        }
-      />
+      <HalfDayCard halfDay={'morning'} record={morningData.dailyRecords[0]} />
+      <HalfDayCard halfDay={'evening'} record={eveningData.dailyRecords[0]} />
       <FeedPetButton
         onPress={() => {
           addRecord();

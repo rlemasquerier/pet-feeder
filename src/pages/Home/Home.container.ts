@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { graphql } from 'react-apollo';
 import { Home, Props } from './Home.component';
-import { getConnectedUser } from '../../graphql/queries';
+import { withConnectedUser } from '../../hoc/withConnectedUser';
 import { RootState } from '../../redux/reducer';
 import { authenticationActionCreators } from '../../redux/authentication/reducer';
 import { compose } from 'recompose';
@@ -12,14 +11,10 @@ const mapDispatchToProps = {
 
 type MapDispatchToProps = typeof mapDispatchToProps;
 
-export const HomeContainer = compose(
+export const HomeContainer = compose<Props, Props>(
   connect<null, MapDispatchToProps, Props, RootState>(
     null,
     mapDispatchToProps
   ),
-  graphql(getConnectedUser, {
-    props: ({ data: { me } }) => ({
-      user: me,
-    }),
-  })
+  withConnectedUser
 )(Home);

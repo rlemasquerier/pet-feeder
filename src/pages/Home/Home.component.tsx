@@ -11,12 +11,14 @@ import theme from '../../theme';
 interface State {
   selectedDate: Moment;
 }
-export interface Props {
+interface OwnProps {
   user?: User;
   logout: () => void;
 }
 
-export class Home extends Component<NavigationScreenProps & Props, State> {
+export type Props = OwnProps & NavigationScreenProps;
+
+export class Home extends Component<Props, State> {
   public state = { selectedDate: moment() };
 
   public onDateChange = (date: Date) => {

@@ -2,7 +2,6 @@ import React, { Component, ReactNode } from 'react';
 import { Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import moment, { Moment } from 'moment';
-import { dateToString } from '../../services';
 import { Page, Calendar, TopBanner } from '../../components';
 import { DayScrollView } from './components/DayScrollView/DayScrollView.component';
 import { User } from '../../types/types';
@@ -45,7 +44,7 @@ export class Home extends Component<Props, State> {
           <View style={styles.calendarContainer}>
             <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
           </View>
-          <DayScrollView dayString={dateToString(this.state.selectedDate)} />
+          <DayScrollView selectedDate={this.state.selectedDate} />
         </View>
       </Page>
     );

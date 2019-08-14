@@ -6,8 +6,8 @@ import { LoginForm } from './LoginForm';
 import theme from '../../theme';
 
 const initialValues = {
-  email: 'rodolphe.lemasquerier@gmail.com',
-  password: '123456',
+  email: '',
+  password: '',
 };
 
 interface Values {

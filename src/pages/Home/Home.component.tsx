@@ -8,8 +8,6 @@ import { DayScrollView } from './components/DayScrollView/DayScrollView.componen
 import { User } from '../../types/types';
 import theme from '../../theme';
 
-const TOP_BANNER_HEIGHT = 50;
-
 interface State {
   selectedDate: Moment;
 }
@@ -54,7 +52,6 @@ export class Home extends Component<NavigationScreenProps & Props, State> {
 
 interface Style {
   content: ViewStyle;
-  topBanner: ViewStyle;
   topBannerText: TextStyle;
   calendarContainer: ViewStyle;
 }
@@ -66,14 +63,6 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
     backgroundColor: theme.colors.backgroundColor,
-  },
-  topBanner: {
-    height: TOP_BANNER_HEIGHT,
-    backgroundColor: theme.colors.banner,
-    paddingHorizontal: 2 * theme.margins.unit,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
   },
   topBannerText: {
     ...theme.fonts.regular,

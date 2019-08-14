@@ -120,8 +120,6 @@ export class Statistics extends Component<{}, State> {
 
 interface Style {
   profileImage: ImageStyle;
-  text: TextStyle;
-  pageNameText: TextStyle;
   userNameText: TextStyle;
   content: ViewStyle;
   cardStyle: ViewStyle;
@@ -130,14 +128,6 @@ interface Style {
 const styles = StyleSheet.create<Style>({
   profileImage: {
     resizeMode: 'cover',
-  },
-  text: {
-    ...theme.fonts.regular,
-    marginVertical: theme.margins.unit,
-  },
-  pageNameText: {
-    fontSize: 20,
-    color: theme.colors.white,
   },
   userNameText: {
     ...theme.fonts.hugeStrong,

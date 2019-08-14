@@ -1,7 +1,6 @@
 import React, { Component, ReactNode } from 'react';
-import { TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
-import theme from '../../theme';
 import { Loader as LoadingIndicator } from '../../components/Loader';
 
 export interface Props {
@@ -27,7 +26,6 @@ export class Loader extends Component<NavigationScreenProps & Props, {}> {
 
 interface Style {
   container: ViewStyle;
-  text: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -35,8 +33,5 @@ const styles = StyleSheet.create<Style>({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text: {
-    ...theme.fonts.regular,
   },
 });

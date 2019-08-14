@@ -1,7 +1,7 @@
 import { RootState } from '../reducer';
 import { Action } from 'redux';
 
-type ModuleName = 'authentication' | 'user';
+type ModuleName = 'authentication';
 
 export const API_CALL_START = 'api/API_CALL_START';
 export const API_CALL_SUCCESS = 'api/API_CALL_SUCCESS';

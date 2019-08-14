@@ -1,15 +1,22 @@
 import { connect } from 'react-redux';
 import { Home, Props } from './Home.component';
+import { withConnectedUser } from '../../hoc/withConnectedUser';
 import { RootState } from '../../redux/reducer';
-import { selectUser } from '../../redux/user/reducer';
+import { authenticationActionCreators } from '../../redux/authentication/reducer';
+import { compose } from 'recompose';
+import { withApollo } from 'react-apollo';
 
-const mapStateToProps = (state: RootState) => ({
-  user: selectUser(state),
-});
+const mapDispatchToProps = {
+  logout: authenticationActionCreators.logout,
+};
 
-type MapStateToProps = ReturnType<typeof mapStateToProps>;
+type MapDispatchToProps = typeof mapDispatchToProps;
 
-export const HomeContainer = connect<MapStateToProps, null, Props, RootState>(
-  mapStateToProps,
-  null
+export const HomeContainer = compose<Props, Props>(
+  connect<null, MapDispatchToProps, Props, RootState>(
+    null,
+    mapDispatchToProps
+  ),
+  withApollo,
+  withConnectedUser
 )(Home);

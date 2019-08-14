@@ -9,18 +9,15 @@ export interface Credentials {
 }
 
 export interface AuthenticationInformation {
-  email?: string | undefined | null;
-  firebaseUid?: string | undefined;
+  accessToken?: string;
+  refreshToken?: string;
+  userId?: string;
+  email: string;
 }
 
 export interface Record {
-  feeder: string;
+  feederId: string;
+  feederName: string;
+  id: string;
   timestamp: number;
-}
-
-export interface Records {
-  [dateString: string]: {
-    morning: Record;
-    evening: Record;
-  };
 }

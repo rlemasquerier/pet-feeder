@@ -38,7 +38,7 @@ export class Profile extends Component<{}, {}> {
               </View>
             </View>
           </View>
-          <View style={styles.detailsItemContainer}>
+          <View>
             <View style={styles.detailsItem}>
               <Icon
                 style={{ marginRight: 3 * theme.margins.unit }}
@@ -78,7 +78,6 @@ interface Style {
   username: TextStyle;
   centralIconsArea: ViewStyle;
   centralIconsContainer: ViewStyle;
-  detailsItemContainer: ViewStyle;
   detailsItem: ViewStyle;
 }
 
@@ -126,7 +125,6 @@ const styles = StyleSheet.create<Style>({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  detailsItemContainer: {},
   detailsItem: {
     flexDirection: 'row',
     alignItems: 'center',

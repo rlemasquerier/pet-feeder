@@ -1,9 +1,12 @@
 import { Action } from 'redux';
 import { Credentials } from '../../types/types';
+import { RootState } from '../reducer';
+import { LoginAPIResponse } from '../../api/apiClient';
 
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'authentication/LOGIN_FAILURE';
+export const REFRESH_TOKENS = 'authentication/REFRESH_TOKENS';
 export const LOGOUT = 'authentication/LOGOUT';
 
 export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {
@@ -11,10 +14,14 @@ export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
-  payload: { firebaseUid: string; email: string | null };
+  payload: LoginAPIResponse;
 }
 export interface LoginFailureAction extends Action<'authentication/LOGIN_FAILURE'> {
   meta: { error: Error };
+}
+
+export interface RefreshTokensAction extends Action<'authentication/REFRESH_TOKENS'> {
+  payload: { accessToken: string; refreshToken: string };
 }
 
 export interface LogoutAction extends Action<'authentication/LOGOUT'> {}
@@ -23,6 +30,7 @@ export type AuthenticationActions =
   | LoginRequestAction
   | LoginSuccessAction
   | LoginFailureAction
+  | RefreshTokensAction
   | LogoutAction;
 
 export const authenticationActionCreators = {
@@ -30,13 +38,17 @@ export const authenticationActionCreators = {
     type: LOGIN_REQUEST,
     payload: { ...credentials },
   }),
-  loginSuccess: (firebaseUid: string, email: string | null): LoginSuccessAction => ({
+  loginSuccess: (loginData: LoginAPIResponse): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,
-    payload: { firebaseUid, email },
+    payload: loginData,
   }),
   loginFailure: (error: Error): LoginFailureAction => ({
     type: LOGIN_FAILURE,
     meta: { error },
+  }),
+  refreshTokens: (tokens: { accessToken: string; refreshToken: string }): RefreshTokensAction => ({
+    type: REFRESH_TOKENS,
+    payload: tokens,
   }),
   logout: (): LogoutAction => ({
     type: LOGOUT,
@@ -44,17 +56,17 @@ export const authenticationActionCreators = {
 };
 
 export interface AuthenticationState {
-  firebaseUid?: string;
-  email?: string | null;
-  name?: string;
-  role?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  userId?: string;
+  email?: string;
 }
 
 export const initialState: AuthenticationState = {
-  firebaseUid: undefined,
+  accessToken: undefined,
+  refreshToken: undefined,
+  userId: undefined,
   email: undefined,
-  name: undefined,
-  role: undefined,
 };
 
 export const authenticationReducer = (
@@ -65,12 +77,23 @@ export const authenticationReducer = (
     case LOGIN_REQUEST:
       return state;
     case LOGIN_SUCCESS:
-      return { ...state, firebaseUid: action.payload.firebaseUid, email: action.payload.email };
+      return action.payload;
     case LOGIN_FAILURE:
       return state;
+    case REFRESH_TOKENS:
+      return {
+        ...state,
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
+      };
     case LOGOUT:
       return initialState;
     default:
       return state;
   }
 };
+
+export const selectAccessToken = (state: RootState): string | undefined =>
+  state.authentication.accessToken;
+export const selectRefreshToken = (state: RootState): string | undefined =>
+  state.authentication.refreshToken;

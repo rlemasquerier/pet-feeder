@@ -6,6 +6,7 @@ import theme from './../../../../theme';
 interface Props {
   onPress: () => void;
   status: 'active' | 'inactive' | 'invisible';
+  loading?: boolean;
 }
 
 export class FeedPetButton extends Component<Props> {
@@ -18,6 +19,7 @@ export class FeedPetButton extends Component<Props> {
               label="NOURRIR GAÏA"
               color={theme.colors.secondary}
               onPress={this.props.onPress}
+              loading={this.props.loading}
             />
           </View>
         );

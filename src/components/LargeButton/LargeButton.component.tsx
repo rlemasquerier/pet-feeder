@@ -1,5 +1,6 @@
 import React, { Component, ReactNode } from 'react';
 import { TouchableOpacity, StyleSheet, View, ViewStyle, Text, TextStyle } from 'react-native';
+import { Loader } from '../Loader';
 import theme from './../../theme';
 
 const BUTTON_SIZE = 50;
@@ -12,6 +13,7 @@ interface Props {
   onPress: () => void;
   disabled?: boolean;
   style?: ViewStyle;
+  loading?: boolean;
 }
 
 export class LargeButton extends Component<Props> {
@@ -21,7 +23,7 @@ export class LargeButton extends Component<Props> {
         <TouchableOpacity
           activeOpacity={BUTTON_ACTIVE_OPACITY}
           onPress={this.props.onPress}
-          disabled={!!this.props.disabled}
+          disabled={!!this.props.disabled || this.props.loading}
         >
           <View
             style={[
@@ -30,7 +32,11 @@ export class LargeButton extends Component<Props> {
               this.props.disabled && { opacity: BUTTON_DISABLED_OPACITY },
             ]}
           >
-            <Text style={styles.label}>{this.props.label}</Text>
+            {this.props.loading ? (
+              <Loader size={20} />
+            ) : (
+              <Text style={styles.label}>{this.props.label}</Text>
+            )}
           </View>
         </TouchableOpacity>
       </View>

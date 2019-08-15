@@ -43,9 +43,11 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
     pollInterval: 300000,
   });
 
-  const [addRecord] = useMutation(ADD_RECORD);
+  const [addRecord, addRecordMutationResult] = useMutation(ADD_RECORD);
 
+  const addRecordLoading = addRecordMutationResult.loading;
   const loading = morningQueryResult.loading || eveningQueryResult.loading;
+
   if (loading) return <Loader size={30} />;
 
   const records = {
@@ -80,6 +82,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
           eveningQueryResult.refetch();
         }}
         status={getButtonStatus()}
+        loading={addRecordLoading}
       />
     </ScrollView>
   );

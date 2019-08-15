@@ -1,4 +1,4 @@
-export { SignupFormContainer as SignupForm } from './SignupForm.container';
+export { SignupForm } from './SignupForm.component';
 
 import { Values } from './SignupForm.component';
 export type Values = Values;

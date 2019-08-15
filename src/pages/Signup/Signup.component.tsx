@@ -61,14 +61,18 @@ export interface Props {
 export const Signup: React.FC<Props> = (props: Props) => {
   const [addUserMutation] = useMutation<UserMutationData, UserInput>(ADD_USER);
 
-  const onSubmitForm = async (values: Values, { resetForm }: FormikActions<Values>) => {
+  const onSubmitForm = async (
+    values: Values,
+    { resetForm }: FormikActions<Values>
+  ): Promise<void> => {
     await handleSignup({
       values,
       addUserMutation,
       resetForm,
     });
-    props.login({ email: values.email, password: values.password });
+    await props.login({ email: values.email, password: values.password });
   };
+
   return (
     <Page>
       <Formik onSubmit={onSubmitForm} initialValues={initialValues} component={SignupForm} />

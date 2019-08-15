@@ -10,7 +10,11 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "pet-feeder/*": ["./*"]
+    }
   },
   "exclude": [
     "node_modules",

@@ -36,6 +36,14 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
               initialValues={initialValues}
               component={LoginForm}
             />
+            <View style={styles.bottomContainer}>
+              <Text
+                style={styles.signupText}
+                onPress={() => this.props.navigation.navigate('Signup')}
+              >
+                {"Pas encore de compte ? S'inscrire"}
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -50,6 +58,8 @@ interface Style {
   welcomeTextContainer: ViewStyle;
   image: ImageStyle;
   text: TextStyle;
+  bottomContainer: ViewStyle;
+  signupText: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -85,5 +95,14 @@ const styles = StyleSheet.create<Style>({
   text: {
     ...theme.fonts.title,
     color: theme.colors.white,
+  },
+  bottomContainer: {
+    flex: 1,
+    padding: 2 * theme.margins.unit,
+    marginTop: 4 * theme.margins.unit,
+    alignItems: 'center',
+  },
+  signupText: {
+    ...theme.fonts.strong,
   },
 });

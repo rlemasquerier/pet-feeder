@@ -3,6 +3,13 @@ export interface User {
   role: string | undefined;
 }
 
+export interface UserInput {
+  email: string;
+  password: string;
+  name: string;
+  role: string;
+}
+
 export interface Credentials {
   email: string | undefined;
   password: string | undefined;

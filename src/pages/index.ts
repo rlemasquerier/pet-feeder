@@ -4,3 +4,4 @@ export { Loader } from './Loader';
 export { Profile } from './Profile';
 export { Reminders } from './Reminders';
 export { Statistics } from './Statistics';
+export { Signup } from './Signup';

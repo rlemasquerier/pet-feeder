@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { Formik, FormikActions } from 'formik';
 import { Page } from 'pet-feeder/src/components';
 import { SignupForm, Values } from './SignupForm';
-import { User, UserInput } from 'pet-feeder/src/types/types';
+import { User, UserInput, Credentials } from 'pet-feeder/src/types/types';
 import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
 
 const initialValues: Values = {
@@ -54,15 +54,20 @@ const handleSignup = async ({
   }
 };
 
-export const Signup: React.FC<null> = () => {
+export interface Props {
+  login: (credentials: Credentials) => void;
+}
+
+export const Signup: React.FC<Props> = (props: Props) => {
   const [addUserMutation] = useMutation<UserMutationData, UserInput>(ADD_USER);
 
   const onSubmitForm = async (values: Values, { resetForm }: FormikActions<Values>) => {
-    handleSignup({
+    await handleSignup({
       values,
       addUserMutation,
       resetForm,
     });
+    props.login({ email: values.email, password: values.password });
   };
   return (
     <Page>

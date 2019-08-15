@@ -74,8 +74,8 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
       <HalfDayCard halfDay={'morning'} record={records.morning[0]} />
       <HalfDayCard halfDay={'evening'} record={records.evening[0]} />
       <FeedPetButton
-        onPress={() => {
-          addRecord();
+        onPress={async () => {
+          await addRecord();
           morningQueryResult.refetch();
           eveningQueryResult.refetch();
         }}

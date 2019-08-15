@@ -7,6 +7,7 @@ import {
   NavigationContainer,
   createSwitchNavigator,
   createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
 import { Icon } from './components';
 import { IconName } from './components/Icon/Icon.component';
@@ -79,13 +80,25 @@ const ConnectedTabNavigator = createBottomTabNavigator(
   }
 );
 
+const OnboardingStack: NavigationContainer = createStackNavigator(
+  {
+    Login: {
+      screen: Pages.Login,
+    },
+    Signup: {
+      screen: Pages.Signup,
+    },
+  },
+  {
+    headerMode: 'none',
+  }
+);
+
 export const RootNavigator: NavigationContainer = createSwitchNavigator({
   Loader: {
     screen: Pages.Loader,
   },
-  Login: {
-    screen: Pages.Login,
-  },
+  Login: OnboardingStack,
   Home: ConnectedTabNavigator,
 });
 

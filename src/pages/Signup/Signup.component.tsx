@@ -1,27 +1,21 @@
 import React from 'react';
-import { Text, TextStyle, StyleSheet, ViewStyle } from 'react-native';
+import { Formik } from 'formik';
 import { Page } from 'pet-feeder/src/components';
-import theme from 'pet-feeder/src/theme';
+import { SignupForm, Values } from './SignupForm';
+
+const initialValues: Values = {
+  email: '',
+  password: '',
+  name: '',
+};
 
 export const Signup: React.FC<null> = () => {
+  const onSubmitForm = (values: Values) => {
+    console.log(values);
+  };
   return (
     <Page>
-      <Text style={styles.text}>Texte</Text>
+      <Formik onSubmit={onSubmitForm} initialValues={initialValues} component={SignupForm} />
     </Page>
   );
 };
-
-interface Style {
-  container: ViewStyle;
-  text: TextStyle;
-}
-
-const styles = StyleSheet.create<Style>({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  text: {
-    ...theme.fonts.regular,
-  },
-});

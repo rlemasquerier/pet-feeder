@@ -1,3 +1,6 @@
 *.pbxproj -text
 *.keystore filter=crypt diff=crypt
 *.secret filter=crypt diff=crypt
+android/app/google-services.json filter=crypt diff=crypt
+ios/PetFeeder/GoogleService-Info.plist filter=crypt diff=crypt
+src/environment/* filter=crypt diff=crypt

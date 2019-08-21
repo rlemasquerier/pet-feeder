@@ -24,7 +24,6 @@ project.xcworkspace
 
 #iOS
 ios/Pods/*
-ios/PetFeeder/*.plist
 
 # Android/IntelliJ
 #
@@ -33,7 +32,6 @@ build/
 .gradle
 local.properties
 *.iml
-android/app/google-services.json
 
 # node.js
 #
@@ -44,7 +42,6 @@ yarn-error.log
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
 
 # fastlane
 #
@@ -63,11 +60,7 @@ buck-out/
 # Fastlane
 dist
 fastlane/report.xml
-fastlane/.env.*.secret
 *.back
-
-# Environment
-src/environment/
 
 # JEST
 .jest/

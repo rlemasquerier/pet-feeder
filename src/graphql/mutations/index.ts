@@ -1,0 +1,1 @@
+export { updateUserNotificationsToken } from './updateUserNotificationsToken';

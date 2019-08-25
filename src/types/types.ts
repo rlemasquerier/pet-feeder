@@ -1,6 +1,8 @@
 export interface User {
-  name: string | undefined;
-  role: string | undefined;
+  id: string;
+  name: string;
+  role: string;
+  fcmToken: string | null;
 }
 
 export interface UserInput {

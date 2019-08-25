@@ -2,17 +2,12 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { checkPermission } from './services/notifications';
 import { AppNavigator } from './AppNavigator';
 import { persistor, store } from './redux/store';
 import { setTopLevelNavigator } from './services/navigation';
 import { client } from './apollo/initClient';
 
 export class App extends React.Component {
-  public async componentDidMount() {
-    checkPermission();
-  }
-
   public render(): JSX.Element {
     return (
       <Provider store={store}>

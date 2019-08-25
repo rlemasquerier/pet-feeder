@@ -39,6 +39,16 @@ end
 # IOS
 
 platform :ios do
+  lane :download_dev_certificate do |options|
+    match(
+      type: 'development',
+      shallow_clone: true,
+      clone_branch_directly: true,
+      force_for_new_devices: true,
+      readonly: true
+    )
+  end
+  
   lane :restore_files do |options|
     plist_path = "#{ENV['IOS_PROJECT_PATH']}/#{ENV['IOS_PLIST_PATH']}"
     if File.exist?("../#{plist_path}.back")

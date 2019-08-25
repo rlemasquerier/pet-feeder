@@ -6,6 +6,7 @@ import { Page, Calendar, TopBanner } from '../../components';
 import { DayScrollView } from './components/DayScrollView/DayScrollView.component';
 import { User } from '../../types/types';
 import theme from '../../theme';
+import { checkPermission } from 'pet-feeder/src/services/notifications';
 
 interface State {
   selectedDate: Moment;
@@ -14,12 +15,20 @@ interface OwnProps {
   user?: User;
   resetOnLogout: () => void;
   logout: () => void;
+  updateUserFCM: (input: { variables: { id: string; fcmToken: string | undefined } }) => void;
 }
 
 export type Props = OwnProps & NavigationScreenProps;
 
 export class Home extends Component<Props, State> {
   public state = { selectedDate: moment() };
+
+  public componentDidUpdate = async () => {
+    if (this.props.user && !this.props.user.fcmToken) {
+      const fcmToken = await checkPermission();
+      this.props.updateUserFCM({ variables: { id: this.props.user.id, fcmToken } });
+    }
+  };
 
   public onDateChange = (date: Date) => {
     this.setState({ selectedDate: moment(date) });

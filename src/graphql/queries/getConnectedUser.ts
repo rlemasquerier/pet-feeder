@@ -9,6 +9,7 @@ export const getConnectedUser = gql`
       role
       tribeMember
       tribeOwner
+      fcmToken
     }
   }
 `;

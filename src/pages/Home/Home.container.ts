@@ -5,6 +5,7 @@ import { RootState } from '../../redux/reducer';
 import { authenticationActionCreators } from '../../redux/authentication/reducer';
 import { compose } from 'recompose';
 import { withApollo } from 'react-apollo';
+import { withNotificationsTokenRefresh } from 'pet-feeder/src/hoc/withNotificationsTokenRefresh';
 
 const mapDispatchToProps = {
   logout: authenticationActionCreators.logout,
@@ -18,5 +19,6 @@ export const HomeContainer = compose<Props, Props>(
     mapDispatchToProps
   ),
   withApollo,
-  withConnectedUser
+  withConnectedUser,
+  withNotificationsTokenRefresh
 )(Home);

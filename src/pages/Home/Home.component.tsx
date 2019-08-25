@@ -24,9 +24,12 @@ export class Home extends Component<Props, State> {
   public state = { selectedDate: moment() };
 
   public componentDidUpdate = async () => {
-    if (this.props.user && !this.props.user.fcmToken) {
+    if (this.props.user) {
+      // TODO: Find a way not to run this logic at each component update
       const fcmToken = await checkPermission();
-      this.props.updateUserFCM({ variables: { id: this.props.user.id, fcmToken } });
+      if (fcmToken !== this.props.user.fcmToken) {
+        this.props.updateUserFCM({ variables: { id: this.props.user.id, fcmToken } });
+      }
     }
   };
 

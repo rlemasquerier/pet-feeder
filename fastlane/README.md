@@ -29,6 +29,11 @@ fastlane set_js_env
 ----
 
 ## iOS
+### ios download_dev_certificate
+```
+fastlane ios download_dev_certificate
+```
+
 ### ios restore_files
 ```
 fastlane ios restore_files

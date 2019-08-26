@@ -47,8 +47,12 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
 
   const addRecordLoading = addRecordMutationResult.loading;
   const loading = morningQueryResult.loading || eveningQueryResult.loading;
+  const error = morningQueryResult.error;
 
   if (loading) return <Loader size={30} />;
+
+  // TODO: Handle this case with a placeholder
+  if (error) return <Loader size={30} />;
 
   const records = {
     morning: morningQueryResult.data.dailyRecords,

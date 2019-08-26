@@ -3,6 +3,7 @@
 
 target 'PetFeeder' do
   pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
   pod 'Firebase/Auth', '~> 5.20.1'
   pod 'Firebase/Database', '~> 5.20.1'
   pod 'React', :path => '../node_modules/react-native', :subspecs => [

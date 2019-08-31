@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore as reduxCreateStore, Action } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { persistStore, persistReducer, PersistConfig, PersistPartial } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to AsyncStorage
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { rootReducer, RootState } from './reducer';
 import { rootSaga } from './saga';
@@ -13,7 +13,7 @@ const enhancers = [applyMiddleware(sagaMiddleware)];
 
 const persistConfig: PersistConfig = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
   whitelist: ['authentication'],
 };
 

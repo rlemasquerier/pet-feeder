@@ -13,7 +13,8 @@
     "test:lint": "eslint . --ext .js,.ts,.tsx",
     "test:types": "tsc --noEmit --skipLibCheck",
     "test:unit": "jest",
-    "deploy": "./scripts/deploy.sh"
+    "deploy": "./scripts/deploy.sh",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "apollo-client-preset": "^1.0.8",
@@ -24,6 +25,8 @@
     "lodash": "^4.17.15",
     "lottie-react-native": "^2.6.1",
     "moment": "^2.24.0",
+    "patch-package": "^6.1.2",
+    "postinstall-postinstall": "^2.0.0",
     "react": "16.8.3",
     "react-apollo": "^3.0.0",
     "react-native": "0.59.5",

@@ -134,6 +134,8 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNCAsyncStorage (1.6.1):
+    - React
   - RNReanimated (1.1.0):
     - React
   - yoga (0.59.5.React)
@@ -153,6 +155,7 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../node_modules/react-native`)
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -186,6 +189,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-react-native"
   React:
     :path: "../node_modules/react-native"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   yoga:
@@ -214,9 +219,10 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   React: 1d605e098d69bdf08960787f3446f0a9dc2e2ccf
+  RNCAsyncStorage: e99188b8a89ea0edddc82d8831cd5142f4550fdc
   RNReanimated: 45d9313b7a62318ed00d60a811937321e43e076e
   yoga: 128daf064cacaede0c3bb27424b6b4c71052e6cd
 
-PODFILE CHECKSUM: dc988d186c59f9ab0fc9dd475f41176f65a05f6f
+PODFILE CHECKSUM: 3b602c715a458520dbede7d1d971325eb89660d0
 
 COCOAPODS: 1.5.3

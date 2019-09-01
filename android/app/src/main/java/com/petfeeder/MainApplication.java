@@ -3,6 +3,7 @@ package com.petfeeder;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.horcrux.svg.SvgPackage;
@@ -41,7 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new AsyncStoragePackage(),
+          new ImagePickerPackage(),
+          new AsyncStoragePackage(),
           new ReanimatedPackage(),
           new SvgPackage(),
           new RNFirebasePackage(),

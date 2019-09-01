@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle, Image, ImageStyle } from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page } from '../../components';
@@ -10,65 +10,63 @@ const CENTRAL_ICONS_AREA_WIDTH = 200;
 const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
-export class Profile extends Component<{}, {}> {
-  public render(): ReactNode {
-    return (
-      <Page>
-        <View style={styles.header}>
-          <Image
-            style={styles.profileImage}
-            source={{
-              uri:
-                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
-            }}
-          />
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.username}>John Doe</Text>
-          <View style={styles.centralIconsArea}>
-            <View style={styles.centralIconsContainer}>
-              <View style={{ alignItems: 'center' }}>
-                <Icon
-                  style={{ marginBottom: 2 * theme.margins.unit }}
-                  name="spoon-knife"
-                  size={CENTRAL_ICONS_SIZE}
-                  color={theme.colors.action}
-                />
-                <Text style={styles.text}>32 fois</Text>
-              </View>
+export const Profile: React.FC<{}> = () => {
+  return (
+    <Page>
+      <View style={styles.header}>
+        <Image
+          style={styles.profileImage}
+          source={{
+            uri:
+              'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+          }}
+        />
+      </View>
+      <View style={styles.content}>
+        <Text style={styles.username}>John Doe</Text>
+        <View style={styles.centralIconsArea}>
+          <View style={styles.centralIconsContainer}>
+            <View style={{ alignItems: 'center' }}>
+              <Icon
+                style={{ marginBottom: 2 * theme.margins.unit }}
+                name="spoon-knife"
+                size={CENTRAL_ICONS_SIZE}
+                color={theme.colors.action}
+              />
+              <Text style={styles.text}>32 fois</Text>
             </View>
           </View>
-          <View>
-            <View style={styles.detailsItem}>
-              <Icon
-                style={{ marginRight: 3 * theme.margins.unit }}
-                name="mail2"
-                size={30}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.text}>john.doe@gmail.com</Text>
-            </View>
-            <View style={styles.detailsItem}>
-              <Icon
-                style={{ marginRight: 3 * theme.margins.unit }}
-                name="pencil"
-                size={30}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.text}>John</Text>
-            </View>
-          </View>
-          <LargeButton
-            style={{ width: 200 }}
-            label="Modifier"
-            color={theme.colors.secondary}
-            onPress={() => {}}
-          />
         </View>
-      </Page>
-    );
-  }
-}
+        <View>
+          <View style={styles.detailsItem}>
+            <Icon
+              style={{ marginRight: 3 * theme.margins.unit }}
+              name="mail2"
+              size={30}
+              color={theme.colors.primary}
+            />
+            <Text style={styles.text}>john.doe@gmail.com</Text>
+          </View>
+          <View style={styles.detailsItem}>
+            <Icon
+              style={{ marginRight: 3 * theme.margins.unit }}
+              name="pencil"
+              size={30}
+              color={theme.colors.primary}
+            />
+            <Text style={styles.text}>John</Text>
+          </View>
+        </View>
+        <LargeButton
+          style={{ width: 200 }}
+          label="Modifier"
+          color={theme.colors.secondary}
+          onPress={() => {}}
+        />
+      </View>
+    </Page>
+  );
+};
 
 interface Style {
   text: TextStyle;

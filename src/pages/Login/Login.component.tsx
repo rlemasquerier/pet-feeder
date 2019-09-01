@@ -1,5 +1,14 @@
 import React, { Component, ReactNode } from 'react';
-import { StyleSheet, View, ViewStyle, Image, ImageStyle, Text, TextStyle } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ViewStyle,
+  Image,
+  ImageStyle,
+  Text,
+  TextStyle,
+  KeyboardAvoidingView,
+} from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
@@ -24,7 +33,7 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
   };
   public render(): ReactNode {
     return (
-      <View style={styles.page}>
+      <KeyboardAvoidingView style={styles.page} behavior="padding" enabled>
         <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
         <View style={styles.container}>
           <View style={styles.welcomeTextContainer}>
@@ -46,7 +55,7 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -97,9 +106,7 @@ const styles = StyleSheet.create<Style>({
     color: theme.colors.white,
   },
   bottomContainer: {
-    flex: 1,
     padding: 2 * theme.margins.unit,
-    marginTop: 4 * theme.margins.unit,
     alignItems: 'center',
   },
   signupText: {

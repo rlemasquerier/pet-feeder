@@ -1,7 +1,18 @@
 import React from 'react';
-import { Text, TextStyle, StyleSheet, View, ViewStyle, Image, ImageStyle } from 'react-native';
+import {
+  Text,
+  TextStyle,
+  StyleSheet,
+  View,
+  ViewStyle,
+  Image,
+  ImageStyle,
+  TouchableOpacity,
+} from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page } from '../../components';
+import { uploadPicture } from '../../api/apiClient';
+import ImagePicker from 'react-native-image-picker';
 
 const PROFILE_PICTURE_SIZE = 150;
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
@@ -11,16 +22,41 @@ const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
 export const Profile: React.FC<{}> = () => {
+  const onPressProfilePicture = async () => {
+    const options = {
+      title: 'Choisis ta photo de profil',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+      quality: 0.1,
+    };
+
+    ImagePicker.showImagePicker(options, async response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const uploadResponse = await uploadPicture(response);
+        console.log(uploadResponse);
+      }
+    });
+  };
   return (
     <Page>
       <View style={styles.header}>
-        <Image
-          style={styles.profileImage}
-          source={{
-            uri:
-              'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
-          }}
-        />
+        <TouchableOpacity onPress={onPressProfilePicture} style={styles.profileImageContainer}>
+          <Image
+            source={{
+              uri:
+                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+            }}
+            style={styles.profileImage}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.content}>
         <Text style={styles.username}>John Doe</Text>
@@ -70,6 +106,7 @@ export const Profile: React.FC<{}> = () => {
 
 interface Style {
   text: TextStyle;
+  profileImageContainer: ViewStyle;
   profileImage: ImageStyle;
   header: ViewStyle;
   content: ViewStyle;
@@ -89,15 +126,16 @@ const styles = StyleSheet.create<Style>({
     backgroundColor: theme.colors.banner,
     marginBottom: PROFILE_PICTURE_SIZE / 2,
   },
-  profileImage: {
+  profileImageContainer: {
     position: 'absolute',
     left: '50%',
     marginLeft: -PROFILE_PICTURE_SIZE / 2,
+    bottom: -PROFILE_PICTURE_SIZE / 2,
+  },
+  profileImage: {
     height: PROFILE_PICTURE_SIZE,
     width: PROFILE_PICTURE_SIZE,
-    bottom: -PROFILE_PICTURE_SIZE / 2,
     borderRadius: PROFILE_PICTURE_SIZE / 2,
-    resizeMode: 'cover',
   },
   content: {
     flex: 1,

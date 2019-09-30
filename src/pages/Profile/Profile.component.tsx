@@ -12,16 +12,42 @@ import {
 import theme from './../../theme';
 import { LargeButton, Icon, Page } from '../../components';
 import { uploadPicture } from '../../api/apiClient';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import ImagePicker from 'react-native-image-picker';
+import { EditUserInput, User } from 'pet-feeder/src/types/types';
+import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 
 const PROFILE_PICTURE_SIZE = 150;
+const PROFILE_PICTURE_ACTIVE_OPACITY = 0.8;
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
 
 const CENTRAL_ICONS_AREA_WIDTH = 200;
 const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
+interface UpdateUserMutationData {
+  editUser: EditUserInput;
+}
+
+const updateUserProfilePictureUrl = gql`
+  mutation editUser($id: String!, $profilePictureUrl: String!) {
+    editUser(input: { id: $id, patch: { profilePictureUrl: $profilePictureUrl } }) {
+      id
+      email
+      name
+      role
+      profilePictureUrl
+    }
+  }
+`;
+
 export const Profile: React.FC<{}> = () => {
+  const [updateUserUrl] = useMutation<UpdateUserMutationData, EditUserInput>(
+    updateUserProfilePictureUrl
+  );
+  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
+
   const onPressProfilePicture = async () => {
     const options = {
       title: 'Choisis ta photo de profil',
@@ -33,33 +59,36 @@ export const Profile: React.FC<{}> = () => {
     };
 
     ImagePicker.showImagePicker(options, async response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+      if (response.didCancel || response.error || response.customButton) {
+        return;
       } else {
         const uploadResponse = await uploadPicture(response);
-        console.log(uploadResponse);
+        if (connectedUser.data && connectedUser.data.me.id && uploadResponse.uri) {
+          updateUserUrl({
+            variables: { id: connectedUser.data.me.id, profilePictureUrl: uploadResponse.uri },
+          });
+        }
       }
     });
   };
   return (
     <Page>
       <View style={styles.header}>
-        <TouchableOpacity onPress={onPressProfilePicture} style={styles.profileImageContainer}>
+        <TouchableOpacity
+          activeOpacity={PROFILE_PICTURE_ACTIVE_OPACITY}
+          onPress={onPressProfilePicture}
+          style={styles.profileImageContainer}
+        >
           <Image
             source={{
-              uri:
-                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+              uri: connectedUser.data && connectedUser.data.me.profilePictureUrl,
             }}
             style={styles.profileImage}
           />
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
-        <Text style={styles.username}>John Doe</Text>
+        <Text style={styles.username}>{connectedUser.data && connectedUser.data.me.name}</Text>
         <View style={styles.centralIconsArea}>
           <View style={styles.centralIconsContainer}>
             <View style={{ alignItems: 'center' }}>

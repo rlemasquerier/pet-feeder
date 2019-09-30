@@ -3,6 +3,7 @@ export interface User {
   name: string;
   role: string;
   fcmToken: string | null;
+  profilePictureUrl?: string;
 }
 
 export interface UserInput {
@@ -10,6 +11,15 @@ export interface UserInput {
   password: string;
   name: string;
   role: string;
+}
+
+export interface EditUserInput {
+  id: string;
+  email?: string;
+  name?: string;
+  role?: string;
+  fcmToken?: string;
+  profilePictureUrl?: string;
 }
 
 export interface Credentials {

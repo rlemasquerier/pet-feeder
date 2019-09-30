@@ -46,7 +46,7 @@ export const Profile: React.FC<{}> = () => {
               size={30}
               color={theme.colors.primary}
             />
-            <Text style={styles.text}>john.doe@gmail.com</Text>
+            <Text style={styles.text}>{connectedUser.data.me.email}</Text>
           </View>
           <View style={styles.detailsItem}>
             <Icon
@@ -55,7 +55,7 @@ export const Profile: React.FC<{}> = () => {
               size={30}
               color={theme.colors.primary}
             />
-            <Text style={styles.text}>John</Text>
+            <Text style={styles.text}>{connectedUser.data.me.name}</Text>
           </View>
         </View>
         <LargeButton

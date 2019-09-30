@@ -80,9 +80,13 @@ export const Profile: React.FC<{}> = () => {
           style={styles.profileImageContainer}
         >
           <Image
-            source={{
-              uri: connectedUser.data && connectedUser.data.me.profilePictureUrl,
-            }}
+            source={
+              connectedUser.data && connectedUser.data.me.profilePictureUrl
+                ? {
+                    uri: connectedUser.data.me.profilePictureUrl,
+                  }
+                : theme.images.profilePicturePlaceholder
+            }
             style={styles.profileImage}
           />
         </TouchableOpacity>

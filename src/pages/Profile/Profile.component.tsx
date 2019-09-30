@@ -10,13 +10,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import theme from './../../theme';
-import { LargeButton, Icon, Page } from '../../components';
-import { uploadPicture } from '../../api/apiClient';
+import { LargeButton, Icon, Page, Loader } from '../../components';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import ImagePicker from 'react-native-image-picker';
 import { EditUserInput, User } from 'pet-feeder/src/types/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 import { updateUserProfilePictureUrl } from 'pet-feeder/src/graphql/mutations';
+import { showProfilePictureImagePicker } from './utils/imagePicker';
 
 const PROFILE_PICTURE_SIZE = 150;
 const PROFILE_PICTURE_ACTIVE_OPACITY = 0.8;
@@ -26,7 +25,7 @@ const CENTRAL_ICONS_AREA_WIDTH = 200;
 const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
-interface UpdateUserMutationData {
+export interface UpdateUserMutationData {
   editUser: EditUserInput;
 }
 
@@ -35,36 +34,17 @@ export const Profile: React.FC<{}> = () => {
     updateUserProfilePictureUrl
   );
   const connectedUser = useQuery<{ me: User }>(getConnectedUser);
-
-  const onPressProfilePicture = async () => {
-    const options = {
-      title: 'Choisis ta photo de profil',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-      quality: 0.1,
-    };
-
-    ImagePicker.showImagePicker(options, async response => {
-      if (response.didCancel || response.error || response.customButton) {
-        return;
-      } else {
-        const uploadResponse = await uploadPicture(response);
-        if (connectedUser.data && connectedUser.data.me.id && uploadResponse.uri) {
-          updateUserUrl({
-            variables: { id: connectedUser.data.me.id, profilePictureUrl: uploadResponse.uri },
-          });
-        }
-      }
-    });
-  };
+  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+    return <Loader size={100} />;
+  }
   return (
     <Page>
       <View style={styles.header}>
         <TouchableOpacity
           activeOpacity={PROFILE_PICTURE_ACTIVE_OPACITY}
-          onPress={onPressProfilePicture}
+          // TODO: Understand why connectedUser.data can be undefined according to typescript
+          // @ts-ignore
+          onPress={() => showProfilePictureImagePicker(connectedUser.data.me, updateUserUrl)}
           style={styles.profileImageContainer}
         >
           <Image

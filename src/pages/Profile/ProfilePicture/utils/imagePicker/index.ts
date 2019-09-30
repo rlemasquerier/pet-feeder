@@ -1,8 +1,7 @@
 import { uploadPicture } from 'pet-feeder/src/api/apiClient';
-import { User, EditUserInput } from 'pet-feeder/src/types/types';
+import { User, EditUserInput, UpdateUserMutationData } from 'pet-feeder/src/types/types';
 import ImagePicker, { ImagePickerResponse } from 'react-native-image-picker';
 import { MutationFunctionOptions, ExecutionResult } from '@apollo/react-common';
-import { UpdateUserMutationData } from '../../Profile.component';
 
 type UpdateUserProfilePictureMutationType = (
   options?: MutationFunctionOptions<UpdateUserMutationData, EditUserInput> | undefined

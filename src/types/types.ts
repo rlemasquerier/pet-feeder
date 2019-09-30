@@ -22,6 +22,10 @@ export interface EditUserInput {
   profilePictureUrl?: string;
 }
 
+export interface UpdateUserMutationData {
+  editUser: EditUserInput;
+}
+
 export interface Credentials {
   email: string | undefined;
   password: string | undefined;

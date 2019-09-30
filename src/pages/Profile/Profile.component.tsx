@@ -1,38 +1,19 @@
 import React from 'react';
-import {
-  Text,
-  TextStyle,
-  StyleSheet,
-  View,
-  ViewStyle,
-  Image,
-  ImageStyle,
-  TouchableOpacity,
-} from 'react-native';
+import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page, Loader } from '../../components';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { EditUserInput, User } from 'pet-feeder/src/types/types';
+import { useQuery } from '@apollo/react-hooks';
+import { User } from 'pet-feeder/src/types/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
-import { updateUserProfilePictureUrl } from 'pet-feeder/src/graphql/mutations';
-import { showProfilePictureImagePicker } from './utils/imagePicker';
+import { PROFILE_PICTURE_SIZE, ProfilePicture } from './ProfilePicture';
 
-const PROFILE_PICTURE_SIZE = 150;
-const PROFILE_PICTURE_ACTIVE_OPACITY = 0.8;
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
 
 const CENTRAL_ICONS_AREA_WIDTH = 200;
 const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
-export interface UpdateUserMutationData {
-  editUser: EditUserInput;
-}
-
 export const Profile: React.FC<{}> = () => {
-  const [updateUserUrl] = useMutation<UpdateUserMutationData, EditUserInput>(
-    updateUserProfilePictureUrl
-  );
   const connectedUser = useQuery<{ me: User }>(getConnectedUser);
   if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
     return <Loader size={100} />;
@@ -40,24 +21,7 @@ export const Profile: React.FC<{}> = () => {
   return (
     <Page>
       <View style={styles.header}>
-        <TouchableOpacity
-          activeOpacity={PROFILE_PICTURE_ACTIVE_OPACITY}
-          // TODO: Understand why connectedUser.data can be undefined according to typescript
-          // @ts-ignore
-          onPress={() => showProfilePictureImagePicker(connectedUser.data.me, updateUserUrl)}
-          style={styles.profileImageContainer}
-        >
-          <Image
-            source={
-              connectedUser.data && connectedUser.data.me.profilePictureUrl
-                ? {
-                    uri: connectedUser.data.me.profilePictureUrl,
-                  }
-                : theme.images.profilePicturePlaceholder
-            }
-            style={styles.profileImage}
-          />
-        </TouchableOpacity>
+        <ProfilePicture user={connectedUser.data.me} />
       </View>
       <View style={styles.content}>
         <Text style={styles.username}>{connectedUser.data && connectedUser.data.me.name}</Text>
@@ -107,8 +71,6 @@ export const Profile: React.FC<{}> = () => {
 
 interface Style {
   text: TextStyle;
-  profileImageContainer: ViewStyle;
-  profileImage: ImageStyle;
   header: ViewStyle;
   content: ViewStyle;
   username: TextStyle;
@@ -126,17 +88,6 @@ const styles = StyleSheet.create<Style>({
     width: '100%',
     backgroundColor: theme.colors.banner,
     marginBottom: PROFILE_PICTURE_SIZE / 2,
-  },
-  profileImageContainer: {
-    position: 'absolute',
-    left: '50%',
-    marginLeft: -PROFILE_PICTURE_SIZE / 2,
-    bottom: -PROFILE_PICTURE_SIZE / 2,
-  },
-  profileImage: {
-    height: PROFILE_PICTURE_SIZE,
-    width: PROFILE_PICTURE_SIZE,
-    borderRadius: PROFILE_PICTURE_SIZE / 2,
   },
   content: {
     flex: 1,

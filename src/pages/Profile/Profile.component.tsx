@@ -13,10 +13,10 @@ import theme from './../../theme';
 import { LargeButton, Icon, Page } from '../../components';
 import { uploadPicture } from '../../api/apiClient';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import ImagePicker from 'react-native-image-picker';
 import { EditUserInput, User } from 'pet-feeder/src/types/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
+import { updateUserProfilePictureUrl } from 'pet-feeder/src/graphql/mutations';
 
 const PROFILE_PICTURE_SIZE = 150;
 const PROFILE_PICTURE_ACTIVE_OPACITY = 0.8;
@@ -29,18 +29,6 @@ const CENTRAL_ICONS_SIZE = 40;
 interface UpdateUserMutationData {
   editUser: EditUserInput;
 }
-
-const updateUserProfilePictureUrl = gql`
-  mutation editUser($id: String!, $profilePictureUrl: String!) {
-    editUser(input: { id: $id, patch: { profilePictureUrl: $profilePictureUrl } }) {
-      id
-      email
-      name
-      role
-      profilePictureUrl
-    }
-  }
-`;
 
 export const Profile: React.FC<{}> = () => {
   const [updateUserUrl] = useMutation<UpdateUserMutationData, EditUserInput>(

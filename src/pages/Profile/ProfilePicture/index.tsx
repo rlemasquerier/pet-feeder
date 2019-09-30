@@ -20,7 +20,6 @@ export const ProfilePicture: React.FC<Props> = ({ user }: Props) => {
   return (
     <TouchableOpacity
       activeOpacity={PROFILE_PICTURE_ACTIVE_OPACITY}
-      // TODO: Understand why user.data can be undefined according to typescript
       onPress={() => showProfilePictureImagePicker(user, updateUserUrl)}
       style={styles.profileImageContainer}
     >

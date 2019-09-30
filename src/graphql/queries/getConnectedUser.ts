@@ -10,6 +10,7 @@ export const getConnectedUser = gql`
       tribeMember
       tribeOwner
       fcmToken
+      profilePictureUrl
     }
   }
 `;

@@ -12,3 +12,4 @@ export { RoundHeader } from './RoundHeader';
 export { FiguresDisplay } from './FiguresDisplay';
 export { Loader } from './Loader';
 export { LottieAnimation } from './LottieAnimation';
+export { UserPictureBadge } from './UserPictureBadge';

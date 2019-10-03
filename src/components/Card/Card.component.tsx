@@ -51,11 +51,8 @@ const styles = StyleSheet.create<Style>({
   },
   contentContainer: {
     flex: 1,
-    flexDirection: 'row',
     borderBottomLeftRadius: theme.borders.radius,
     borderBottomRightRadius: theme.borders.radius,
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: theme.colors.white,
   },
   title: {

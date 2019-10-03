@@ -1,7 +1,12 @@
 import React from 'react';
-import { Card } from '../../../../../components';
+import { View, Text, StyleSheet, TextStyle } from 'react-native';
+import { Card, UserPictureBadge } from 'pet-feeder/src/components';
 import { getRecordHourFromTimestamp } from './utils';
-import { Record } from '../../../../../types/types';
+import { Record } from 'pet-feeder/src/types/types';
+import theme from 'pet-feeder/src/theme';
+
+const PICTURE_BADGE_SIZE = 40;
+const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
 
 interface Props {
   halfDay: 'morning' | 'evening';
@@ -17,11 +22,26 @@ export const HalfDayCard: React.FC<Props> = (props: Props) => {
           ? `${timeLabel} à ${getRecordHourFromTimestamp(props.record.timestamp)}`
           : timeLabel
       }
-      content={
-        props.record
+    >
+      <View style={{ width: PICTURE_BADGE_SIZE, marginHorizontal: PICTURE_BADGE_MARGIN }} />
+      <Text style={styles.content}>
+        {props.record
           ? `Gaïa a été nourrie par ${props.record.feederName}`
-          : "Gaïa attend d'être nourrie"
-      }
-    />
+          : "Gaïa attend d'être nourrie"}
+      </Text>
+      {props.record && (
+        <UserPictureBadge size={PICTURE_BADGE_SIZE} userId={props.record.feederId} />
+      )}
+    </Card>
   );
 };
+
+interface Style {
+  content: TextStyle;
+}
+
+const styles = StyleSheet.create<Style>({
+  content: {
+    ...theme.fonts.regular,
+  },
+});

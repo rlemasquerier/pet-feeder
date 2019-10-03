@@ -1,10 +1,11 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, ImageStyle } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
 import { getUserById } from 'pet-feeder/src/graphql/queries';
 import theme from 'pet-feeder/src/theme';
 
 interface Props {
+  style?: ImageStyle;
   userId: string;
   size: number;
 }
@@ -17,6 +18,7 @@ export const UserPictureBadge: React.FC<Props> = (props: Props) => {
     height: props.size,
     width: props.size,
     borderRadius: props.size / 2,
+    ...props.style,
   };
   return (
     <Image

@@ -7,20 +7,17 @@ const CARD_HEIGHT = 103;
 
 interface Props {
   title: string;
-  content: string;
 }
 
 export class Card extends Component<Props> {
   public render(): ReactNode {
-    const { title, content } = this.props;
+    const { title, children } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
         </View>
-        <View style={styles.contentContainer}>
-          <Text style={styles.content}>{content}</Text>
-        </View>
+        <View style={styles.contentContainer}>{children}</View>
       </View>
     );
   }
@@ -31,7 +28,6 @@ interface Style {
   titleContainer: ViewStyle;
   contentContainer: ViewStyle;
   title: TextStyle;
-  content: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -55,17 +51,15 @@ const styles = StyleSheet.create<Style>({
   },
   contentContainer: {
     flex: 1,
+    flexDirection: 'row',
     borderBottomLeftRadius: theme.borders.radius,
     borderBottomRightRadius: theme.borders.radius,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: theme.colors.white,
   },
   title: {
     ...theme.fonts.strong,
     color: theme.colors.white,
-  },
-  content: {
-    ...theme.fonts.regular,
   },
 });

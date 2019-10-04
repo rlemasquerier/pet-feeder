@@ -1,77 +1,52 @@
-import React, { Component, ReactNode } from 'react';
-import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import React, { useState } from 'react';
+import { Text, TextStyle, StyleSheet, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import { RoundHeader, Loader } from '../../components';
+import { Page, Loader } from '../../components';
+import {
+  AnimatedHeader,
+  HEADER_DIMENSIONS,
+} from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
-
-const HEADER = {
-  EXTENDED_HEIGHT: 250,
-  FOLDED_HEIGHT: 150,
-  EXTENDED_ROUNDNESS_RATIO: 0.9,
-};
+import { useQuery } from '@apollo/react-hooks';
+import { User } from 'pet-feeder/src/types/types';
+import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 
 interface State {
   scrollY: Animated.Value<number>;
-  isLoading: boolean;
 }
 
-export class Reminders extends Component<{}, State> {
-  public state = {
-    scrollY: new Animated.Value(0),
-    isLoading: true,
-  };
-
-  public componentDidMount() {
-    setTimeout(() => {
-      this.setState({ isLoading: false });
-    }, 3000);
+export const Reminders: React.FC<{}> = () => {
+  const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
+  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
+  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+    return <Loader size={100} />;
   }
-
-  public render(): ReactNode {
-    const translateY = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.FOLDED_HEIGHT],
-      outputRange: [0, -HEADER.FOLDED_HEIGHT],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    if (this.state.isLoading) {
-      return <Loader size={100} />;
-    }
-    return (
-      <View style={styles.container}>
-        <RoundHeader
-          color={theme.colors.banner}
-          height={HEADER.EXTENDED_HEIGHT}
-          ratio={HEADER.EXTENDED_ROUNDNESS_RATIO}
-          translateY={translateY}
-        />
-        <Animated.ScrollView
-          scrollEventThrottle={16}
-          onScroll={onScroll({ y: this.state.scrollY })}
-          contentContainerStyle={{ alignItems: 'center', paddingTop: HEADER.EXTENDED_HEIGHT }}
-        >
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-          <Text style={styles.text}>Reminders</Text>
-        </Animated.ScrollView>
-      </View>
-    );
-  }
-}
+  const user = connectedUser.data.me;
+  return (
+    <Page>
+      <Animated.ScrollView
+        scrollEventThrottle={16}
+        onScroll={onScroll({ y: scrollY })}
+        contentContainerStyle={styles.container}
+      >
+        <Text style={styles.text}>Content</Text>
+      </Animated.ScrollView>
+      <AnimatedHeader
+        scrollY={scrollY}
+        title="Rappels"
+        subtitle={user.name}
+        imageSource={
+          user && user.profilePictureUrl
+            ? {
+                uri: user.profilePictureUrl,
+              }
+            : theme.images.profilePicturePlaceholder
+        }
+      />
+    </Page>
+  );
+};
 
 interface Style {
   container: ViewStyle;
@@ -80,9 +55,10 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    paddingTop: HEADER_DIMENSIONS.EXTENDED_HEIGHT,
+    paddingBottom: 4 * theme.margins.unit,
+    paddingHorizontal: theme.margins.pagePadding,
   },
   text: {
     ...theme.fonts.regular,

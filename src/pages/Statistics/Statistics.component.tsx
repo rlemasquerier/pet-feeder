@@ -10,8 +10,8 @@ import {
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
 import { User } from 'pet-feeder/src/types';
-import { getConnectedUser, getRecordsByUser } from 'pet-feeder/src/graphql/queries';
-import { getUserRecordsStats } from './utils/getUserRecordsStats';
+import { getConnectedUser, getRecords } from 'pet-feeder/src/graphql/queries';
+import { getUserRecordsStats, getAllUsersRecordsCount } from './utils';
 import { Record } from 'pet-feeder/src/types';
 
 export const Statistics: React.FC<{}> = () => {
@@ -21,16 +21,15 @@ export const Statistics: React.FC<{}> = () => {
     return <Loader size={100} />;
   }
   const user = connectedUser.data.me;
-  const userRecords = useQuery<{ records: Record[] }>(getRecordsByUser, {
-    variables: { userId: user.id },
-  });
-  const figuresDisplayData = getUserRecordsStats(userRecords.data && userRecords.data.records);
-  const recordsData = [
-    { user: 'Rodolphe', count: 30 },
-    { user: 'Huber', count: 50 },
-    { user: 'Yoann', count: 40 },
-    { user: 'Marion', count: 10 },
-  ];
+  const records = useQuery<{ records: Record[] }>(getRecords);
+  const figuresDisplayData =
+    records.data && records.data.records
+      ? getUserRecordsStats(records.data.records.filter(record => record.feederId === user.id))
+      : [];
+  const recordsData =
+    records.data && records.data.records
+      ? getAllUsersRecordsCount(records.data && records.data.records)
+      : [];
   return (
     <Page>
       <Animated.ScrollView
@@ -40,7 +39,7 @@ export const Statistics: React.FC<{}> = () => {
       >
         <FiguresDisplay data={figuresDisplayData} />
         <View style={styles.cardStyle}>
-          <BarChart data={recordsData} />
+          {recordsData.length > 0 && <BarChart data={recordsData} />}
         </View>
         <FiguresDisplay
           data={[

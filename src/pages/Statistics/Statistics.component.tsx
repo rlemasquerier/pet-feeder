@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, ImageStyle, Dimensions, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import { RoundHeader, Page, BarChart, FiguresDisplay } from '../../components';
+import { RoundHeader, Page, BarChart, FiguresDisplay, Loader } from '../../components';
 import theme from './../../theme';
+import { useQuery } from '@apollo/react-hooks';
+import { User } from 'pet-feeder/src/types/types';
+import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
@@ -20,6 +23,11 @@ const HEADER = {
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState(new Animated.Value(0));
+  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
+  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+    return <Loader size={100} />;
+  }
+  const user = connectedUser.data.me;
   const figuresDisplayData = [
     { label: 'Repas', value: 38 },
     { label: 'Matins', value: 2 },
@@ -96,12 +104,15 @@ export const Statistics: React.FC<{}> = () => {
               ],
             },
           ]}
-          source={{
-            uri:
-              'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
-          }}
+          source={
+            user && user.profilePictureUrl
+              ? {
+                  uri: user.profilePictureUrl,
+                }
+              : theme.images.profilePicturePlaceholder
+          }
         />
-        <Text style={styles.userNameText}>Jean-Mich</Text>
+        <Text style={styles.userNameText}>{user.name}</Text>
       </RoundHeader>
     </Page>
   );

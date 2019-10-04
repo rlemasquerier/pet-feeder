@@ -9,15 +9,19 @@ const HEIGHT = 300;
 const CONTENT_PADDING = 4 * theme.margins.unit;
 const LABEL_WIDTH = (Dimensions.get('window').width - 2 * CONTENT_PADDING) / 4;
 
-export class BarChart extends Component<{}, {}> {
+interface DataPoint {
+  user: string;
+  count: number;
+}
+
+interface Props {
+  data: DataPoint[];
+}
+
+export class BarChart extends Component<Props, {}> {
   public render(): ReactNode {
     const fill = theme.colors.primary;
-    const data = [
-      { user: 'Rodolphe', count: 30 },
-      { user: 'Huber', count: 50 },
-      { user: 'Yoann', count: 40 },
-      { user: 'Marion', count: 10 },
-    ];
+    const data = this.props.data;
     const rawData = data.map(element => element.count);
     const axis = data.map(element => element.user);
     const CUT_OFF = 40;

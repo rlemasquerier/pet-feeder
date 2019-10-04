@@ -25,6 +25,12 @@ export const Statistics: React.FC<{}> = () => {
     variables: { userId: user.id },
   });
   const figuresDisplayData = getUserRecordsStats(userRecords.data && userRecords.data.records);
+  const recordsData = [
+    { user: 'Rodolphe', count: 30 },
+    { user: 'Huber', count: 50 },
+    { user: 'Yoann', count: 40 },
+    { user: 'Marion', count: 10 },
+  ];
   return (
     <Page>
       <Animated.ScrollView
@@ -34,7 +40,7 @@ export const Statistics: React.FC<{}> = () => {
       >
         <FiguresDisplay data={figuresDisplayData} />
         <View style={styles.cardStyle}>
-          <BarChart />
+          <BarChart data={recordsData} />
         </View>
         <FiguresDisplay
           data={[

@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, ImageStyle, Dimensions, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
@@ -18,105 +18,94 @@ const HEADER = {
   },
 };
 
-interface State {
-  scrollY: Animated.Value<number>;
-}
+export const Statistics: React.FC<{}> = () => {
+  const [scrollY] = useState(new Animated.Value(0));
+  const figuresDisplayData = [
+    { label: 'Repas', value: 38 },
+    { label: 'Matins', value: 2 },
+    { label: 'Soirs', value: 56 },
+  ];
 
-export class Statistics extends Component<{}, State> {
-  public state = {
-    scrollY: new Animated.Value(0),
-  };
-  public render(): ReactNode {
-    const figuresDisplayData = [
-      { label: 'Repas', value: 38 },
-      { label: 'Matins', value: 2 },
-      { label: 'Soirs', value: 56 },
-    ];
-
-    const translateY = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-      outputRange: [0, -(HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT)],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    const profileImageSize = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-      outputRange: [HEADER.PROFILE_PICTURE.EXTENDED_SIZE, HEADER.PROFILE_PICTURE.FOLDED_SIZE],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    const profileImageBorderRadius = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-      outputRange: [
-        HEADER.PROFILE_PICTURE.EXTENDED_SIZE / 2,
-        HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2,
-      ],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    const profileImageTranslateX = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-      outputRange: [
-        0,
-        -SCREEN_WIDTH / 2 +
-          HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2 +
-          HEADER.PROFILE_PICTURE.FOLDED_MARGIN_LEFT,
-      ],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    const profileImageTranslateY = this.state.scrollY.interpolate({
-      inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-      outputRange: [0, 6 * theme.margins.unit],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-    return (
-      <Page>
-        <Animated.ScrollView
-          scrollEventThrottle={16}
-          onScroll={onScroll({ y: this.state.scrollY })}
-          contentContainerStyle={styles.content}
-        >
-          <FiguresDisplay data={figuresDisplayData} />
-          <View style={styles.cardStyle}>
-            <BarChart />
-          </View>
-          <FiguresDisplay
-            data={[
-              ...figuresDisplayData,
-              { value: 12, label: 'Test' },
-              { value: 3, label: 'Very long' },
-            ]}
-          />
-          <FiguresDisplay data={figuresDisplayData} />
-        </Animated.ScrollView>
-        <RoundHeader
-          color={theme.colors.banner}
-          height={HEADER.EXTENDED_HEIGHT}
-          ratio={HEADER.EXTENDED_ROUNDNESS_RATIO}
-          title="Statistiques"
-          translateY={translateY}
-        >
-          <Animated.Image
-            // @ts-ignore
-            style={[
-              styles.profileImage,
-              {
-                borderRadius: profileImageBorderRadius,
-                width: profileImageSize,
-                height: profileImageSize,
-                transform: [
-                  { translateX: profileImageTranslateX, translateY: profileImageTranslateY },
-                ],
-              },
-            ]}
-            source={{
-              uri:
-                'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
-            }}
-          />
-          <Text style={styles.userNameText}>Jean-Mich</Text>
-        </RoundHeader>
-      </Page>
-    );
-  }
-}
+  const translateY = scrollY.interpolate({
+    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
+    outputRange: [0, -(HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT)],
+    extrapolate: Animated.Extrapolate.CLAMP,
+  });
+  const profileImageSize = scrollY.interpolate({
+    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
+    outputRange: [HEADER.PROFILE_PICTURE.EXTENDED_SIZE, HEADER.PROFILE_PICTURE.FOLDED_SIZE],
+    extrapolate: Animated.Extrapolate.CLAMP,
+  });
+  const profileImageBorderRadius = scrollY.interpolate({
+    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
+    outputRange: [HEADER.PROFILE_PICTURE.EXTENDED_SIZE / 2, HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2],
+    extrapolate: Animated.Extrapolate.CLAMP,
+  });
+  const profileImageTranslateX = scrollY.interpolate({
+    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
+    outputRange: [
+      0,
+      -SCREEN_WIDTH / 2 +
+        HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2 +
+        HEADER.PROFILE_PICTURE.FOLDED_MARGIN_LEFT,
+    ],
+    extrapolate: Animated.Extrapolate.CLAMP,
+  });
+  const profileImageTranslateY = scrollY.interpolate({
+    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
+    outputRange: [0, 6 * theme.margins.unit],
+    extrapolate: Animated.Extrapolate.CLAMP,
+  });
+  return (
+    <Page>
+      <Animated.ScrollView
+        scrollEventThrottle={16}
+        onScroll={onScroll({ y: scrollY })}
+        contentContainerStyle={styles.content}
+      >
+        <FiguresDisplay data={figuresDisplayData} />
+        <View style={styles.cardStyle}>
+          <BarChart />
+        </View>
+        <FiguresDisplay
+          data={[
+            ...figuresDisplayData,
+            { value: 12, label: 'Test' },
+            { value: 3, label: 'Very long' },
+          ]}
+        />
+        <FiguresDisplay data={figuresDisplayData} />
+      </Animated.ScrollView>
+      <RoundHeader
+        color={theme.colors.banner}
+        height={HEADER.EXTENDED_HEIGHT}
+        ratio={HEADER.EXTENDED_ROUNDNESS_RATIO}
+        title="Statistiques"
+        translateY={translateY}
+      >
+        <Animated.Image
+          // @ts-ignore
+          style={[
+            styles.profileImage,
+            {
+              borderRadius: profileImageBorderRadius,
+              width: profileImageSize,
+              height: profileImageSize,
+              transform: [
+                { translateX: profileImageTranslateX, translateY: profileImageTranslateY },
+              ],
+            },
+          ]}
+          source={{
+            uri:
+              'https://s3.eu-west-3.amazonaws.com/pet-feeder-resources.tech/1565210603565+-+IMG_2818_small.jpg',
+          }}
+        />
+        <Text style={styles.userNameText}>Jean-Mich</Text>
+      </RoundHeader>
+    </Page>
+  );
+};
 
 interface Style {
   profileImage: ImageStyle;

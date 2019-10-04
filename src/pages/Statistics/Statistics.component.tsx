@@ -1,28 +1,19 @@
 import React, { useState } from 'react';
-import { Text, TextStyle, StyleSheet, ImageStyle, Dimensions, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import { RoundHeader, Page, BarChart, FiguresDisplay, Loader } from '../../components';
+import { Page, BarChart, FiguresDisplay, Loader } from '../../components';
+import {
+  AnimatedHeader,
+  HEADER_DIMENSIONS,
+} from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
 import { User } from 'pet-feeder/src/types/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 
-const SCREEN_WIDTH = Dimensions.get('screen').width;
-
-const HEADER = {
-  EXTENDED_HEIGHT: 250,
-  FOLDED_HEIGHT: 100,
-  EXTENDED_ROUNDNESS_RATIO: 0.9,
-  PROFILE_PICTURE: {
-    EXTENDED_SIZE: 100,
-    FOLDED_SIZE: 50,
-    FOLDED_MARGIN_LEFT: 4 * theme.margins.unit,
-  },
-};
-
 export const Statistics: React.FC<{}> = () => {
-  const [scrollY] = useState(new Animated.Value(0));
+  const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
   const connectedUser = useQuery<{ me: User }>(getConnectedUser);
   if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
     return <Loader size={100} />;
@@ -33,37 +24,6 @@ export const Statistics: React.FC<{}> = () => {
     { label: 'Matins', value: 2 },
     { label: 'Soirs', value: 56 },
   ];
-
-  const translateY = scrollY.interpolate({
-    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-    outputRange: [0, -(HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT)],
-    extrapolate: Animated.Extrapolate.CLAMP,
-  });
-  const profileImageSize = scrollY.interpolate({
-    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-    outputRange: [HEADER.PROFILE_PICTURE.EXTENDED_SIZE, HEADER.PROFILE_PICTURE.FOLDED_SIZE],
-    extrapolate: Animated.Extrapolate.CLAMP,
-  });
-  const profileImageBorderRadius = scrollY.interpolate({
-    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-    outputRange: [HEADER.PROFILE_PICTURE.EXTENDED_SIZE / 2, HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2],
-    extrapolate: Animated.Extrapolate.CLAMP,
-  });
-  const profileImageTranslateX = scrollY.interpolate({
-    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-    outputRange: [
-      0,
-      -SCREEN_WIDTH / 2 +
-        HEADER.PROFILE_PICTURE.FOLDED_SIZE / 2 +
-        HEADER.PROFILE_PICTURE.FOLDED_MARGIN_LEFT,
-    ],
-    extrapolate: Animated.Extrapolate.CLAMP,
-  });
-  const profileImageTranslateY = scrollY.interpolate({
-    inputRange: [0, HEADER.EXTENDED_HEIGHT - HEADER.FOLDED_HEIGHT],
-    outputRange: [0, 6 * theme.margins.unit],
-    extrapolate: Animated.Extrapolate.CLAMP,
-  });
   return (
     <Page>
       <Animated.ScrollView
@@ -84,60 +44,31 @@ export const Statistics: React.FC<{}> = () => {
         />
         <FiguresDisplay data={figuresDisplayData} />
       </Animated.ScrollView>
-      <RoundHeader
-        color={theme.colors.banner}
-        height={HEADER.EXTENDED_HEIGHT}
-        ratio={HEADER.EXTENDED_ROUNDNESS_RATIO}
+      <AnimatedHeader
+        scrollY={scrollY}
         title="Statistiques"
-        translateY={translateY}
-      >
-        <Animated.Image
-          // @ts-ignore
-          style={[
-            styles.profileImage,
-            {
-              borderRadius: profileImageBorderRadius,
-              width: profileImageSize,
-              height: profileImageSize,
-              transform: [
-                { translateX: profileImageTranslateX, translateY: profileImageTranslateY },
-              ],
-            },
-          ]}
-          source={
-            user && user.profilePictureUrl
-              ? {
-                  uri: user.profilePictureUrl,
-                }
-              : theme.images.profilePicturePlaceholder
-          }
-        />
-        <Text style={styles.userNameText}>{user.name}</Text>
-      </RoundHeader>
+        subtitle={user.name}
+        imageSource={
+          user && user.profilePictureUrl
+            ? {
+                uri: user.profilePictureUrl,
+              }
+            : theme.images.profilePicturePlaceholder
+        }
+      />
     </Page>
   );
 };
 
 interface Style {
-  profileImage: ImageStyle;
-  userNameText: TextStyle;
   content: ViewStyle;
   cardStyle: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
-  profileImage: {
-    resizeMode: 'cover',
-  },
-  userNameText: {
-    ...theme.fonts.hugeStrong,
-    marginVertical: 4 * theme.margins.unit,
-    fontSize: 20,
-    color: theme.colors.white,
-  },
   content: {
     alignItems: 'stretch',
-    paddingTop: HEADER.EXTENDED_HEIGHT,
+    paddingTop: HEADER_DIMENSIONS.EXTENDED_HEIGHT,
     paddingBottom: 4 * theme.margins.unit,
     paddingHorizontal: theme.margins.pagePadding,
   },

@@ -1,0 +1,1 @@
+export { AnimatedHeader } from './AnimatedHeader';

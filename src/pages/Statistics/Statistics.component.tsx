@@ -12,6 +12,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { User } from 'pet-feeder/src/types';
 import { getConnectedUser, getRecordsByUser } from 'pet-feeder/src/graphql/queries';
 import { getUserRecordsStats } from './utils/getUserRecordsStats';
+import { Record } from 'pet-feeder/src/types';
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
@@ -20,10 +21,10 @@ export const Statistics: React.FC<{}> = () => {
     return <Loader size={100} />;
   }
   const user = connectedUser.data.me;
-  const userRecords = useQuery<any>(getRecordsByUser, {
+  const userRecords = useQuery<{ records: Record[] }>(getRecordsByUser, {
     variables: { userId: user.id },
   });
-  const figuresDisplayData = getUserRecordsStats(userRecords.data.records);
+  const figuresDisplayData = getUserRecordsStats(userRecords.data && userRecords.data.records);
   return (
     <Page>
       <Animated.ScrollView

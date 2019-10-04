@@ -2,7 +2,7 @@ import moment from 'moment';
 import { computeDayHalf, MORNING, EVENING } from '../../../services';
 import { Record } from '../../../types';
 
-export const getUserRecordsStats = (recordsList: Record[]) => {
+export const getUserRecordsStats = (recordsList: Record[] | undefined) => {
   const sanitizedList = recordsList || [];
   return [
     { label: 'Repas', value: sanitizedList.length },

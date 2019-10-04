@@ -10,6 +10,7 @@ import {
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
 import { User } from 'pet-feeder/src/types';
+import { getConnectedUser, getRecordsByUser } from 'pet-feeder/src/graphql/queries';
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
@@ -18,8 +19,14 @@ export const Statistics: React.FC<{}> = () => {
     return <Loader size={100} />;
   }
   const user = connectedUser.data.me;
+  const userRecords = useQuery<any>(getRecordsByUser, {
+    variables: { userId: user.id },
+  });
   const figuresDisplayData = [
-    { label: 'Repas', value: 38 },
+    {
+      label: 'Repas',
+      value: userRecords.data && userRecords.data.records ? userRecords.data.records.length : 0,
+    },
     { label: 'Matins', value: 2 },
     { label: 'Soirs', value: 56 },
   ];

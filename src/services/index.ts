@@ -1,2 +1,2 @@
 export { dateToString } from './dateToString';
-export { computeDayHalf } from './computeDayHalf';
+export { computeDayHalf, MORNING, EVENING } from './computeDayHalf';

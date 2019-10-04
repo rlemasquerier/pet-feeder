@@ -1,10 +1,13 @@
 import { Moment } from 'moment';
 
-export const computeDayHalf = (date: Moment): 'morning' | 'evening' => {
+export const MORNING = 'morning';
+export const EVENING = 'evening';
+
+export const computeDayHalf = (date: Moment): typeof MORNING | typeof EVENING => {
   const eveningToMorningThreshold = 3;
   const morningToEveningThreshold = 15;
   if (date.hour() >= eveningToMorningThreshold && date.hour() < morningToEveningThreshold) {
-    return 'morning';
+    return MORNING;
   }
-  return 'evening';
+  return EVENING;
 };

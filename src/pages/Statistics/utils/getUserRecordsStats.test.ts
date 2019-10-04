@@ -39,4 +39,16 @@ describe('[Service] getUserRecordsStats', () => {
     ];
     expect(actual).toEqual(expected);
   });
+  it('should return the correct stats values if the list is undefined', () => {
+    const actual = getUserRecordsStats(undefined);
+    const expected = [
+      {
+        label: 'Repas',
+        value: 0,
+      },
+      { label: 'Matins', value: 0 },
+      { label: 'Soirs', value: 0 },
+    ];
+    expect(actual).toEqual(expected);
+  });
 });

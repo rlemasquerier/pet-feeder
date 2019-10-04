@@ -3,17 +3,18 @@ import { computeDayHalf, MORNING, EVENING } from '../../../services';
 import { Record } from '../../../types';
 
 export const getUserRecordsStats = (recordsList: Record[]) => {
+  const sanitizedList = recordsList || [];
   return [
-    { label: 'Repas', value: recordsList.length },
+    { label: 'Repas', value: sanitizedList.length },
     {
       label: 'Matins',
-      value: recordsList.filter(
+      value: sanitizedList.filter(
         (record: Record) => computeDayHalf(moment(record.timestamp)) === MORNING
       ).length,
     },
     {
       label: 'Soirs',
-      value: recordsList.filter(
+      value: sanitizedList.filter(
         (record: Record) => computeDayHalf(moment(record.timestamp)) === EVENING
       ).length,
     },

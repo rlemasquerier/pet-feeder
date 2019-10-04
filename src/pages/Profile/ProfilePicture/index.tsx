@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, ViewStyle, ImageStyle, TouchableOpacity, StyleSheet } from 'react-native';
-import { User, EditUserInput, UpdateUserMutationData } from 'pet-feeder/src/types/types';
+import { User, EditUserInput, UpdateUserMutationData } from 'pet-feeder/src/types';
 import theme from 'pet-feeder/src/theme';
 import { useMutation } from 'react-apollo';
 import { updateUserProfilePictureUrl } from 'pet-feeder/src/graphql/mutations';

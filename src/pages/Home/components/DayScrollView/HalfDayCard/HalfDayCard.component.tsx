@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Card, UserPictureBadge } from 'pet-feeder/src/components';
 import { getRecordHourFromTimestamp } from './utils';
-import { Record } from 'pet-feeder/src/types/types';
+import { Record } from 'pet-feeder/src/types';
 import theme from 'pet-feeder/src/theme';
 
 const PICTURE_BADGE_SIZE = 40;

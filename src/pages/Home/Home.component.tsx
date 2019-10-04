@@ -4,7 +4,7 @@ import { NavigationScreenProps } from 'react-navigation';
 import moment, { Moment } from 'moment';
 import { Page, Calendar, TopBanner } from '../../components';
 import { DayScrollView } from './components/DayScrollView/DayScrollView.component';
-import { User } from '../../types/types';
+import { User } from '../../types';
 import theme from '../../theme';
 import { checkPermission } from 'pet-feeder/src/services/notifications';
 

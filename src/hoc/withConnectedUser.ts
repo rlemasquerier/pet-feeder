@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import { getConnectedUser } from '../graphql/queries';
-import { User } from '../types/types';
+import { User } from '../types';
 import ApolloClient from 'apollo-client';
 
 interface Response {

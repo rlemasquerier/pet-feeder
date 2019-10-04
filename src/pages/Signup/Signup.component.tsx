@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { Formik, FormikActions } from 'formik';
 import { Page } from 'pet-feeder/src/components';
 import { SignupForm, Values } from './SignupForm';
-import { User, UserInput, Credentials } from 'pet-feeder/src/types/types';
+import { User, UserInput, Credentials } from 'pet-feeder/src/types';
 import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
 
 const initialValues: Values = {

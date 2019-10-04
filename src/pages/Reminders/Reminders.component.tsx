@@ -9,7 +9,7 @@ import {
 } from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types/types';
+import { User } from 'pet-feeder/src/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 
 interface State {

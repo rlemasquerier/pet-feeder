@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { Credentials } from '../../types/types';
+import { Credentials } from '../../types';
 import { RootState } from '../reducer';
 import { LoginAPIResponse } from '../../api/apiClient';
 

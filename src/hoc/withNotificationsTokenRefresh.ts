@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import { updateUserNotificationsToken } from 'pet-feeder/src/graphql/mutations';
-import { User } from '../types/types';
+import { User } from '../types';
 
 interface Response {
   editUser: User;

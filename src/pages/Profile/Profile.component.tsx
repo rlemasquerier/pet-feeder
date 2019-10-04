@@ -3,7 +3,7 @@ import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page, Loader } from '../../components';
 import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types/types';
+import { User } from 'pet-feeder/src/types';
 import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 import { PROFILE_PICTURE_SIZE, ProfilePicture } from './ProfilePicture';
 

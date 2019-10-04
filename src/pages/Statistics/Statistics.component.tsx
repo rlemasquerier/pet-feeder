@@ -9,8 +9,7 @@ import {
 } from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types/types';
-import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
+import { User } from 'pet-feeder/src/types';
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));

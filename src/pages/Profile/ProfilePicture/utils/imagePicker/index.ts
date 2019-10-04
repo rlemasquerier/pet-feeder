@@ -1,5 +1,5 @@
 import { uploadPicture } from 'pet-feeder/src/api/apiClient';
-import { User, EditUserInput, UpdateUserMutationData } from 'pet-feeder/src/types/types';
+import { User, EditUserInput, UpdateUserMutationData } from 'pet-feeder/src/types';
 import ImagePicker, { ImagePickerResponse } from 'react-native-image-picker';
 import { MutationFunctionOptions, ExecutionResult } from '@apollo/react-common';
 

@@ -41,14 +41,6 @@ export const Statistics: React.FC<{}> = () => {
         <View style={styles.cardStyle}>
           {recordsData.length > 0 && <BarChart data={recordsData} />}
         </View>
-        <FiguresDisplay
-          data={[
-            ...figuresDisplayData,
-            { value: 12, label: 'Test' },
-            { value: 3, label: 'Very long' },
-          ]}
-        />
-        <FiguresDisplay data={figuresDisplayData} />
       </Animated.ScrollView>
       <AnimatedHeader
         scrollY={scrollY}

@@ -5,3 +5,4 @@ export { Profile } from './Profile';
 export { Reminders } from './Reminders';
 export { Statistics } from './Statistics';
 export { Signup } from './Signup';
+export { JoinOrCreateTribe } from './JoinOrCreateTribe';

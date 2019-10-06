@@ -23,6 +23,10 @@ const fonts = {
   title: {
     fontSize: 32,
   },
+  code: {
+    fontFamily: 'MADEGoodTimeGrotesk',
+    fontSize: 40,
+  },
 };
 
 export default fonts;

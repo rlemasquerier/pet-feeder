@@ -1,0 +1,1 @@
+export { TribeCode } from './TribeCode';

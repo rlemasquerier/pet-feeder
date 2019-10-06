@@ -11,6 +11,7 @@ import {
 import theme from './../../theme';
 
 const BUTTON_HEIGHT = 50;
+const BUTTON_ACTIVE_OPACITY = 0.8;
 
 interface Props {
   label: string;
@@ -22,7 +23,11 @@ export class Button extends Component<Props, {}> {
   public render(): ReactNode {
     const { label, onPress } = this.props;
     return (
-      <TouchableOpacity onPress={onPress} style={styles.touchable}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={styles.touchable}
+        activeOpacity={BUTTON_ACTIVE_OPACITY}
+      >
         <View style={styles.container}>
           {this.props.isLoading ? <ActivityIndicator /> : <Text style={styles.text}>{label}</Text>}
         </View>

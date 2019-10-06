@@ -4,7 +4,8 @@
   "private": true,
   "rnpm": {
     "assets": [
-      "assets/icons"
+      "assets/icons",
+      "assets/fonts/MADEGoodTimeGrotesk"
     ]
   },
   "scripts": {

@@ -26,9 +26,16 @@ export class Home extends Component<Props, State> {
   public componentDidUpdate = async () => {
     if (this.props.user) {
       // TODO: Find a way not to run this logic at each component update
-      const fcmToken = await checkPermission();
-      if (fcmToken !== this.props.user.fcmToken) {
-        this.props.updateUserFCM({ variables: { id: this.props.user.id, fcmToken } });
+      try {
+        const fcmToken = await checkPermission();
+        if (fcmToken !== this.props.user.fcmToken) {
+          this.props.updateUserFCM({ variables: { id: this.props.user.id, fcmToken } });
+        }
+      } catch (error) {
+        console.warn(
+          "Couldn't check if user has allowed notifications. Firebase may have a bad initialization : ",
+          error
+        );
       }
     }
   };

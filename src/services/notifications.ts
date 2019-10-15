@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { firebase } from '@react-native-firebase/messaging';
+import messaging from '@react-native-firebase/messaging';
 
 const getToken = async (): Promise<string | undefined> => {
   let fcmToken = await AsyncStorage.getItem('fcmToken');
   if (!fcmToken) {
-    fcmToken = await firebase.messaging().getToken();
+    fcmToken = await messaging().getToken();
     if (fcmToken) {
       // user has a device token
       await AsyncStorage.setItem('fcmToken', fcmToken);
@@ -15,7 +15,7 @@ const getToken = async (): Promise<string | undefined> => {
 
 const requestPermission = async (): Promise<string | undefined> => {
   try {
-    await firebase.messaging().requestPermission();
+    await messaging().requestPermission();
     // User has authorised
     return getToken();
   } catch (error) {
@@ -24,10 +24,14 @@ const requestPermission = async (): Promise<string | undefined> => {
 };
 
 export const checkPermission = async (): Promise<string | undefined> => {
-  const enabled = await firebase.messaging().hasPermission();
-  if (enabled) {
-    return getToken();
-  } else {
-    return requestPermission();
+  try {
+    const enabled = await messaging().hasPermission();
+    if (enabled) {
+      return getToken();
+    } else {
+      return requestPermission();
+    }
+  } catch (error) {
+    throw error;
   }
 };

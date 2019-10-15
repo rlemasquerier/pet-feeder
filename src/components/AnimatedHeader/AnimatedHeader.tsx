@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TextStyle, StyleSheet, ImageStyle, Dimensions, ImageURISource } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { RoundHeader } from '../../components';
+import { RoundHeader } from '../../components/RoundHeader';
 import theme from './../../theme';
 
 interface Props {

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import firebase from 'react-native-firebase';
+import { firebase } from '@react-native-firebase/messaging';
 
 const getToken = async (): Promise<string | undefined> => {
   let fcmToken = await AsyncStorage.getItem('fcmToken');

@@ -27,13 +27,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-  <string>Pet Feeder voudrait accéder à votre gallerie de photos</string>
-  <key>NSCameraUsageDescription</key>
-  <string>Pet Feeder voudrait accéder à l'appareil photo</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>Pet Feeder voudrait sauvegarder des photos sur votre appareil</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>Pet Feeder voudrait accéder au microphone, pour l'enregistrement vidéo</string>
+	<string>Pet Feeder voudrait accéder à votre gallerie de photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Pet Feeder voudrait accéder à l'appareil photo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Pet Feeder voudrait sauvegarder des photos sur votre appareil</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Pet Feeder voudrait accéder au microphone, pour l'enregistrement vidéo</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -53,9 +53,10 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>icomoon.ttf</string>
 		<string>AntDesign.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
@@ -64,6 +65,7 @@
 		<string>FontAwesome5_Brands.ttf</string>
 		<string>FontAwesome5_Regular.ttf</string>
 		<string>FontAwesome5_Solid.ttf</string>
+		<string>Fontisto.ttf</string>
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
@@ -71,7 +73,6 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>icomoon.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

@@ -3,15 +3,16 @@ import {
   StyleSheet,
   View,
   ViewStyle,
+  Dimensions,
   Image,
   ImageStyle,
   Text,
   TextStyle,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
+import { KeyboardAvoidingView, FiguresDisplay } from 'pet-feeder/src/components/';
 import theme from '../../theme';
 
 const initialValues = {
@@ -33,12 +34,13 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
   };
   public render(): ReactNode {
     return (
-      <KeyboardAvoidingView style={styles.page} behavior="padding" enabled>
+      <KeyboardAvoidingView style={styles.page}>
         <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
+        <View style={styles.welcomeTextContainer}>
+          <Text style={styles.text}>Bonjour !</Text>
+        </View>
+        <View />
         <View style={styles.container}>
-          <View style={styles.welcomeTextContainer}>
-            <Text style={styles.text}>Bonjour !</Text>
-          </View>
           <View style={styles.formContainer}>
             <Formik
               onSubmit={this.onSubmitForm}
@@ -73,32 +75,29 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   page: {
-    flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: theme.colors.backgroundColor,
+    height: '100%',
   },
   container: {
-    flex: 1,
+    flex: 0.5,
     alignItems: 'stretch',
     justifyContent: 'center',
   },
   formContainer: {
-    flex: 1,
     alignItems: 'stretch',
     justifyContent: 'center',
   },
   welcomeTextContainer: {
-    flex: 1,
+    position: 'absolute',
+    top: Dimensions.get('window').height * 0.2,
     marginLeft: 5 * theme.margins.unit,
     alignItems: 'stretch',
     justifyContent: 'center',
   },
   image: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '50%',
+    flex: 0.5,
     width: '100%',
   },
   text: {
@@ -111,5 +110,6 @@ const styles = StyleSheet.create<Style>({
   },
   signupText: {
     ...theme.fonts.strong,
+    textAlign: 'center',
   },
 });

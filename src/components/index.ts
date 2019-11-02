@@ -14,3 +14,4 @@ export { Loader } from './Loader';
 export { LottieAnimation } from './LottieAnimation';
 export { UserPictureBadge } from './UserPictureBadge';
 export { AnimatedHeader } from './AnimatedHeader';
+export { KeyboardAvoidingView } from './KeyboardAvoidingView';

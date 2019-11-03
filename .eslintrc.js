@@ -16,12 +16,12 @@ module.exports = {
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    '@typescript-eslint/indent': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
-    '@typescript-eslint/no-unused-vars': 'error',
-    '@typescript-eslint/no-use-before-define': ['error', { variables: false }],
-    'no-console': 'warn',
+    '@typescript-eslint/indent': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/no-empty-interface': 0,
+    '@typescript-eslint/no-unused-vars': 2,
+    '@typescript-eslint/no-use-before-define': [2, { variables: false }],
+    'no-console': 1,
   },
   settings: {
     react: {
@@ -40,9 +40,6 @@ module.exports = {
       files: ['**/*.test.ts', '**/*.test.tsx'],
       env: {
         jest: true,
-      },
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': false,
       },
     },
   ],

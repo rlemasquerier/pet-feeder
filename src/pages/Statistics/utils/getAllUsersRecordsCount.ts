@@ -15,7 +15,7 @@ interface NormalizedRecords {
 // Normalize by user id
 
 const normalizeRecords = (records: Record[]): NormalizedRecords => {
-  let normalizedRecords: NormalizedRecords = {};
+  const normalizedRecords: NormalizedRecords = {};
   records.forEach(record => {
     if (normalizedRecords[record.feederId]) {
       normalizedRecords[record.feederId].records.push(record);

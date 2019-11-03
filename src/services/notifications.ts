@@ -15,28 +15,20 @@ const getToken = async (): Promise<string | undefined> => {
 };
 
 const requestPermission = async (): Promise<string | undefined> => {
-  try {
-    const notificationsPermission = await requestNotifications(['alert', 'sound']);
-    if (notificationsPermission.status === 'granted') {
-      // User has authorised
-      return getToken();
-    } else {
-      throw new Error('Notifications has not been allowed');
-    }
-  } catch (error) {
-    throw error;
+  const notificationsPermission = await requestNotifications(['alert', 'sound']);
+  if (notificationsPermission.status === 'granted') {
+    // User has authorised
+    return getToken();
+  } else {
+    throw new Error('Notifications has not been allowed');
   }
 };
 
 export const checkPermission = async (): Promise<string | undefined> => {
-  try {
-    const notificationsPermission = await checkNotifications();
-    if (notificationsPermission.status === 'granted') {
-      return getToken();
-    } else {
-      return requestPermission();
-    }
-  } catch (error) {
-    throw error;
+  const notificationsPermission = await checkNotifications();
+  if (notificationsPermission.status === 'granted') {
+    return getToken();
+  } else {
+    return requestPermission();
   }
 };

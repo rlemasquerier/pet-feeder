@@ -32,7 +32,6 @@ export class RoundHeader extends Component<Props, {}> {
     return (
       <>
         <Animated.View
-          // @ts-ignore
           style={[
             styles.roundHeader,
             this.getHeaderDynamicStyle(),

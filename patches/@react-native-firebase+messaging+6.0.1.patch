@@ -1,0 +1,18 @@
+diff --git a/node_modules/@react-native-firebase/messaging/ios/RNFBMessaging/RNFBMessagingModule.m b/node_modules/@react-native-firebase/messaging/ios/RNFBMessaging/RNFBMessagingModule.m
+index bed9b74..5f1b15e 100644
+--- a/node_modules/@react-native-firebase/messaging/ios/RNFBMessaging/RNFBMessagingModule.m
++++ b/node_modules/@react-native-firebase/messaging/ios/RNFBMessaging/RNFBMessagingModule.m
+@@ -87,11 +87,11 @@ - (NSDictionary *)constantsToExport {
+   if ([FIRMessaging messaging].APNSToken) {
+     options = @{@"apns_token": [FIRMessaging messaging].APNSToken};
+   }
+-  [[FIRInstanceID instanceID] tokenWithAuthorizedEntity:authorizedEntity scope:scope options:options handler:^(NSString *_Nullable identity, NSError *_Nullable error) {
++  [[FIRInstanceID instanceID] instanceIDWithHandler:^(FIRInstanceIDResult * _Nullable result, NSError * _Nullable error) {
+     if (error) {
+       [RNFBSharedUtils rejectPromiseWithNSError:reject error:error];
+     } else {
+-      resolve(identity);
++      resolve(result.token);
+     }
+   }];
+ }

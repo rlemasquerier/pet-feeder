@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 
 export const dateToFromNowDaily = (myDate: Moment | Date): string => {
   // get from-now for this date
-  var fromNow = moment(myDate).fromNow();
+  const fromNow = moment(myDate).fromNow();
 
   // ensure the date is displayed with today and yesterday
   return moment(myDate).calendar(undefined, {

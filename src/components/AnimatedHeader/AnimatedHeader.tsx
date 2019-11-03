@@ -71,7 +71,6 @@ export const AnimatedHeader: React.FC<Props> = (props: Props) => {
       translateY={translateY}
     >
       <Animated.Image
-        // @ts-ignore
         style={[
           styles.profileImage,
           {

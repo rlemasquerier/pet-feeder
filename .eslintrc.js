@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 2,
     '@typescript-eslint/no-use-before-define': [2, { variables: false }],
     'no-console': 1,
+    '@typescript-eslint/ban-ts-ignore': 1,
   },
   settings: {
     react: {

@@ -8,8 +8,7 @@ import { locale } from './utils/locale';
 
 const CALENDAR_HEIGHT = 130;
 
-//@ts-ignore
-const daySelectionAnimation: IDaySelectionAnimationBackground = {
+const daySelectionAnimation = {
   type: 'background',
   duration: 200,
   highlightColor: theme.colors.backgroundColor,
@@ -28,6 +27,7 @@ export class Calendar extends Component<Props, {}> {
           style={styles.calendar}
           calendarColor={theme.colors.primary}
           locale={locale}
+          // @ts-ignore
           daySelectionAnimation={daySelectionAnimation}
           onDateSelected={this.props.onDateChange}
           calendarHeaderContainerStyle={{ marginBottom: 6 * theme.margins.unit }}

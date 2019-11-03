@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import messaging from '@react-native-firebase/messaging';
+import { checkNotifications, requestNotifications } from 'react-native-permissions';
 
 const getToken = async (): Promise<string | undefined> => {
   let fcmToken = await AsyncStorage.getItem('fcmToken');
@@ -15,18 +16,22 @@ const getToken = async (): Promise<string | undefined> => {
 
 const requestPermission = async (): Promise<string | undefined> => {
   try {
-    await messaging().requestPermission();
-    // User has authorised
-    return getToken();
+    const notificationsPermission = await requestNotifications(['alert', 'sound']);
+    if (notificationsPermission.status === 'granted') {
+      // User has authorised
+      return getToken();
+    } else {
+      throw new Error('Notifications has not been allowed');
+    }
   } catch (error) {
-    // User has rejected permissions
+    throw error;
   }
 };
 
 export const checkPermission = async (): Promise<string | undefined> => {
   try {
-    const enabled = await messaging().hasPermission();
-    if (enabled) {
+    const notificationsPermission = await checkNotifications();
+    if (notificationsPermission.status === 'granted') {
       return getToken();
     } else {
       return requestPermission();

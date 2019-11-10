@@ -4,8 +4,7 @@ import { FormInput, Button } from '../../../components';
 import theme from '../../../theme';
 
 export interface Values {
-  name: string;
-  password: string;
+  code: string;
 }
 export interface Props {
   handleSubmit: () => void;
@@ -15,27 +14,18 @@ export interface Props {
   isSubmitting: boolean;
 }
 export const JoinTribeForm: React.FC<Props> = (props: Props) => {
-  const { values, handleChange, handleBlur, isSubmitting, handleSubmit } = props;
+  const { values, handleChange, handleBlur, handleSubmit } = props;
   return (
     <View style={styles.container}>
       <FormInput
         type="text"
-        label="Nom de la coloc"
-        name="name"
+        label="Code de la coloc"
+        name="code"
         onChange={handleChange}
         onBlur={handleBlur}
-        value={values.name}
+        value={values.code}
       />
-      <FormInput
-        type="password"
-        label="Mot de passe de la coloc"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        secureTextEntry
-      />
-      <Button isLoading={isSubmitting} label="Rejoindre la coloc" onPress={handleSubmit} />
+      <Button isLoading={false} label="Rejoindre la coloc" onPress={handleSubmit} />
     </View>
   );
 };
@@ -46,7 +36,6 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
     alignItems: 'center',
     marginVertical: 3 * theme.margins.unit,
     paddingVertical: 2 * theme.margins.unit,

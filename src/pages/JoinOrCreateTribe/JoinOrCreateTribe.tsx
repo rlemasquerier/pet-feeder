@@ -32,11 +32,13 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
         <Text style={styles.titleText}>Que souhaites-tu faire ?</Text>
         <View style={{ justifyContent: 'center' }}>
           <Text style={styles.subtitleText}>Créer une nouvelle coloc</Text>
-          <Formik
-            onSubmit={onSubmitCreateTribeForm}
-            initialValues={initialCreateTribeValues}
-            component={CreateTribeForm}
-          />
+          {!code && (
+            <Formik
+              onSubmit={onSubmitCreateTribeForm}
+              initialValues={initialCreateTribeValues}
+              component={CreateTribeForm}
+            />
+          )}
           {!!code && (
             <>
               <Text style={{ marginVertical: 3 * theme.margins.unit }}>
@@ -48,12 +50,16 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
               </View>
             </>
           )}
-          <Text style={styles.subtitleText}>Rejoindre une coloc existante</Text>
-          <Formik
-            onSubmit={onSubmitJoinTribeForm}
-            initialValues={initialJoinTribeValues}
-            component={JoinTribeForm}
-          />
+          {!code && (
+            <>
+              <Text style={styles.subtitleText}>Rejoindre une coloc existante</Text>
+              <Formik
+                onSubmit={onSubmitJoinTribeForm}
+                initialValues={initialJoinTribeValues}
+                component={JoinTribeForm}
+              />
+            </>
+          )}
         </View>
       </View>
     </Page>

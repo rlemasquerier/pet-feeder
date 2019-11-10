@@ -5,7 +5,6 @@ import theme from '../../../theme';
 
 export interface Values {
   name: string;
-  password: string;
 }
 export interface Props {
   handleSubmit: () => void;
@@ -15,7 +14,7 @@ export interface Props {
   isSubmitting: boolean;
 }
 export const CreateTribeForm: React.FC<Props> = (props: Props) => {
-  const { values, handleChange, handleBlur, isSubmitting, handleSubmit } = props;
+  const { values, handleChange, handleBlur, handleSubmit } = props;
   return (
     <View style={styles.container}>
       <FormInput
@@ -26,16 +25,7 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
         onBlur={handleBlur}
         value={values.name}
       />
-      <FormInput
-        type="password"
-        label="Mot de passe de la coloc"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        secureTextEntry
-      />
-      <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
+      <Button isLoading={false} label="Créer la coloc" onPress={handleSubmit} />
     </View>
   );
 };
@@ -46,7 +36,6 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
     alignItems: 'center',
     marginVertical: 3 * theme.margins.unit,
     paddingVertical: 2 * theme.margins.unit,

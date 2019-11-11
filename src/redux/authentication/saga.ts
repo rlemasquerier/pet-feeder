@@ -4,7 +4,7 @@ import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
-import { PAGES, PageNameType } from 'pet-feeder/src/AppNavigator';
+import { PAGES, PageNameType } from 'pet-feeder/src/services/navigation';
 
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {

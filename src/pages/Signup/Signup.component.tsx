@@ -6,6 +6,7 @@ import { Page } from 'pet-feeder/src/components';
 import { SignupForm, Values } from './SignupForm';
 import { User, UserInput, Credentials } from 'pet-feeder/src/types';
 import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
+import { LoginOptions } from 'pet-feeder/src/redux/authentication/reducer';
 
 const initialValues: Values = {
   email: '',
@@ -55,7 +56,7 @@ const handleSignup = async ({
 };
 
 export interface Props {
-  login: (credentials: Credentials) => void;
+  login: (credentials: Credentials, options: LoginOptions) => void;
 }
 
 export const Signup: React.FC<Props> = (props: Props) => {
@@ -70,7 +71,7 @@ export const Signup: React.FC<Props> = (props: Props) => {
       addUserMutation,
       resetForm,
     });
-    await props.login({ email: values.email, password: values.password });
+    await props.login({ email: values.email, password: values.password }, { origin: 'signup' });
   };
 
   return (

@@ -8,11 +8,16 @@ import { navigator } from '../../services/navigation';
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {
     const { email, password } = action.payload;
+    const { options } = action.meta;
     yield put(apiCallStart('authentication'));
     const loginResult: LoginAxiosResponse = yield call(login, email, password);
     yield put(authenticationActionCreators.loginSuccess(loginResult.data));
     yield put(apiCallSuccess('authentication'));
-    yield call(navigator.navigate, 'Home');
+    if (options && options.origin === 'signup') {
+      yield call(navigator.navigate, 'JoinOrCreateTribe');
+    } else {
+      yield call(navigator.navigate, 'Home');
+    }
   } catch (error) {
     yield put(apiCallError('authentication', error));
     // eslint-disable-next-line no-console

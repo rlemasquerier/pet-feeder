@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, FormikActions } from 'formik';
 import { Page } from 'pet-feeder/src/components';
+import { ContainerProps } from './Signup.container';
 import { SignupForm, Values } from './SignupForm';
-import { User, UserInput, Credentials } from 'pet-feeder/src/types';
+import { User, UserInput } from 'pet-feeder/src/types';
 import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
-import { LoginOptions } from 'pet-feeder/src/redux/authentication/reducer';
 
 const initialValues: Values = {
   email: '',
@@ -55,9 +55,7 @@ const handleSignup = async ({
   }
 };
 
-export interface Props {
-  login: (credentials: Credentials, options: LoginOptions) => void;
-}
+export interface Props extends ContainerProps {}
 
 export const Signup: React.FC<Props> = (props: Props) => {
   const [addUserMutation] = useMutation<UserMutationData, UserInput>(ADD_USER);

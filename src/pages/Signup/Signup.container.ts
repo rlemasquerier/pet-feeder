@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Signup, Props } from './Signup.component';
+import { Signup } from './Signup.component';
 import { RootState } from '../../redux/reducer';
 import { authenticationActionCreators } from '../../redux/authentication/reducer';
 
@@ -9,7 +9,9 @@ const mapDispatchToProps = {
 
 type MapDispatchToProps = typeof mapDispatchToProps;
 
-export const SignupContainer = connect<null, MapDispatchToProps, Props, RootState>(
+export type ContainerProps = MapDispatchToProps;
+
+export const SignupContainer = connect<null, MapDispatchToProps, ContainerProps, RootState>(
   null,
   mapDispatchToProps
 )(Signup);

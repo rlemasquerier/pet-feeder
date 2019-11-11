@@ -14,6 +14,7 @@ import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
 import { KeyboardAvoidingView, FiguresDisplay } from 'pet-feeder/src/components/';
 import theme from '../../theme';
+import { PAGES } from 'pet-feeder/src/AppNavigator';
 
 const initialValues = {
   email: '',
@@ -50,7 +51,7 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
             <View style={styles.bottomContainer}>
               <Text
                 style={styles.signupText}
-                onPress={() => this.props.navigation.navigate('Signup')}
+                onPress={() => this.props.navigation.navigate(PAGES.SIGNUP)}
               >
                 {"Pas encore de compte ? S'inscrire"}
               </Text>

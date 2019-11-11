@@ -2,6 +2,7 @@ import React, { Component, ReactNode } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Loader as LoadingIndicator } from '../../components/Loader';
+import { PAGES } from 'pet-feeder/src/AppNavigator';
 
 export interface Props {
   accessToken?: string;
@@ -10,9 +11,9 @@ export interface Props {
 export class Loader extends Component<NavigationScreenProps & Props, {}> {
   public componentDidMount() {
     if (this.props.accessToken) {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate(PAGES.HOME);
     } else {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate(PAGES.LOGIN);
     }
   }
   public render(): ReactNode {

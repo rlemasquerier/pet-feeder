@@ -2,6 +2,7 @@ import { Action } from 'redux';
 import { Credentials } from '../../types';
 import { RootState } from '../reducer';
 import { LoginAPIResponse } from '../../api/apiClient';
+import { PageNameType } from 'pet-feeder/src/AppNavigator';
 
 export const LOGIN_REQUEST = 'authentication/LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'authentication/LOGIN_SUCCESS';
@@ -10,7 +11,7 @@ export const REFRESH_TOKENS = 'authentication/REFRESH_TOKENS';
 export const LOGOUT = 'authentication/LOGOUT';
 
 export interface LoginOptions {
-  origin: 'signup' | 'login';
+  redirectPage: PageNameType;
 }
 
 export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {

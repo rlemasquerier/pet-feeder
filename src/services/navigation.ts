@@ -3,6 +3,7 @@ import {
   NavigationContainerComponent,
   NavigationParams,
 } from 'react-navigation';
+import { PageNameType } from '../AppNavigator';
 
 let topLevelNavigator: NavigationContainerComponent | null = null;
 
@@ -11,7 +12,7 @@ export const setTopLevelNavigator = (navigatorRef: NavigationContainerComponent 
 };
 
 export const navigator = {
-  navigate: (routeName: string, params?: NavigationParams): boolean => {
+  navigate: (routeName: PageNameType, params?: NavigationParams): boolean => {
     if (!topLevelNavigator) {
       return false;
     }

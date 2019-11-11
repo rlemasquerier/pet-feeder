@@ -4,6 +4,7 @@ import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
+import { PAGES, PageNameType } from 'pet-feeder/src/AppNavigator';
 
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {
@@ -13,10 +14,10 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     const loginResult: LoginAxiosResponse = yield call(login, email, password);
     yield put(authenticationActionCreators.loginSuccess(loginResult.data));
     yield put(apiCallSuccess('authentication'));
-    if (options && options.origin === 'signup') {
-      yield call(navigator.navigate, 'JoinOrCreateTribe');
+    if (options && options.redirectPage) {
+      yield call(navigator.navigate, options.redirectPage);
     } else {
-      yield call(navigator.navigate, 'Home');
+      yield call(navigator.navigate, PAGES.HOME as PageNameType);
     }
   } catch (error) {
     yield put(apiCallError('authentication', error));
@@ -26,7 +27,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
 }
 
 export function* logoutSaga(): SagaIterator {
-  yield call(navigator.navigate, 'Login');
+  yield call(navigator.navigate, PAGES.LOGIN as PageNameType);
 }
 
 export function* authenticationSaga(): SagaIterator {

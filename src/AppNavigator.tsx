@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-/* eslint-disable react/prop-types */
 
 import React from 'react';
 import {
@@ -15,30 +14,43 @@ import { IconName } from './components/Icon/Icon.component';
 import theme from './theme';
 import * as Pages from './pages';
 
+export const PAGES = {
+  HOME: 'HOME',
+  LOGIN: 'LOGIN',
+  LOADER: 'LOADER',
+  PROFILE: 'PROFILE',
+  REMINDERS: 'REMINDERS',
+  STATISTICS: 'STATISTICS',
+  SIGNUP: 'SIGNUP',
+  JOIN_OR_CREATE_TRIBE: 'JOIN_OR_CREATE_TRIBE',
+};
+
+export type PageNameType = keyof typeof PAGES;
+
 const TAB_BAR_ICON_SIZE = 25;
 const TAB_BAR_HEIGHT = 55;
 
 const ConnectedTabNavigator = createBottomTabNavigator(
   {
-    Home: {
+    [PAGES.HOME]: {
       screen: Pages.Home,
       navigationOptions: {
         title: 'Accueil',
       },
     },
-    Statistics: {
+    [PAGES.STATISTICS]: {
       screen: Pages.Statistics,
       navigationOptions: {
         title: 'Statistiques',
       },
     },
-    Reminders: {
+    [PAGES.REMINDERS]: {
       screen: Pages.Reminders,
       navigationOptions: {
         title: 'Rappels',
       },
     },
-    Profile: {
+    [PAGES.PROFILE]: {
       screen: Pages.Profile,
       navigationOptions: {
         title: 'Profil',
@@ -53,16 +65,16 @@ const ConnectedTabNavigator = createBottomTabNavigator(
         const color = focused ? theme.colors.primary : theme.colors.secondaryAction;
         let iconName: IconName;
         switch (routeName) {
-          case 'Home':
+          case PAGES.HOME:
             iconName = 'home3';
             break;
-          case 'Reminders':
+          case PAGES.REMINDERS:
             iconName = 'bell';
             break;
-          case 'Statistics':
+          case PAGES.STATISTICS:
             iconName = 'calendar';
             break;
-          case 'Profile':
+          case PAGES.PROFILE:
             iconName = 'user';
             break;
           default:
@@ -83,13 +95,13 @@ const ConnectedTabNavigator = createBottomTabNavigator(
 
 const OnboardingStack = createStackNavigator(
   {
-    Login: {
+    [PAGES.LOGIN]: {
       screen: Pages.Login,
     },
-    Signup: {
+    [PAGES.SIGNUP]: {
       screen: Pages.Signup,
     },
-    JoinOrCreateTribe: {
+    [PAGES.JOIN_OR_CREATE_TRIBE]: {
       screen: Pages.JoinOrCreateTribe,
     },
   },
@@ -99,11 +111,11 @@ const OnboardingStack = createStackNavigator(
 );
 
 export const RootNavigator: NavigationContainer = createSwitchNavigator({
-  Loader: {
+  [PAGES.LOADER]: {
     screen: Pages.Loader,
   },
-  Login: OnboardingStack,
-  Home: ConnectedTabNavigator,
+  [PAGES.LOGIN]: OnboardingStack,
+  [PAGES.HOME]: ConnectedTabNavigator,
 });
 
 export const AppNavigator = createAppContainer(RootNavigator);

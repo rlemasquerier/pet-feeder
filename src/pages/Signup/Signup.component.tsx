@@ -69,7 +69,10 @@ export const Signup: React.FC<Props> = (props: Props) => {
       addUserMutation,
       resetForm,
     });
-    await props.login({ email: values.email, password: values.password }, { origin: 'signup' });
+    await props.login(
+      { email: values.email, password: values.password },
+      { redirectPage: 'JOIN_OR_CREATE_TRIBE' }
+    );
   };
 
   return (

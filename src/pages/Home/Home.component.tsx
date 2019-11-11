@@ -7,6 +7,7 @@ import { DayScrollView } from './components/DayScrollView/DayScrollView.componen
 import { User } from '../../types';
 import theme from '../../theme';
 import { checkPermission } from 'pet-feeder/src/services/notifications';
+import { PAGES } from 'pet-feeder/src/AppNavigator';
 
 interface State {
   selectedDate: Moment;
@@ -44,7 +45,7 @@ export class Home extends Component<Props, State> {
   private logout = () => {
     this.props.logout();
     this.props.resetOnLogout();
-    this.props.navigation.navigate('Login');
+    this.props.navigation.navigate(PAGES.LOGIN);
   };
 
   public render(): ReactNode {

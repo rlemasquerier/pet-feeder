@@ -7,7 +7,7 @@ import { DayScrollView } from './components/DayScrollView/DayScrollView.componen
 import { User } from '../../types';
 import theme from '../../theme';
 import { checkPermission } from 'pet-feeder/src/services/notifications';
-import { PAGES } from 'pet-feeder/src/AppNavigator';
+import { PAGES } from 'pet-feeder/src/services/navigation';
 
 interface State {
   selectedDate: Moment;

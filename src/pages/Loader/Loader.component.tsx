@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Loader as LoadingIndicator } from '../../components/Loader';
-import { PAGES } from 'pet-feeder/src/AppNavigator';
+import { PAGES } from 'pet-feeder/src/services/navigation';
 
 export interface Props {
   accessToken?: string;

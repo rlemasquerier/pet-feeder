@@ -13,19 +13,7 @@ import { Icon } from './components';
 import { IconName } from './components/Icon/Icon.component';
 import theme from './theme';
 import * as Pages from './pages';
-
-export const PAGES = {
-  HOME: 'HOME',
-  LOGIN: 'LOGIN',
-  LOADER: 'LOADER',
-  PROFILE: 'PROFILE',
-  REMINDERS: 'REMINDERS',
-  STATISTICS: 'STATISTICS',
-  SIGNUP: 'SIGNUP',
-  JOIN_OR_CREATE_TRIBE: 'JOIN_OR_CREATE_TRIBE',
-};
-
-export type PageNameType = keyof typeof PAGES;
+import { PAGES } from 'pet-feeder/src/services/navigation';
 
 const TAB_BAR_ICON_SIZE = 25;
 const TAB_BAR_HEIGHT = 55;

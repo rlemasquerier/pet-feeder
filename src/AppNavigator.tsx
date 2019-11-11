@@ -89,6 +89,9 @@ const OnboardingStack = createStackNavigator(
     Signup: {
       screen: Pages.Signup,
     },
+    JoinOrCreateTribe: {
+      screen: Pages.JoinOrCreateTribe,
+    },
   },
   {
     headerMode: 'none',

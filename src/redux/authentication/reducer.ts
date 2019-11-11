@@ -9,8 +9,13 @@ export const LOGIN_FAILURE = 'authentication/LOGIN_FAILURE';
 export const REFRESH_TOKENS = 'authentication/REFRESH_TOKENS';
 export const LOGOUT = 'authentication/LOGOUT';
 
+export interface LoginOptions {
+  origin: 'signup' | 'login';
+}
+
 export interface LoginRequestAction extends Action<'authentication/LOGIN_REQUEST'> {
   payload: Credentials;
+  meta: { options?: LoginOptions };
 }
 
 export interface LoginSuccessAction extends Action<'authentication/LOGIN_SUCCESS'> {
@@ -34,9 +39,10 @@ export type AuthenticationActions =
   | LogoutAction;
 
 export const authenticationActionCreators = {
-  loginRequest: (credentials: Credentials): LoginRequestAction => ({
+  loginRequest: (credentials: Credentials, options?: LoginOptions): LoginRequestAction => ({
     type: LOGIN_REQUEST,
     payload: { ...credentials },
+    meta: { options },
   }),
   loginSuccess: (loginData: LoginAPIResponse): LoginSuccessAction => ({
     type: LOGIN_SUCCESS,

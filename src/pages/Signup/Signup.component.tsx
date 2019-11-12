@@ -7,6 +7,7 @@ import { ContainerProps } from './Signup.container';
 import { SignupForm, Values } from './SignupForm';
 import { User, UserInput } from 'pet-feeder/src/types';
 import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
+import { PAGES } from 'pet-feeder/src/services/navigation';
 
 const initialValues: Values = {
   email: '',
@@ -71,7 +72,7 @@ export const Signup: React.FC<Props> = (props: Props) => {
     });
     await props.login(
       { email: values.email, password: values.password },
-      { redirectPage: 'JOIN_OR_CREATE_TRIBE' }
+      { redirectPage: PAGES.JOIN_OR_CREATE_TRIBE }
     );
   };
 

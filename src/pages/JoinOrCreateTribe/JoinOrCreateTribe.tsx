@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { Formik } from 'formik';
+import { MutationFunctionOptions, ExecutionResult } from 'react-apollo';
+import { useMutation } from '@apollo/react-hooks';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
+import { createTribe as createTribeMutation } from 'pet-feeder/src/graphql/mutations/createTribe';
 import theme from './../../theme';
 import { Page, TopBanner, TribeCode, Button, Loader } from 'pet-feeder/src/components';
 import { CreateTribeForm, Values as CreateTribeFormValues } from './CreateTribeForm';
 import { JoinTribeForm, Values as JoinTribeFormValues } from './JoinTribeForm';
+import { User, Tribe } from 'pet-feeder/src/types';
 
 interface Props {}
+
+interface CreateTribeMutationData {
+  createTribe: Tribe;
+}
+
+interface CreateTribeInput {
+  name: string;
+  members: string[];
+}
+
+type CreateTribeMutationType = (
+  options?: MutationFunctionOptions<CreateTribeMutationData, CreateTribeInput>
+) => Promise<void | ExecutionResult<CreateTribeMutationData>>;
 
 const initialCreateTribeValues: CreateTribeFormValues = {
   name: '',
@@ -17,14 +34,45 @@ const initialJoinTribeValues: JoinTribeFormValues = {
   code: '',
 };
 
+const handleCreateTribe = async ({
+  values,
+  user,
+  createTribeMutation,
+}: {
+  values: CreateTribeFormValues;
+  user: User;
+  createTribeMutation: CreateTribeMutationType;
+}): Promise<Tribe | undefined> => {
+  try {
+    const createTribeAnswer = await createTribeMutation({
+      variables: {
+        name: values.name,
+        members: [user.id],
+      },
+    });
+    if (createTribeAnswer && createTribeAnswer.data) {
+      return createTribeAnswer.data.createTribe;
+    } else {
+      throw new Error('Create tribe answer not correct');
+    }
+  } catch (error) {
+    console.warn('An error occurred when creating a tribe');
+  }
+};
+
 export const JoinOrCreateTribe: React.FC<Props> = () => {
   const [code, setCode] = useState<string | null>(null);
+  const [createTribe] = useMutation<CreateTribeMutationData, CreateTribeInput>(createTribeMutation);
   const { user } = useCurrentUser();
   if (!user) {
     return <Loader size={100} />;
   }
   const onSubmitCreateTribeForm = async (values: CreateTribeFormValues): Promise<void> => {
-    console.log('values', values);
+    const createdTribe = await handleCreateTribe({
+      values,
+      user,
+      createTribeMutation: createTribe,
+    });
     setCode('AZE123');
   };
   const onSubmitJoinTribeForm = async (values: JoinTribeFormValues): Promise<void> => {

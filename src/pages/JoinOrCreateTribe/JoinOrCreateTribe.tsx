@@ -10,6 +10,8 @@ import { Page, TopBanner, TribeCode, Button, Loader } from 'pet-feeder/src/compo
 import { CreateTribeForm, Values as CreateTribeFormValues } from './CreateTribeForm';
 import { JoinTribeForm, Values as JoinTribeFormValues } from './JoinTribeForm';
 import { User, Tribe } from 'pet-feeder/src/types';
+import { createTribeCode } from 'pet-feeder/src/api/apiClient';
+import { navigator } from 'pet-feeder/src/services/navigation';
 
 interface Props {}
 
@@ -73,7 +75,11 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
       user,
       createTribeMutation: createTribe,
     });
-    setCode('AZE123');
+    if (createdTribe) {
+      const createCodeResponse = await createTribeCode(createdTribe.id);
+      const code = createCodeResponse.data.code;
+      setCode(code);
+    }
   };
   const onSubmitJoinTribeForm = async (values: JoinTribeFormValues): Promise<void> => {
     console.log('values', values);
@@ -99,7 +105,11 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
               </Text>
               <TribeCode code={code} />
               <View style={{ marginVertical: 3 * theme.margins.unit }}>
-                <Button label="Continuer" onPress={() => {}} isLoading={false} />
+                <Button
+                  label="Continuer"
+                  onPress={() => navigator.navigate('HOME')}
+                  isLoading={false}
+                />
               </View>
             </>
           )}

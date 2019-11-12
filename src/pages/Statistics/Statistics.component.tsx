@@ -9,18 +9,17 @@ import {
 } from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
 import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types';
-import { getConnectedUser, getRecords } from 'pet-feeder/src/graphql/queries';
+import { getRecords } from 'pet-feeder/src/graphql/queries';
 import { getUserRecordsStats, getAllUsersRecordsCount } from './utils';
 import { Record } from 'pet-feeder/src/types';
+import { useCurrentUser } from 'pet-feeder/src/hooks';
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
-  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
-  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+  const { user } = useCurrentUser();
+  if (!user) {
     return <Loader size={100} />;
   }
-  const user = connectedUser.data.me;
   const records = useQuery<{ records: Record[] }>(getRecords);
   const figuresDisplayData =
     records.data && records.data.records

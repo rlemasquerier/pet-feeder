@@ -2,10 +2,8 @@ import React from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page, Loader } from '../../components';
-import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types';
-import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 import { PROFILE_PICTURE_SIZE, ProfilePicture } from './ProfilePicture';
+import { useCurrentUser } from 'pet-feeder/src/hooks';
 
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
 
@@ -14,17 +12,17 @@ const CENTRAL_ICONS_AREA_HEIGHT = 40;
 const CENTRAL_ICONS_SIZE = 40;
 
 export const Profile: React.FC<{}> = () => {
-  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
-  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+  const { user } = useCurrentUser();
+  if (!user) {
     return <Loader size={100} />;
   }
   return (
     <Page>
       <View style={styles.header}>
-        <ProfilePicture user={connectedUser.data.me} />
+        <ProfilePicture user={user} />
       </View>
       <View style={styles.content}>
-        <Text style={styles.username}>{connectedUser.data && connectedUser.data.me.name}</Text>
+        <Text style={styles.username}>{user.name}</Text>
         <View style={styles.centralIconsArea}>
           <View style={styles.centralIconsContainer}>
             <View style={{ alignItems: 'center' }}>
@@ -46,7 +44,7 @@ export const Profile: React.FC<{}> = () => {
               size={30}
               color={theme.colors.primary}
             />
-            <Text style={styles.text}>{connectedUser.data.me.email}</Text>
+            <Text style={styles.text}>{user.email}</Text>
           </View>
           <View style={styles.detailsItem}>
             <Icon
@@ -55,7 +53,7 @@ export const Profile: React.FC<{}> = () => {
               size={30}
               color={theme.colors.primary}
             />
-            <Text style={styles.text}>{connectedUser.data.me.name}</Text>
+            <Text style={styles.text}>{user.name}</Text>
           </View>
         </View>
         <LargeButton

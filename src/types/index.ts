@@ -15,6 +15,14 @@ export interface Tribe {
   timestamp: number;
 }
 
+export interface TribeCode {
+  id: string;
+  tribeId: string;
+  code: string;
+  creationTimestamp: number;
+  expirationTimestamp: number;
+}
+
 export interface UserInput {
   email: string;
   password: string;

@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import environment from '../environment';
 import { ImagePickerResponse } from 'react-native-image-picker';
+import { TribeCode } from 'pet-feeder/src/types';
 
 const API_URL = environment.API_URL;
 
@@ -28,6 +29,11 @@ export const refreshToken = async (
   refreshToken: string | undefined
 ): Promise<AxiosResponse<{ accessToken: string; refreshToken: string }>> => {
   const response = publicApi.post(`${API_URL}/auth/refresh`, { email, refreshToken });
+  return response;
+};
+
+export const createTribeCode = async (tribeId: string): Promise<AxiosResponse<TribeCode>> => {
+  const response = publicApi.post(`${API_URL}/tribeCodes/generate`, { tribeId });
   return response;
 };
 

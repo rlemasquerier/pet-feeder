@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { FormInput, Button } from '../../../components';
-import theme from '../../../theme';
+import { FormInput, Button } from '../../../../components';
+import theme from '../../../../theme';
 
 export interface Values {
   name: string;

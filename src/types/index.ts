@@ -7,6 +7,14 @@ export interface User {
   profilePictureUrl?: string;
 }
 
+export interface Tribe {
+  id: string;
+  name: string;
+  members: string[];
+  ownerId: string;
+  timestamp: number;
+}
+
 export interface UserInput {
   email: string;
   password: string;

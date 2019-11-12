@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { Formik } from 'formik';
+import { useQuery } from '@apollo/react-hooks';
+import { User } from 'pet-feeder/src/types';
+import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
 import theme from './../../theme';
-import { Page, TopBanner, TribeCode, Button } from 'pet-feeder/src/components';
+import { Page, TopBanner, TribeCode, Button, Loader } from 'pet-feeder/src/components';
 import { CreateTribeForm, Values as CreateTribeFormValues } from './CreateTribeForm';
 import { JoinTribeForm, Values as JoinTribeFormValues } from './JoinTribeForm';
 
@@ -18,6 +21,11 @@ const initialJoinTribeValues: JoinTribeFormValues = {
 
 export const JoinOrCreateTribe: React.FC<Props> = () => {
   const [code, setCode] = useState<string | null>(null);
+  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
+  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+    return <Loader size={100} />;
+  }
+  const user = connectedUser.data.me;
   const onSubmitCreateTribeForm = async (values: CreateTribeFormValues): Promise<void> => {
     console.log('values', values);
     setCode('AZE123');
@@ -27,7 +35,7 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
   };
   return (
     <Page>
-      <TopBanner label="Bienvenue, Michel !" />
+      <TopBanner label={`Bienvenue, ${user.name} !`} />
       <View style={styles.container}>
         <Text style={styles.titleText}>Que souhaites-tu faire ?</Text>
         <View style={{ justifyContent: 'center' }}>

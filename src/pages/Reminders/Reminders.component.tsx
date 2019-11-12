@@ -8,9 +8,7 @@ import {
   HEADER_DIMENSIONS,
 } from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
-import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types';
-import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
+import { useCurrentUser } from 'pet-feeder/src/hooks';
 
 interface State {
   scrollY: Animated.Value<number>;
@@ -18,11 +16,10 @@ interface State {
 
 export const Reminders: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
-  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
-  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+  const { user } = useCurrentUser();
+  if (!user) {
     return <Loader size={100} />;
   }
-  const user = connectedUser.data.me;
   return (
     <Page>
       <Animated.ScrollView

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { Formik } from 'formik';
-import { useQuery } from '@apollo/react-hooks';
-import { User } from 'pet-feeder/src/types';
-import { getConnectedUser } from 'pet-feeder/src/graphql/queries';
+import { useCurrentUser } from 'pet-feeder/src/hooks';
 import theme from './../../theme';
 import { Page, TopBanner, TribeCode, Button, Loader } from 'pet-feeder/src/components';
 import { CreateTribeForm, Values as CreateTribeFormValues } from './CreateTribeForm';
@@ -21,11 +19,10 @@ const initialJoinTribeValues: JoinTribeFormValues = {
 
 export const JoinOrCreateTribe: React.FC<Props> = () => {
   const [code, setCode] = useState<string | null>(null);
-  const connectedUser = useQuery<{ me: User }>(getConnectedUser);
-  if (!connectedUser || !connectedUser.data || !connectedUser.data.me) {
+  const { user } = useCurrentUser();
+  if (!user) {
     return <Loader size={100} />;
   }
-  const user = connectedUser.data.me;
   const onSubmitCreateTribeForm = async (values: CreateTribeFormValues): Promise<void> => {
     console.log('values', values);
     setCode('AZE123');

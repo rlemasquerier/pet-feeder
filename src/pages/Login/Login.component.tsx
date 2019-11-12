@@ -12,7 +12,7 @@ import {
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
 import { LoginForm } from './LoginForm';
-import { KeyboardAvoidingView, FiguresDisplay } from 'pet-feeder/src/components/';
+import { KeyboardAvoidingView } from 'pet-feeder/src/components/';
 import theme from '../../theme';
 import { PAGES } from 'pet-feeder/src/services/navigation';
 

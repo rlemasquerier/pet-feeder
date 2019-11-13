@@ -37,6 +37,10 @@ export const createTribeCode = async (tribeId: string): Promise<AxiosResponse<Tr
   return response;
 };
 
+export const checkTribeCode = async (code: string): Promise<AxiosResponse<string>> => {
+  return publicApi.post(`${API_URL}/tribeCodes/compare`, { code });
+};
+
 export const uploadPicture = async (
   image: ImagePickerResponse
 ): Promise<{ uri?: string; error?: string }> => {

@@ -7,8 +7,8 @@ import theme from '../theme';
 // for Android toaster starts from the header bar
 // for IOS from the top of the screen so it needs more margin
 const TOAST_PADDING_TOP = Platform.select<number>({
-  ios: theme.margins.unit * 3,
-  android: theme.margins.unit,
+  ios: theme.margins.unit * 5,
+  android: theme.margins.unit * 3,
 });
 
 let isActive = false;

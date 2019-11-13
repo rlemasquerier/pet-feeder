@@ -14,7 +14,7 @@ export interface Props {
   isSubmitting: boolean;
 }
 export const CreateTribeForm: React.FC<Props> = (props: Props) => {
-  const { values, handleChange, handleBlur, handleSubmit } = props;
+  const { values, handleChange, handleBlur, handleSubmit, isSubmitting } = props;
   return (
     <View style={styles.container}>
       <FormInput
@@ -25,7 +25,7 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
         onBlur={handleBlur}
         value={values.name}
       />
-      <Button isLoading={false} label="Créer la coloc" onPress={handleSubmit} />
+      <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
     </View>
   );
 };

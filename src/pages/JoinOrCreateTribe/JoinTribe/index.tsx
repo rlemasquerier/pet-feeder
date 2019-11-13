@@ -10,6 +10,7 @@ import { joinTribe as joinTribeMutation } from 'pet-feeder/src/graphql/mutations
 import { Tribe } from 'pet-feeder/src/types';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
+import { showError } from 'pet-feeder/src/services/toaster';
 
 interface Props {}
 
@@ -52,7 +53,7 @@ const handleJoinTribe = async ({
       throw new Error('Join tribe answer not correct');
     }
   } catch (error) {
-    console.warn('An error occurred when adding user to a tribe');
+    showError('Une erreur est survenue');
     throw error;
   }
 };
@@ -74,7 +75,7 @@ export const JoinTribe: React.FC<Props> = () => {
       });
       navigator.navigate(PAGES.HOME);
     } catch (error) {
-      console.warn('An error has occured');
+      showError('Une erreur est survenue');
     }
   };
   return (

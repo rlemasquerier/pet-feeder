@@ -4,7 +4,7 @@ import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
-import { PAGES, PageNameType } from 'pet-feeder/src/services/navigation';
+import { PAGES } from 'pet-feeder/src/services/navigation';
 
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {
@@ -17,7 +17,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     if (options && options.redirectPage) {
       yield call(navigator.navigate, options.redirectPage);
     } else {
-      yield call(navigator.navigate, PAGES.HOME as PageNameType);
+      yield call(navigator.navigate, PAGES.HOME);
     }
   } catch (error) {
     yield put(apiCallError('authentication', error));
@@ -27,7 +27,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
 }
 
 export function* logoutSaga(): SagaIterator {
-  yield call(navigator.navigate, PAGES.LOGIN as PageNameType);
+  yield call(navigator.navigate, PAGES.LOGIN);
 }
 
 export function* authenticationSaga(): SagaIterator {

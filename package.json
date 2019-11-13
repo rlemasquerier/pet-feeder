@@ -2,12 +2,6 @@
   "name": "pet-feeder",
   "version": "0.0.1",
   "private": true,
-  "rnpm": {
-    "assets": [
-      "assets/icons",
-      "assets/fonts/MADEGoodTimeGrotesk"
-    ]
-  },
   "scripts": {
     "run-ios": "react-native run-ios --simulator='iPhone 11'",
     "run-android": "react-native run-android",

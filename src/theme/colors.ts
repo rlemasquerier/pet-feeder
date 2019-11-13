@@ -19,6 +19,7 @@ const styleguideColors = {
   banner: baseColors.blue,
   border: baseColors.mediumPlusGrey,
   action: baseColors.red,
+  error: baseColors.red,
   placeholderColor: baseColors.mediumGrey,
   secondaryAction: baseColors.brown,
   backgroundColor: baseColors.lightGrey,

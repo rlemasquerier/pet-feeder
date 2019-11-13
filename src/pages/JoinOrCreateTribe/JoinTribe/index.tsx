@@ -9,7 +9,7 @@ import { checkTribeCode } from 'pet-feeder/src/api/apiClient';
 import { joinTribe as joinTribeMutation } from 'pet-feeder/src/graphql/mutations';
 import { Tribe } from 'pet-feeder/src/types';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
-import { navigator, PAGES, PageNameType } from 'pet-feeder/src/services/navigation';
+import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 
 interface Props {}
 
@@ -72,7 +72,7 @@ export const JoinTribe: React.FC<Props> = () => {
         userId: user.id,
         joinTribeMutation: joinTribe,
       });
-      navigator.navigate(PAGES.HOME as PageNameType);
+      navigator.navigate(PAGES.HOME);
     } catch (error) {
       console.warn('An error has occured');
     }

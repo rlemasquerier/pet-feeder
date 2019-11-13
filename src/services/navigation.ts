@@ -4,7 +4,17 @@ import {
   NavigationParams,
 } from 'react-navigation';
 
-export const PAGES = {
+export type PageNameType =
+  | 'HOME'
+  | 'LOGIN'
+  | 'LOADER'
+  | 'PROFILE'
+  | 'REMINDERS'
+  | 'STATISTICS'
+  | 'SIGNUP'
+  | 'JOIN_OR_CREATE_TRIBE';
+
+export const PAGES: { [key in PageNameType]: PageNameType } = {
   HOME: 'HOME',
   LOGIN: 'LOGIN',
   LOADER: 'LOADER',
@@ -14,8 +24,6 @@ export const PAGES = {
   SIGNUP: 'SIGNUP',
   JOIN_OR_CREATE_TRIBE: 'JOIN_OR_CREATE_TRIBE',
 };
-
-export type PageNameType = keyof typeof PAGES;
 
 let topLevelNavigator: NavigationContainerComponent | null = null;
 

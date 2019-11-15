@@ -60,10 +60,10 @@ const handleJoinTribe = async ({
 
 export const JoinTribe: React.FC<Props> = () => {
   const { user } = useCurrentUser();
+  const [joinTribe] = useMutation<JoinTribeMutationData, JoinTribeInput>(joinTribeMutation);
   if (!user) {
     return null;
   }
-  const [joinTribe] = useMutation<JoinTribeMutationData, JoinTribeInput>(joinTribeMutation);
   const onSubmitJoinTribeForm = async (values: JoinTribeFormValues): Promise<void> => {
     try {
       const res = await checkTribeCode(values.code);

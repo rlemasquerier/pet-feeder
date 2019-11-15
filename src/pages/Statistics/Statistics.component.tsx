@@ -17,10 +17,10 @@ import { useCurrentUser } from 'pet-feeder/src/hooks';
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
   const { user } = useCurrentUser();
+  const records = useQuery<{ records: Record[] }>(getRecords);
   if (!user) {
     return <Loader size={100} />;
   }
-  const records = useQuery<{ records: Record[] }>(getRecords);
   const figuresDisplayData =
     records.data && records.data.records
       ? getUserRecordsStats(records.data.records.filter(record => record.feederId === user.id))

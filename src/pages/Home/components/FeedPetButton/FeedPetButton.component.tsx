@@ -6,6 +6,7 @@ import theme from './../../../../theme';
 interface Props {
   onPress: () => void;
   status: 'active' | 'inactive' | 'invisible';
+  label: string;
   loading?: boolean;
 }
 
@@ -16,7 +17,7 @@ export class FeedPetButton extends Component<Props> {
         return (
           <View style={styles.container}>
             <LargeButton
-              label="NOURRIR GAÏA"
+              label={this.props.label}
               color={theme.colors.secondary}
               onPress={this.props.onPress}
               loading={this.props.loading}

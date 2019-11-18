@@ -5,11 +5,14 @@ export interface User {
   email: string;
   fcmToken: string | null;
   profilePictureUrl?: string;
+  tribeMember: string[];
+  tribeOwner: string[];
 }
 
 export interface Tribe {
   id: string;
   name: string;
+  petName: string;
   members: string[];
   ownerId: string;
   timestamp: number;

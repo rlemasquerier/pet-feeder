@@ -7,6 +7,7 @@ import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
 import { Loader } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
+import { usePetName } from 'pet-feeder/src/hooks';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -29,9 +30,10 @@ const ADD_RECORD = gql`
 
 interface Props {
   selectedDate: Moment;
+  tribeId: string;
 }
 
-export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
+export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props) => {
   const dayString = dateToString(selectedDate);
   const morningQueryResult = useQuery(GET_DAILY_RECORDS, {
     variables: { dateString: dayString, dayHalf: 'morning' },
@@ -44,6 +46,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
   });
 
   const [addRecord, addRecordMutationResult] = useMutation(ADD_RECORD);
+  const { petName } = usePetName(tribeId);
 
   const addRecordLoading = addRecordMutationResult.loading;
   const loading = morningQueryResult.loading || eveningQueryResult.loading;
@@ -75,10 +78,14 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
     return 'inactive';
   };
 
+  if (!petName) {
+    return null;
+  }
+
   return (
     <ScrollView>
-      <HalfDayCard halfDay={'morning'} record={records.morning[0]} />
-      <HalfDayCard halfDay={'evening'} record={records.evening[0]} />
+      <HalfDayCard halfDay={'morning'} petName={petName} record={records.morning[0]} />
+      <HalfDayCard halfDay={'evening'} petName={petName} record={records.evening[0]} />
       <FeedPetButton
         onPress={async () => {
           await addRecord();
@@ -87,6 +94,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate }: Props) => {
         }}
         status={getButtonStatus()}
         loading={addRecordLoading}
+        label={`NOURRIR ${petName.toUpperCase()}`}
       />
     </ScrollView>
   );

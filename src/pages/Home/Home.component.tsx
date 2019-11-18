@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from 'react';
 import { Text, View, ViewStyle, StyleSheet, TextStyle } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import moment, { Moment } from 'moment';
-import { Page, Calendar, TopBanner } from '../../components';
+import { Page, Calendar, TopBanner, Loader } from '../../components';
 import { DayScrollView } from './components/DayScrollView/DayScrollView.component';
 import { User } from '../../types';
 import theme from '../../theme';
@@ -49,12 +49,16 @@ export class Home extends Component<Props, State> {
   };
 
   public render(): ReactNode {
+    if (!this.props.user) {
+      return <Loader size={30} />;
+    }
+    if (!this.props.user.tribeMember[0]) {
+      return null;
+    }
     return (
       <Page>
         <TopBanner>
-          <Text style={styles.topBannerText}>
-            Bonjour {this.props.user && this.props.user.name} !
-          </Text>
+          <Text style={styles.topBannerText}>Bonjour {this.props.user.name} !</Text>
           <Text style={styles.topBannerText} onPress={this.logout}>
             Logout
           </Text>
@@ -63,7 +67,10 @@ export class Home extends Component<Props, State> {
           <View style={styles.calendarContainer}>
             <Calendar selectedDate={this.state.selectedDate} onDateChange={this.onDateChange} />
           </View>
-          <DayScrollView selectedDate={this.state.selectedDate} />
+          <DayScrollView
+            selectedDate={this.state.selectedDate}
+            tribeId={this.props.user.tribeMember[0]}
+          />
         </View>
       </Page>
     );

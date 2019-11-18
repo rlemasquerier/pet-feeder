@@ -59,7 +59,7 @@ const handleJoinTribe = async ({
 };
 
 export const JoinTribe: React.FC<Props> = () => {
-  const { user } = useCurrentUser();
+  const { user, refetchUser } = useCurrentUser();
   const [joinTribe] = useMutation<JoinTribeMutationData, JoinTribeInput>(joinTribeMutation);
   if (!user) {
     return null;
@@ -73,6 +73,7 @@ export const JoinTribe: React.FC<Props> = () => {
         userId: user.id,
         joinTribeMutation: joinTribe,
       });
+      await refetchUser();
       navigator.navigate(PAGES.HOME);
     } catch (error) {
       showError('Une erreur est survenue');

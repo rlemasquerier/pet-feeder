@@ -15,6 +15,7 @@ interface Props {
 
 const initialCreateTribeValues: CreateTribeFormValues = {
   name: '',
+  petName: '',
 };
 
 interface CreateTribeMutationData {
@@ -23,6 +24,7 @@ interface CreateTribeMutationData {
 
 interface CreateTribeInput {
   name: string;
+  petName: string;
   members: string[];
 }
 
@@ -43,6 +45,7 @@ const handleCreateTribe = async ({
     const createTribeAnswer = await createTribeMutation({
       variables: {
         name: values.name,
+        petName: values.petName,
         members: [user.id],
       },
     });

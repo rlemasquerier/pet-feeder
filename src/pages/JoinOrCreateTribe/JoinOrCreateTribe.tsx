@@ -3,7 +3,7 @@ import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
 import theme from './../../theme';
 import { Page, TopBanner, TribeCode, Button, Loader } from 'pet-feeder/src/components';
-import { navigator } from 'pet-feeder/src/services/navigation';
+import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 import { CreateTribe } from './CreateTribe';
 import { JoinTribe } from './JoinTribe';
 
@@ -11,10 +11,14 @@ interface Props {}
 
 export const JoinOrCreateTribe: React.FC<Props> = () => {
   const [code, setCode] = useState<string | null>(null);
-  const { user } = useCurrentUser();
+  const { user, refetchUser } = useCurrentUser();
   if (!user) {
     return <Loader size={100} />;
   }
+  const onPressCreateTribeContinue = async () => {
+    await refetchUser();
+    navigator.navigate(PAGES.HOME);
+  };
   return (
     <Page>
       <TopBanner label={`Bienvenue, ${user.name} !`} />
@@ -30,11 +34,7 @@ export const JoinOrCreateTribe: React.FC<Props> = () => {
               </Text>
               <TribeCode code={code} />
               <View style={{ marginVertical: 3 * theme.margins.unit }}>
-                <Button
-                  label="Continuer"
-                  onPress={() => navigator.navigate('HOME')}
-                  isLoading={false}
-                />
+                <Button label="Continuer" onPress={onPressCreateTribeContinue} isLoading={false} />
               </View>
             </>
           )}

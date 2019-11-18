@@ -5,6 +5,7 @@ import theme from '../../../../theme';
 
 export interface Values {
   name: string;
+  petName: string;
 }
 export interface Props {
   handleSubmit: () => void;
@@ -19,11 +20,19 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
     <View style={styles.container}>
       <FormInput
         type="text"
-        label="Nom de la coloc"
+        label="Nom de ta coloc"
         name="name"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.name}
+      />
+      <FormInput
+        type="text"
+        label="Nom de ton animal"
+        name="petName"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.petName}
       />
       <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
     </View>

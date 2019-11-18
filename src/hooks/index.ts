@@ -3,9 +3,9 @@ import { User, Tribe } from 'pet-feeder/src/types';
 import { getConnectedUser, getTribeById } from 'pet-feeder/src/graphql/queries';
 
 export const useCurrentUser = () => {
-  const { loading, error, data } = useQuery<{ me: User }>(getConnectedUser);
+  const { loading, error, data, refetch } = useQuery<{ me: User }>(getConnectedUser);
   const user = data && data.me;
-  return { loading, error, user };
+  return { loading, error, user, refetchUser: refetch };
 };
 
 export const usePetName = (tribeId: string) => {

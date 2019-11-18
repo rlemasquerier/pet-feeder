@@ -10,16 +10,15 @@ interface Props {
   user: User;
 }
 
-interface State {
-  selectedDate: Moment;
-}
-
 export const HomeContent: React.FC<Props> = (props: Props) => {
   const { user } = props;
   const [selectedDate, setSelectedDate] = useState<Moment>(moment());
   const onDateChange = (date: Date) => {
     setSelectedDate(moment(date));
   };
+  if (!user.tribeMember[0]) {
+    return null;
+  }
   return (
     <View style={styles.content}>
       <View style={styles.calendarContainer}>

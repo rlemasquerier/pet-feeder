@@ -42,9 +42,6 @@ export class Home extends Component<Props> {
     if (!this.props.user) {
       return <Loader size={30} />;
     }
-    if (!this.props.user.tribeMember[0]) {
-      return null;
-    }
     return (
       <Page>
         <TopBanner>

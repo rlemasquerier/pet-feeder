@@ -10,6 +10,7 @@ const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
 
 interface Props {
   halfDay: 'morning' | 'evening';
+  petName: string;
   record?: Record;
 }
 
@@ -29,8 +30,8 @@ export const HalfDayCard: React.FC<Props> = (props: Props) => {
         )}
         <Text style={styles.content}>
           {props.record
-            ? `Gaïa a été nourrie par ${props.record.feederName}`
-            : "Gaïa attend d'être nourrie"}
+            ? `${props.petName} a été nourri par ${props.record.feederName}`
+            : `${props.petName} attend d'être nourrie`}
         </Text>
         {props.record && (
           <UserPictureBadge

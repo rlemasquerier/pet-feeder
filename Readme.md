@@ -38,11 +38,35 @@ If you have a problem with IOS build, delete the folder ios/Pods and relaunch th
 ## Development
 
 Run the app on iOS emulator with
+
 ```bash
 react-native run-ios
 ```
 
 Run the app on Android with
+
 ```bash
 react-native run-android
 ```
+
+# Deploy
+
+## Staging
+
+### Hard deploy
+
+#### Android
+
+```bash
+yarn deploy -e staging -o android -t hard
+```
+
+#### iOS
+
+```bash
+yarn deploy -e staging -o ios -t hard
+```
+
+### Soft deploy (code push)
+
+To do

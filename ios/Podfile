@@ -45,7 +45,7 @@ target 'PetFeeder' do
   pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
-
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+  pod 'CodePush', :path => '../node_modules/react-native-code-push'
 
 end

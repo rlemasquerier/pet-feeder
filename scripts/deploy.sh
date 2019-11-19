@@ -9,7 +9,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 NO_COLOR='\033[0m'
 
-APP_ENV="test"
+APP_ENV="staging"
 APP_OS="ios and android"
 DEPLOY_TYPE="soft"
 

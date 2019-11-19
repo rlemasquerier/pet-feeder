@@ -7,13 +7,14 @@ import { AppNavigator } from './AppNavigator';
 import { persistor, store } from './redux/store';
 import { setTopLevelNavigator } from './services/navigation';
 import { client } from './apollo/initClient';
+import codePush from 'react-native-code-push';
 
 // Remove this and YellowBox after this issue is resolved https://github.com/expo/expo/issues/4455
 YellowBox.ignoreWarnings(['LottieAnimationView.getConstants']);
 YellowBox.ignoreWarnings(["UIManager['LottieAnimationView']"]);
 YellowBox.ignoreWarnings(['Require cycle: node_modules/react-native-paper']);
 
-export class App extends React.Component {
+class RootComponent extends React.Component {
   public render(): JSX.Element {
     return (
       <Provider store={store}>
@@ -26,3 +27,5 @@ export class App extends React.Component {
     );
   }
 }
+
+export const App = codePush()(RootComponent);

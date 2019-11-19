@@ -11,6 +11,7 @@ import { client } from './apollo/initClient';
 // Remove this and YellowBox after this issue is resolved https://github.com/expo/expo/issues/4455
 YellowBox.ignoreWarnings(['LottieAnimationView.getConstants']);
 YellowBox.ignoreWarnings(["UIManager['LottieAnimationView']"]);
+YellowBox.ignoreWarnings(['Require cycle: node_modules/react-native-paper']);
 
 export class App extends React.Component {
   public render(): JSX.Element {

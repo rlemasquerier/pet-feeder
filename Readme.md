@@ -69,4 +69,14 @@ yarn deploy -e staging -o ios -t hard
 
 ### Soft deploy (code push)
 
-To do
+#### Android
+
+```bash
+yarn deploy -e staging -o android -t soft
+```
+
+#### iOS
+
+```bash
+yarn deploy -e staging -o ios -t soft
+```

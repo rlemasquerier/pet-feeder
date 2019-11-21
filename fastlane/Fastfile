@@ -111,6 +111,7 @@ platform :ios do
         plist['CFBundleDisplayName'] = ENV['IOS_APP_NAME']
         plist['CFBundleShortVersionString'] = ENV['IOS_VERSION']
         plist['CFBundleVersion'] = ENV['IOS_VERSION_BUILD_NUMBER']
+        plist['CodePushDeploymentKey'] = ENV['IOS_CODEPUSH_DEPLOYMENT_KEY']
       },
     )
     if ENV['IOS_CODEPUSH_DEPLOYMENT_KEY'] then

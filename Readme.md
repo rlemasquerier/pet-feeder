@@ -40,13 +40,13 @@ If you have a problem with IOS build, delete the folder ios/Pods and relaunch th
 Run the app on iOS emulator with
 
 ```bash
-react-native run-ios
+yarn run-ios
 ```
 
 Run the app on Android with
 
 ```bash
-react-native run-android
+yarn run-android
 ```
 
 # Deploy

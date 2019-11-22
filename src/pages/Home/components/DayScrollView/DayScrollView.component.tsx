@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
-import { Loader } from '../../../../components';
+import { Loader, GenericError } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
 import { usePetName } from 'pet-feeder/src/hooks';
@@ -81,7 +81,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
 
   if (!petName) {
     showError("Oups, une erreur est survenue. Il semblerait que ton animal n'ait pas de nom !");
-    return null;
+    return <GenericError />;
   }
 
   return (

@@ -5,16 +5,19 @@ const fonts = {
   regular: {
     fontSize: 14,
   },
-  big: {
-    fontSize: 16,
-  },
   strong: {
     fontSize: 14,
     fontWeight: 'bold' as 'bold',
   },
+  big: {
+    fontSize: 16,
+  },
   bigStrong: {
     fontSize: 16,
     fontWeight: 'bold' as 'bold',
+  },
+  huge: {
+    fontSize: 20,
   },
   hugeStrong: {
     fontSize: 20,

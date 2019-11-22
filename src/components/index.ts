@@ -16,3 +16,4 @@ export { UserPictureBadge } from './UserPictureBadge';
 export { AnimatedHeader } from './AnimatedHeader';
 export { KeyboardAvoidingView } from './KeyboardAvoidingView';
 export { TribeCode } from './TribeCode';
+export { GenericError } from './GenericError';

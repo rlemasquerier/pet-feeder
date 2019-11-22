@@ -47,11 +47,12 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
   });
 
   const [addRecord, addRecordMutationResult] = useMutation(ADD_RECORD);
-  const { petName } = usePetName(tribeId);
+  const petNameQueryResult = usePetName(tribeId);
 
   const addRecordLoading = addRecordMutationResult.loading;
-  const loading = morningQueryResult.loading || eveningQueryResult.loading;
-  const error = morningQueryResult.error;
+  const loading =
+    morningQueryResult.loading || eveningQueryResult.loading || petNameQueryResult.loading;
+  const error = morningQueryResult.error || petNameQueryResult.error;
 
   if (loading) return <Loader size={30} />;
 
@@ -62,6 +63,8 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
     morning: morningQueryResult.data.dailyRecords,
     evening: eveningQueryResult.data.dailyRecords,
   };
+
+  const petName = petNameQueryResult.petName;
 
   const getButtonStatus = () => {
     const now = moment();

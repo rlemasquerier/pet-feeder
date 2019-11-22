@@ -8,6 +8,7 @@ import { Loader } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
 import { usePetName } from 'pet-feeder/src/hooks';
+import { showError } from 'pet-feeder/src/services/toaster';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -79,6 +80,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
   };
 
   if (!petName) {
+    showError("Oups, une erreur est survenue. Il semblerait que ton animal n'ait pas de nom !");
     return null;
   }
 

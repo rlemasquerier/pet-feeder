@@ -34,7 +34,7 @@ const styles = StyleSheet.create<Style>({
   container: {
     marginVertical: 2 * theme.margins.unit,
     marginHorizontal: theme.margins.pagePadding,
-    height: CARD_HEIGHT,
+    minHeight: CARD_HEIGHT,
     borderRadius: theme.borders.radius,
     backgroundColor: theme.colors.white,
     alignItems: 'stretch',

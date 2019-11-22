@@ -21,7 +21,8 @@ export type IconName =
   | 'cross'
   | 'checkmark'
   | 'pencil'
-  | 'mail2';
+  | 'mail2'
+  | 'wondering2';
 
 export const Icon: FunctionComponent<IconProps> = ({
   name,

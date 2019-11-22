@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
-import { Icon } from 'pet-feeder/src/components';
+import { Icon } from '../Icon';
 import theme from './../../theme';
 
 interface Props {}

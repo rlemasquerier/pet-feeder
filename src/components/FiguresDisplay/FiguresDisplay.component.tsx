@@ -48,7 +48,6 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: theme.colors.border,
-    marginTop: 4 * theme.margins.unit,
     paddingHorizontal: theme.margins.unit,
     paddingVertical: 2 * theme.margins.unit,
   },

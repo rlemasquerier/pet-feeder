@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import { Page, BarChart, FiguresDisplay, Loader } from '../../components';
+import { Page, BarChart, FiguresDisplay, Loader, Card } from '../../components';
 import {
   AnimatedHeader,
   HEADER_DIMENSIONS,
@@ -36,10 +36,14 @@ export const Statistics: React.FC<{}> = () => {
         onScroll={onScroll({ y: scrollY })}
         contentContainerStyle={styles.content}
       >
-        <FiguresDisplay data={figuresDisplayData} />
-        <View style={styles.cardStyle}>
-          {recordsData.length > 0 && <BarChart data={recordsData} />}
-        </View>
+        <Card title="Mes stats">
+          <FiguresDisplay data={figuresDisplayData} />
+        </Card>
+        <Card title="Ma coloc">
+          <View style={styles.cardStyle}>
+            {recordsData.length > 0 && <BarChart data={recordsData} />}
+          </View>
+        </Card>
       </Animated.ScrollView>
       <AnimatedHeader
         scrollY={scrollY}
@@ -67,17 +71,9 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'stretch',
     paddingTop: HEADER_DIMENSIONS.EXTENDED_HEIGHT,
     paddingBottom: 4 * theme.margins.unit,
-    paddingHorizontal: theme.margins.pagePadding,
   },
   cardStyle: {
-    flex: 1,
-    backgroundColor: 'white',
-    borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    borderColor: theme.colors.border,
-    marginTop: 4 * theme.margins.unit,
-    paddingHorizontal: 4 * theme.margins.unit,
-    paddingVertical: 2 * theme.margins.unit,
   },
 });

@@ -22,6 +22,7 @@ const styleguideColors = {
   error: baseColors.red,
   placeholderColor: baseColors.mediumGrey,
   secondaryAction: baseColors.brown,
+  text: baseColors.brown,
   backgroundColor: baseColors.lightGrey,
 };
 

@@ -7,6 +7,7 @@ import { AppNavigator } from './AppNavigator';
 import { persistor, store } from './redux/store';
 import { setTopLevelNavigator } from './services/navigation';
 import { client } from './apollo/initClient';
+import environment from 'pet-feeder/src/environment';
 import codePush from 'react-native-code-push';
 
 // Remove this and YellowBox after this issue is resolved https://github.com/expo/expo/issues/4455
@@ -28,4 +29,4 @@ class RootComponent extends React.Component {
   }
 }
 
-export const App = codePush()(RootComponent);
+export const App = environment.ENV === 'staging' ? codePush()(RootComponent) : RootComponent;

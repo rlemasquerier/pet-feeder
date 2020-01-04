@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import { clone } from 'ramda';
 import { authenticationActionCreators } from '../redux/authentication/reducer';
 import { refreshToken as refreshCredentials } from '../api/apiClient';
 import { store } from '../redux/store';
@@ -18,7 +18,12 @@ export const customFetch = async (uri: string, options: Options): Promise<Respon
   const state = store.getState();
 
   const response = await fetch(uri, options);
-  const initialResponse = lodash.cloneDeep(response);
+  /*
+    This cloning operation introduced a bug on iOS when performed with lodash clone deep
+    The error was occuring only on staging
+    Couldn't find the reason why lodash clone deep failed at that time
+  */
+  const initialResponse = clone(response);
   const json = await response.json();
 
   if (json && json.errors && json.errors[0] && json.errors[0].message === 'GqlAuthGuard') {

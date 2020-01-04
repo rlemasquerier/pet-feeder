@@ -13,8 +13,10 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "pet-feeder/*": ["./*"]
-    }
+      "pet-feeder/*": ["./*"],
+      "*": ["src/types/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "exclude": [
     "node_modules",
@@ -26,6 +28,7 @@
     "android",
     "ios",
     "src/**/*.test.ts",
-    "src/**/*.test.tsx"
+    "src/**/*.test.tsx",
+    "src/types"
   ]
 }

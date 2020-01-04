@@ -716,6 +716,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F509A36226534B5FABEC7D43 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			path = Application;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -730,6 +738,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				B95F8C81FA5FB86FE06D449D /* [CP] Copy Pods Resources */,
 				624A6270977AD718B2E319D9 /* [CP-User] [RNFB] Core Configuration */,
+				50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -1168,7 +1177,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		624A6270977AD718B2E319D9 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1250,6 +1259,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetFeeder/Pods-PetFeeder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			name = "Upload Debug Symbols to Sentry";
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			shellPath = /bin/sh;
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
 		};
 /* End PBXShellScriptBuildPhase section */
 

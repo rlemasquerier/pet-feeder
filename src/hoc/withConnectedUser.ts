@@ -15,6 +15,7 @@ export const withConnectedUser = graphql<InputProps, Response, Variables, {}>(ge
   props: ({ data, ownProps }) => {
     return {
       user: data && data.me,
+      userError: data && data.error,
       resetOnLogout: async () => ownProps.client.resetStore(),
     };
   },

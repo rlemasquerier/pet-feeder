@@ -1526,6 +1526,14 @@
   dependencies:
     ts-toolbelt "^4.12.0"
 
+"@types/react-native-check-box@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react-native-check-box/-/react-native-check-box-2.1.0.tgz#c782a3e0bf1a1ff93d289ff44756b80e026798fa"
+  integrity sha512-a+j/tI9pBCG4YHdWHQ9iLjAloe+Gy5Fl3p6JemsK0Xi4aYELFGQ84EKzSdG6T+tMU0P2CYTalj50INDri/lQng==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-svg-charts@^5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@types/react-native-svg-charts/-/react-native-svg-charts-5.0.1.tgz#75beda15b69a8db33c626fb356282f3d5ef058d4"

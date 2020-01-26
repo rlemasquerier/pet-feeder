@@ -35,13 +35,24 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      {tabs.map((tab, index) => (
-        <TouchableWithoutFeedback key={tab.name} onPress={() => onPress(index)}>
-          <View style={styles.tab}>
-            <Icon name={tab.name} size={TAB_BAR_ICON_SIZE} color={'black'} />
-          </View>
-        </TouchableWithoutFeedback>
-      ))}
+      {tabs.map((tab, index) => {
+        const opacity = value.interpolate({
+          inputRange: [
+            -width + tabWidth * (index - 1),
+            -width + tabWidth * index,
+            -width + tabWidth * (index + 1),
+          ],
+          outputRange: [1, 0, 1],
+          extrapolate: 'clamp',
+        });
+        return (
+          <TouchableWithoutFeedback key={tab.name} onPress={() => onPress(index)}>
+            <Animated.View style={[styles.tab, { opacity }]}>
+              <Icon name={tab.name} size={TAB_BAR_ICON_SIZE} color={'black'} />
+            </Animated.View>
+          </TouchableWithoutFeedback>
+        );
+      })}
     </View>
   );
 };

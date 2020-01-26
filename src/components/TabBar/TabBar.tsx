@@ -1,25 +1,30 @@
 import React from 'react';
-import { TextStyle, StyleSheet, ViewStyle, Dimensions, View } from 'react-native';
+import { TextStyle, StyleSheet, ViewStyle, Dimensions, View, Animated } from 'react-native';
 import * as shape from 'd3-shape';
-import theme from './../../theme';
 import { Svg, Path } from 'react-native-svg';
+import theme from './../../theme';
+import { StaticTabBar } from './StaticTabBar';
+import { IconName } from '../Icon/Icon.component';
 
 interface Props {}
 
-const tabs = [
+const tabs: { name: IconName }[] = [
   {
-    name: 'home',
+    name: 'home3',
   },
   {
-    name: 'stats',
+    name: 'bell',
   },
   {
-    name: 'reminders',
+    name: 'calendar',
   },
   {
-    name: 'profile',
+    name: 'user',
   },
 ];
+
+const AnimatedSvg = Animated.createAnimatedComponent(Svg);
+
 const { width } = Dimensions.get('window');
 const tabWidth = width / tabs.length;
 const height = 64;
@@ -51,11 +56,21 @@ const right = shape
 const d = `${left} ${tab} ${right}`;
 
 export const TabBar: React.FC<Props> = () => {
+  const value = new Animated.Value(-width);
   return (
     <View style={styles.container}>
-      <Svg width={width * 2} height={height}>
-        <Path {...{ d }} fill="red" />
-      </Svg>
+      <View style={{ height, width }}>
+        <AnimatedSvg
+          width={width * 2}
+          height={height}
+          style={{ transform: [{ translateX: value }] }}
+        >
+          <Path {...{ d }} fill="red" />
+        </AnimatedSvg>
+        <View style={StyleSheet.absoluteFill}>
+          <StaticTabBar tabs={tabs} value={value} />
+        </View>
+      </View>
     </View>
   );
 };

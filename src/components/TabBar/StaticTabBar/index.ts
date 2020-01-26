@@ -1,0 +1,1 @@
+export { StaticTabBar } from './StaticTabBar';

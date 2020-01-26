@@ -18,6 +18,25 @@ import { PAGES } from 'pet-feeder/src/services/navigation';
 const TAB_BAR_ICON_SIZE = 25;
 const TAB_BAR_HEIGHT = 55;
 
+const ProfileStack = createStackNavigator(
+  {
+    [PAGES.PROFILE]: {
+      screen: Pages.Profile,
+      navigationOptions: {
+        header: null,
+      },
+    },
+    [PAGES.TAB_BAR_PLAYGROUND]: {
+      screen: Pages.TabBarPlayground,
+    },
+  },
+  {
+    navigationOptions: {
+      title: 'Profil',
+    },
+  }
+);
+
 const ConnectedTabNavigator = createBottomTabNavigator(
   {
     [PAGES.HOME]: {
@@ -38,12 +57,7 @@ const ConnectedTabNavigator = createBottomTabNavigator(
         title: 'Rappels',
       },
     },
-    [PAGES.PROFILE]: {
-      screen: Pages.Profile,
-      navigationOptions: {
-        title: 'Profil',
-      },
-    },
+    [PAGES.PROFILE]: ProfileStack,
   },
   {
     defaultNavigationOptions: ({ navigation }: { navigation: NavigationDescriptor }) => ({

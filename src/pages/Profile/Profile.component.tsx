@@ -4,6 +4,7 @@ import theme from './../../theme';
 import { LargeButton, Icon, Page, Loader } from '../../components';
 import { PROFILE_PICTURE_SIZE, ProfilePicture } from './ProfilePicture';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
+import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 
 const HEADER_HEIGHT = (2 / 3) * PROFILE_PICTURE_SIZE;
 
@@ -61,6 +62,14 @@ export const Profile: React.FC<{}> = () => {
           label="Modifier"
           color={theme.colors.secondary}
           onPress={() => {}}
+        />
+        <LargeButton
+          style={{ width: 200 }}
+          label="Librairie"
+          color={theme.colors.secondary}
+          onPress={() => {
+            navigator.navigate(PAGES.TAB_BAR_PLAYGROUND);
+          }}
         />
       </View>
     </Page>

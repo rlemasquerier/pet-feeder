@@ -12,7 +12,8 @@ export type PageNameType =
   | 'REMINDERS'
   | 'STATISTICS'
   | 'SIGNUP'
-  | 'JOIN_OR_CREATE_TRIBE';
+  | 'JOIN_OR_CREATE_TRIBE'
+  | 'TAB_BAR_PLAYGROUND';
 
 export const PAGES: { [key in PageNameType]: PageNameType } = {
   HOME: 'HOME',
@@ -23,6 +24,7 @@ export const PAGES: { [key in PageNameType]: PageNameType } = {
   STATISTICS: 'STATISTICS',
   SIGNUP: 'SIGNUP',
   JOIN_OR_CREATE_TRIBE: 'JOIN_OR_CREATE_TRIBE',
+  TAB_BAR_PLAYGROUND: 'TAB_BAR_PLAYGROUND',
 };
 
 let topLevelNavigator: NavigationContainerComponent | null = null;

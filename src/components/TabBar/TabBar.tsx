@@ -68,7 +68,7 @@ export const TabBar: React.FC<Props> = () => {
           <Path {...{ d }} fill="red" />
         </AnimatedSvg>
         <View style={StyleSheet.absoluteFill}>
-          <StaticTabBar tabs={tabs} value={value} />
+          <StaticTabBar tabs={tabs} value={value} height={height} />
         </View>
       </View>
     </View>

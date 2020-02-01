@@ -25,37 +25,37 @@ const tabs: { name: IconName }[] = [
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 
-const { width } = Dimensions.get('window');
-const tabWidth = width / tabs.length;
+const { width: screenWidth } = Dimensions.get('window');
+const tabWidth = screenWidth / tabs.length;
 const height = 64;
 const extraMargin = 100; // Need this because of spring effect
 const left = shape
   .line()
   .x(d => d[0])
-  .y(d => d[1])([[0, 0], [width, 0]]);
+  .y(d => d[1])([[0, 0], [screenWidth - 15, 0]]);
 
 const tab = shape
   .line()
   .x(d => d[0])
   .y(d => d[1])
   .curve(shape.curveBasis)([
-  [width, 0],
-  [width + 5, 0],
-  [width + 10, 10],
-  [width + 15, height],
-  [width + tabWidth - 15, height],
-  [width + tabWidth - 10, 10],
-  [width + tabWidth - 5, 0],
-  [width + tabWidth, 0],
+  [screenWidth - 15, 0],
+  [screenWidth - 10, 0],
+  [screenWidth + 10, 10],
+  [screenWidth + 20, height],
+  [screenWidth + tabWidth - 20, height],
+  [screenWidth + tabWidth - 10, 10],
+  [screenWidth + tabWidth + 10, 0],
+  [screenWidth + tabWidth + 15, 0],
 ]);
 
 const right = shape
   .line()
   .x(d => d[0])
   .y(d => d[1])([
-  [width + tabWidth, 0],
-  [width * 2 + extraMargin, 0],
-  [width * 2 + extraMargin, height],
+  [screenWidth + tabWidth + 15, 0],
+  [screenWidth * 2 + extraMargin, 0],
+  [screenWidth * 2 + extraMargin, height],
   [0, height],
   [0, 0],
 ]);
@@ -63,12 +63,12 @@ const right = shape
 const d = `${left} ${tab} ${right}`;
 
 export const TabBar: React.FC<Props> = () => {
-  const value = new Animated.Value(-width);
+  const value = new Animated.Value(-screenWidth);
   return (
     <View style={styles.container}>
-      <View style={{ height, width }}>
+      <View style={{ height, width: screenWidth }}>
         <AnimatedSvg
-          width={width * 2 + extraMargin}
+          width={screenWidth * 2 + extraMargin}
           height={height}
           style={{ transform: [{ translateX: value }] }}
         >

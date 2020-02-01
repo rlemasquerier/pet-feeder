@@ -24,6 +24,7 @@ const TAB_BAR_ICON_SIZE = 25;
 const TAB_BAR_SELECTED_TAB_ICON_SIZE = 30;
 const TAB_BAR_CIRCLE_SIZE = 50;
 const TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR = 'white';
+const TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET = 8;
 
 const { width } = Dimensions.get('window');
 
@@ -86,7 +87,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
                 width: tabWidth,
                 height: height,
                 left: index * tabWidth,
-                top: -8,
+                top: -TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET,
                 justifyContent: 'center',
                 alignItems: 'center',
                 opacity: tabSelectionIconOpacity,

@@ -21,16 +21,16 @@ interface Props {
 }
 
 const TAB_BAR_ICON_SIZE = 25;
-const TAB_BAR_SELECTED_TAB_ICON_SIZE = 35;
+const TAB_BAR_SELECTED_TAB_ICON_SIZE = 30;
 const TAB_BAR_CIRCLE_SIZE = 50;
 const TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR = 'white';
 
 const { width } = Dimensions.get('window');
-const values = [0, 1, 2, 3].map(index => new Animated.Value(index === 0 ? 1 : 0));
 
 export const StaticTabBar: React.FC<Props> = (props: Props) => {
   const { tabs, value, height } = props;
   const tabWidth = width / tabs.length;
+  const values = tabs.map((_, index) => new Animated.Value(index === 0 ? 1 : 0));
 
   const onPress = (index: number) => {
     Animated.sequence([
@@ -59,7 +59,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
   return (
     <View style={styles.container}>
       {tabs.map((tab, index) => {
-        const opacity = value.interpolate({
+        const tabIconOpacity = value.interpolate({
           inputRange: [
             -width + tabWidth * (index - 1),
             -width + tabWidth * index,
@@ -73,7 +73,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
           outputRange: [64, 0],
           extrapolate: 'clamp',
         });
-        const opacity1 = values[index].interpolate({
+        const tabSelectionIconOpacity = values[index].interpolate({
           inputRange: [0, 1],
           outputRange: [0, 1],
           extrapolate: 'clamp',
@@ -89,7 +89,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
                 top: -8,
                 justifyContent: 'center',
                 alignItems: 'center',
-                opacity: opacity1,
+                opacity: tabSelectionIconOpacity,
                 transform: [{ translateY }],
               }}
             >
@@ -98,7 +98,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
               </View>
             </Animated.View>
             <TouchableWithoutFeedback key={tab.name} onPress={() => onPress(index)}>
-              <Animated.View style={[styles.tab, { opacity, height }]}>
+              <Animated.View style={[styles.tab, { opacity: tabIconOpacity, height }]}>
                 <Icon name={tab.name} size={TAB_BAR_ICON_SIZE} color={'black'} />
               </Animated.View>
             </TouchableWithoutFeedback>

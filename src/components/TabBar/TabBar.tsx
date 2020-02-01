@@ -6,7 +6,9 @@ import theme from './../../theme';
 import { StaticTabBar } from './StaticTabBar';
 import { IconName } from '../Icon/Icon.component';
 
-interface Props {}
+interface Props {
+  backgroundColor: string;
+}
 
 const tabs: { name: IconName }[] = [
   {
@@ -62,7 +64,7 @@ const right = shape
 
 const d = `${left} ${tab} ${right}`;
 
-export const TabBar: React.FC<Props> = () => {
+export const TabBar: React.FC<Props> = (props: Props) => {
   const value = new Animated.Value(-screenWidth);
   return (
     <View style={styles.container}>
@@ -72,7 +74,7 @@ export const TabBar: React.FC<Props> = () => {
           height={height}
           style={{ transform: [{ translateX: value }] }}
         >
-          <Path {...{ d }} fill="red" />
+          <Path {...{ d }} fill={props.backgroundColor} />
         </AnimatedSvg>
         <View style={StyleSheet.absoluteFill}>
           <StaticTabBar tabs={tabs} value={value} height={height} />

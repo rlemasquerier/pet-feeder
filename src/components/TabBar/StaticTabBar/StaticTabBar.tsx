@@ -21,6 +21,10 @@ interface Props {
 }
 
 const TAB_BAR_ICON_SIZE = 25;
+const TAB_BAR_SELECTED_TAB_ICON_SIZE = 35;
+const TAB_BAR_CIRCLE_SIZE = 50;
+const TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR = 'white';
+
 const { width } = Dimensions.get('window');
 const values = [0, 1, 2, 3].map(index => new Animated.Value(index === 0 ? 1 : 0));
 
@@ -90,7 +94,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
               }}
             >
               <View style={styles.circle}>
-                <Icon name={tab.name} size={TAB_BAR_ICON_SIZE} color={'black'} />
+                <Icon name={tab.name} size={TAB_BAR_SELECTED_TAB_ICON_SIZE} color={'black'} />
               </View>
             </Animated.View>
             <TouchableWithoutFeedback key={tab.name} onPress={() => onPress(index)}>
@@ -121,10 +125,10 @@ const styles = StyleSheet.create<Style>({
     alignItems: 'center',
   },
   circle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'white',
+    width: TAB_BAR_CIRCLE_SIZE,
+    height: TAB_BAR_CIRCLE_SIZE,
+    borderRadius: TAB_BAR_CIRCLE_SIZE / 2,
+    backgroundColor: TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
   },

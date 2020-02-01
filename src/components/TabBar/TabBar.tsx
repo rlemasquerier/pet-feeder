@@ -28,6 +28,7 @@ const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const { width } = Dimensions.get('window');
 const tabWidth = width / tabs.length;
 const height = 64;
+const extraMargin = 100; // Need this because of spring effect
 const left = shape
   .line()
   .x(d => d[0])
@@ -51,7 +52,13 @@ const tab = shape
 const right = shape
   .line()
   .x(d => d[0])
-  .y(d => d[1])([[width + tabWidth, 0], [width * 2, 0], [width * 2, height], [0, height], [0, 0]]);
+  .y(d => d[1])([
+  [width + tabWidth, 0],
+  [width * 2 + extraMargin, 0],
+  [width * 2 + extraMargin, height],
+  [0, height],
+  [0, 0],
+]);
 
 const d = `${left} ${tab} ${right}`;
 
@@ -61,7 +68,7 @@ export const TabBar: React.FC<Props> = () => {
     <View style={styles.container}>
       <View style={{ height, width }}>
         <AnimatedSvg
-          width={width * 2}
+          width={width * 2 + extraMargin}
           height={height}
           style={{ transform: [{ translateX: value }] }}
         >

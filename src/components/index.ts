@@ -18,3 +18,4 @@ export { KeyboardAvoidingView } from './KeyboardAvoidingView';
 export { TribeCode } from './TribeCode';
 export { GenericError } from './GenericError';
 export { TabBar } from './TabBar';
+export { BinarySwitch } from './BinarySwitch';

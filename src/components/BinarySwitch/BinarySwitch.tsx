@@ -63,11 +63,14 @@ const styles = StyleSheet.create<Style>({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'flex-start',
     borderWidth: 1,
+    width: '70%',
     ...borderStyle,
   },
   itemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 3 * theme.margins.unit,
   },
   text: {

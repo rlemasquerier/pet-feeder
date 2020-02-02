@@ -35,13 +35,15 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
         onBlur={handleBlur}
         value={values.petName}
       />
-      <BinarySwitch
-        choice1={{ label: 'Mâle', value: 'male' }}
-        choice2={{ label: 'Femelle', value: 'female' }}
-        name="petSex"
-        type="text"
-        value={values.petSex}
-      />
+      <View style={{ marginBottom: 5 * theme.margins.unit }}>
+        <BinarySwitch
+          choice1={{ label: 'Mâle', value: 'male' }}
+          choice2={{ label: 'Femelle', value: 'female' }}
+          name="petSex"
+          type="text"
+          value={values.petSex}
+        />
+      </View>
       <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
     </View>
   );

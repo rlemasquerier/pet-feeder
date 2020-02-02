@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle, TouchableOpacity } from 'react-native';
 import theme from './../../theme';
+import { withFormikControl } from 'react-native-formik';
 
 interface Props {
   choice1: { label: string; value: string };
   choice2: { label: string; value: string };
-  selectedValue: string;
-  onValueChange?: (newValue: string) => void;
+  value: string;
+  setFieldValue?: (value: string) => void;
 }
 
 const borderStyle = {
@@ -14,16 +15,16 @@ const borderStyle = {
   borderRadius: theme.borders.radius,
 };
 
-export const BinarySwitch: React.FC<Props> = (props: Props) => {
-  const { choice1, choice2, selectedValue, onValueChange } = props;
-  const choice1Selected = choice1.value === selectedValue;
-  const choice2Selected = choice2.value === selectedValue;
+export const _BinarySwitch: React.FC<Props> = (props: Props) => {
+  const { choice1, choice2, value, setFieldValue } = props;
+  const choice1Selected = choice1.value === value;
+  const choice2Selected = choice2.value === value;
   const onPress = () => {
-    if (onValueChange) {
+    if (setFieldValue) {
       if (choice1Selected) {
-        onValueChange(choice2.value);
+        setFieldValue(choice2.value);
       } else if (choice2Selected) {
-        onValueChange(choice1.value);
+        setFieldValue(choice1.value);
       }
     }
   };
@@ -49,6 +50,8 @@ export const BinarySwitch: React.FC<Props> = (props: Props) => {
     </TouchableOpacity>
   );
 };
+
+export const BinarySwitch = withFormikControl(_BinarySwitch);
 
 interface Style {
   container: ViewStyle;

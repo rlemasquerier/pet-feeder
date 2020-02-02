@@ -38,8 +38,9 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
       <BinarySwitch
         choice1={{ label: 'Mâle', value: 'male' }}
         choice2={{ label: 'Femelle', value: 'female' }}
-        selectedValue={values.petSex}
-        onValueChange={handleChange}
+        name="petSex"
+        type="text"
+        value={values.petSex}
       />
       <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
     </View>

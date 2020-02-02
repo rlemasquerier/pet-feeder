@@ -12,8 +12,10 @@ export const BinarySwitchPlayground: React.FC<Props> = () => {
       <BinarySwitch
         choice1={{ label: 'Choice 1', value: 'choice1' }}
         choice2={{ label: 'Choice 2', value: 'choice2' }}
-        selectedValue={value}
-        onValueChange={newValue => setValue(newValue)}
+        value={value}
+        setFieldValue={newValue => setValue(newValue)}
+        name="BinarySwitch"
+        type="switch"
       />
     </View>
   );

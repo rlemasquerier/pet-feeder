@@ -9,22 +9,25 @@ import {
 } from 'react-native';
 import { Icon } from 'pet-feeder/src/components';
 import { IconName } from '../../Icon/Icon.component';
+import theme from 'pet-feeder/src/theme';
 
 interface Tab {
-  name: IconName;
+  navigationRoute?: { key: string; routeName: string };
+  iconName: IconName;
 }
 
 interface Props {
   height: number;
   tabs: Tab[];
   value: Animated.Value;
+  circleBackgroundColor: string;
+  onPressTab?: (index: number) => void;
 }
 
 const TAB_BAR_ICON_SIZE = 25;
 const TAB_BAR_SELECTED_TAB_ICON_SIZE = 30;
-const TAB_BAR_CIRCLE_SIZE = 50;
-const TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR = 'white';
-const TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET = 8;
+const TAB_BAR_CIRCLE_SIZE = 60;
+const TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET = 12;
 
 const { width } = Dimensions.get('window');
 
@@ -34,6 +37,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
   const values = tabs.map((_, index) => new Animated.Value(index === 0 ? 1 : 0));
 
   const onPress = (index: number) => {
+    props.onPressTab && props.onPressTab(index);
     Animated.sequence([
       Animated.parallel(
         values.map(v =>
@@ -80,7 +84,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
           extrapolate: 'clamp',
         });
         return (
-          <React.Fragment key={tab.name}>
+          <React.Fragment key={tab.iconName}>
             <Animated.View
               style={{
                 position: 'absolute',
@@ -94,13 +98,21 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
                 transform: [{ translateY }],
               }}
             >
-              <View style={styles.circle}>
-                <Icon name={tab.name} size={TAB_BAR_SELECTED_TAB_ICON_SIZE} color={'black'} />
+              <View style={[styles.circle, { backgroundColor: props.circleBackgroundColor }]}>
+                <Icon
+                  name={tab.iconName}
+                  size={TAB_BAR_SELECTED_TAB_ICON_SIZE}
+                  color={theme.colors.border}
+                />
               </View>
             </Animated.View>
-            <TouchableWithoutFeedback key={tab.name} onPress={() => onPress(index)}>
+            <TouchableWithoutFeedback key={tab.iconName} onPress={() => onPress(index)}>
               <Animated.View style={[styles.tab, { opacity: tabIconOpacity, height }]}>
-                <Icon name={tab.name} size={TAB_BAR_ICON_SIZE} color={'black'} />
+                <Icon
+                  name={tab.iconName}
+                  size={TAB_BAR_ICON_SIZE}
+                  color={theme.colors.backgroundColor}
+                />
               </Animated.View>
             </TouchableWithoutFeedback>
           </React.Fragment>
@@ -129,7 +141,6 @@ const styles = StyleSheet.create<Style>({
     width: TAB_BAR_CIRCLE_SIZE,
     height: TAB_BAR_CIRCLE_SIZE,
     borderRadius: TAB_BAR_CIRCLE_SIZE / 2,
-    backgroundColor: TAB_BAR_SELECTED_TAB_BACKGROUND_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -6,4 +6,8 @@ export { Reminders } from './Reminders';
 export { Statistics } from './Statistics';
 export { Signup } from './Signup';
 export { JoinOrCreateTribe } from './JoinOrCreateTribe';
-export { TabBarPlayground } from './ComponentsLibrary/TabBar';
+export {
+  ComponentsLibraryMenu,
+  TabBarPlayground,
+  BinarySwitchPlayground,
+} from './ComponentsLibrary';

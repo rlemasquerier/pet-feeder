@@ -68,7 +68,7 @@ export const Profile: React.FC<{}> = () => {
           label="Librairie"
           color={theme.colors.secondary}
           onPress={() => {
-            navigator.navigate(PAGES.TAB_BAR_PLAYGROUND);
+            navigator.navigate(PAGES.COMPONENTS_LIBRARY_MENU);
           }}
         />
       </View>

@@ -20,6 +20,12 @@ const ProfileStack = createStackNavigator(
     [PAGES.TAB_BAR_PLAYGROUND]: {
       screen: Pages.TabBarPlayground,
     },
+    [PAGES.BINARY_SWITCH_PLAYGROUND]: {
+      screen: Pages.BinarySwitchPlayground,
+    },
+    [PAGES.COMPONENTS_LIBRARY_MENU]: {
+      screen: Pages.ComponentsLibraryMenu,
+    },
   },
   {
     navigationOptions: {

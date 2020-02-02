@@ -13,7 +13,9 @@ export type PageNameType =
   | 'STATISTICS'
   | 'SIGNUP'
   | 'JOIN_OR_CREATE_TRIBE'
-  | 'TAB_BAR_PLAYGROUND';
+  | 'COMPONENTS_LIBRARY_MENU'
+  | 'TAB_BAR_PLAYGROUND'
+  | 'BINARY_SWITCH_PLAYGROUND';
 
 export const PAGES: { [key in PageNameType]: PageNameType } = {
   HOME: 'HOME',
@@ -24,7 +26,9 @@ export const PAGES: { [key in PageNameType]: PageNameType } = {
   STATISTICS: 'STATISTICS',
   SIGNUP: 'SIGNUP',
   JOIN_OR_CREATE_TRIBE: 'JOIN_OR_CREATE_TRIBE',
+  COMPONENTS_LIBRARY_MENU: 'COMPONENTS_LIBRARY_MENU',
   TAB_BAR_PLAYGROUND: 'TAB_BAR_PLAYGROUND',
+  BINARY_SWITCH_PLAYGROUND: 'BINARY_SWITCH_PLAYGROUND',
 };
 
 let topLevelNavigator: NavigationContainerComponent | null = null;

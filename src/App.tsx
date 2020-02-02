@@ -16,9 +16,11 @@ YellowBox.ignoreWarnings(['LottieAnimationView.getConstants']);
 YellowBox.ignoreWarnings(["UIManager['LottieAnimationView']"]);
 YellowBox.ignoreWarnings(['Require cycle: node_modules/react-native-paper']);
 
-Sentry.init({
-  dsn: 'https://b8afadb198474d008cb343e98728fda0@sentry.io/1871669',
-});
+if (environment.ENV !== 'local') {
+  Sentry.init({
+    dsn: 'https://b8afadb198474d008cb343e98728fda0@sentry.io/1871669',
+  });
+}
 
 class RootComponent extends React.Component {
   public render(): JSX.Element {

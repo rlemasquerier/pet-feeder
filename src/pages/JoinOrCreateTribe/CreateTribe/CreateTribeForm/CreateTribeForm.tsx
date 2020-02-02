@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View, ViewStyle } from 'react-native';
-import { FormInput, Button } from '../../../../components';
+import { FormInput, Button, BinarySwitch } from '../../../../components';
 import theme from '../../../../theme';
 
 export interface Values {
   name: string;
   petName: string;
+  petSex: string;
 }
 export interface Props {
   handleSubmit: () => void;
@@ -33,6 +34,12 @@ export const CreateTribeForm: React.FC<Props> = (props: Props) => {
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.petName}
+      />
+      <BinarySwitch
+        choice1={{ label: 'Mâle', value: 'male' }}
+        choice2={{ label: 'Femelle', value: 'female' }}
+        selectedValue={values.petSex}
+        onValueChange={handleChange}
       />
       <Button isLoading={isSubmitting} label="Créer la coloc" onPress={handleSubmit} />
     </View>

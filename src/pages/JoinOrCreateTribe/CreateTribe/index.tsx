@@ -16,6 +16,7 @@ interface Props {
 const initialCreateTribeValues: CreateTribeFormValues = {
   name: '',
   petName: '',
+  petSex: 'male',
 };
 
 interface CreateTribeMutationData {

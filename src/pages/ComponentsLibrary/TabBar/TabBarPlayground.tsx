@@ -9,6 +9,7 @@ export const TabBarPlayground: React.FC<Props> = () => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <TabBar
+        height={64}
         backgroundColor={theme.colors.banner}
         iconNames={['home3', 'bell', 'calendar', 'user']}
       />

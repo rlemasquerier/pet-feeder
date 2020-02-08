@@ -60,6 +60,7 @@ const ConnectedTabNavigator = createBottomTabNavigator(
     tabBarComponent: (props: ReactNavigationBottomTabBarProps) => (
       <TabBar
         {...props}
+        height={50}
         backgroundColor={theme.colors.primary}
         iconNames={['home3', 'calendar', 'bell', 'user']}
       />

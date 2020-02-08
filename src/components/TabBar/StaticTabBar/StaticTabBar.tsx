@@ -24,10 +24,10 @@ interface Props {
   onPressTab?: (index: number) => void;
 }
 
-const TAB_BAR_ICON_SIZE = 25;
-const TAB_BAR_SELECTED_TAB_ICON_SIZE = 30;
-const TAB_BAR_CIRCLE_SIZE = 60;
-const TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET = 12;
+const TAB_BAR_ICON_SIZE = 20;
+const TAB_BAR_SELECTED_TAB_ICON_SIZE = 25;
+const TAB_BAR_CIRCLE_SIZE = 50;
+const TAB_BAR_SELECTED_TAB_VERTICAL_OFFSET = 10;
 
 const { width } = Dimensions.get('window');
 
@@ -52,6 +52,7 @@ export const StaticTabBar: React.FC<Props> = (props: Props) => {
         Animated.spring(value, {
           toValue: -width + tabWidth * index,
           useNativeDriver: true,
+          speed: 30,
         }),
         Animated.spring(values[index], {
           toValue: 1,

@@ -17,41 +17,42 @@ import { IconName } from '../Icon/Icon.component';
 type Props = Partial<ReactNavigationBottomTabBarProps> & {
   backgroundColor: string;
   iconNames: IconName[];
+  height: number;
 };
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg);
 const { width: screenWidth } = Dimensions.get('window');
-const height = 64;
 const extraMargin = 100; // Need this because of spring effect
 
 export const _TabBar: React.FC<Props> = (props: Props) => {
+  const { height } = props;
   const value = new Animated.Value(-screenWidth);
   const tabWidth = screenWidth / props.iconNames.length;
   const left = shape
     .line()
     .x(d => d[0])
-    .y(d => d[1])([[0, 0], [screenWidth - 15, 0]]);
+    .y(d => d[1])([[0, 0], [screenWidth - 5, 0]]);
 
   const tab = shape
     .line()
     .x(d => d[0])
     .y(d => d[1])
     .curve(shape.curveBasis)([
-    [screenWidth - 15, 0],
-    [screenWidth - 10, 0],
-    [screenWidth + 10, 10],
-    [screenWidth + 20, height],
-    [screenWidth + tabWidth - 20, height],
-    [screenWidth + tabWidth - 10, 10],
-    [screenWidth + tabWidth + 10, 0],
-    [screenWidth + tabWidth + 15, 0],
+    [screenWidth - 5, 0],
+    [screenWidth, 0],
+    [screenWidth + 15, 10],
+    [screenWidth + 25, height],
+    [screenWidth + tabWidth - 25, height],
+    [screenWidth + tabWidth - 15, 10],
+    [screenWidth + tabWidth, 0],
+    [screenWidth + tabWidth + 5, 0],
   ]);
 
   const right = shape
     .line()
     .x(d => d[0])
     .y(d => d[1])([
-    [screenWidth + tabWidth + 15, 0],
+    [screenWidth + tabWidth + 5, 0],
     [screenWidth * 2 + extraMargin, 0],
     [screenWidth * 2 + extraMargin, height],
     [0, height],

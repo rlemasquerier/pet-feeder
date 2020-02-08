@@ -34,18 +34,29 @@ export const _BinarySwitch: React.FC<Props> = (props: Props) => {
         style={[
           styles.itemContainer,
           {
-            ...borderStyle,
-            borderRightWidth: 1,
+            borderTopLeftRadius: theme.borders.radius,
+            borderBottomLeftRadius: theme.borders.radius,
           },
-          choice1Selected && { backgroundColor: theme.colors.primary },
+          choice1Selected && { backgroundColor: theme.colors.primary, borderWidth: 0 },
         ]}
       >
-        <Text style={[styles.text]}>{choice1.label}</Text>
+        <Text style={[styles.text, choice1Selected && { color: theme.colors.white }]}>
+          {choice1.label}
+        </Text>
       </View>
       <View
-        style={[styles.itemContainer, choice2Selected && { backgroundColor: theme.colors.primary }]}
+        style={[
+          styles.itemContainer,
+          {
+            borderTopRightRadius: theme.borders.radius,
+            borderBottomRightRadius: theme.borders.radius,
+          },
+          choice2Selected && { backgroundColor: theme.colors.primary },
+        ]}
       >
-        <Text style={styles.text}>{choice2.label}</Text>
+        <Text style={[styles.text, choice2Selected && { color: theme.colors.white }]}>
+          {choice2.label}
+        </Text>
       </View>
     </TouchableOpacity>
   );

@@ -26,6 +26,7 @@ interface CreateTribeMutationData {
 interface CreateTribeInput {
   name: string;
   petName: string;
+  petSex: string;
   members: string[];
 }
 
@@ -47,6 +48,7 @@ const handleCreateTribe = async ({
       variables: {
         name: values.name,
         petName: values.petName,
+        petSex: values.petSex,
         members: [user.id],
       },
     });

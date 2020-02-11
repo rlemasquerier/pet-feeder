@@ -6,6 +6,10 @@ export const getTribeById = gql`
       id
       name
       petName
+      pet {
+        name
+        sex
+      }
       ownerId
       members
       timestamp

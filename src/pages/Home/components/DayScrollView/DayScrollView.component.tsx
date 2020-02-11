@@ -64,7 +64,8 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
     evening: eveningQueryResult.data.dailyRecords,
   };
 
-  const petName = petQueryResult.pet && petQueryResult.pet.name;
+  const pet = petQueryResult.pet;
+  const petName = pet && pet.name;
 
   const getButtonStatus = () => {
     const now = moment();
@@ -89,8 +90,8 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
 
   return (
     <ScrollView>
-      <HalfDayCard halfDay={'morning'} petName={petName} record={records.morning[0]} />
-      <HalfDayCard halfDay={'evening'} petName={petName} record={records.evening[0]} />
+      <HalfDayCard halfDay={'morning'} pet={pet} record={records.morning[0]} />
+      <HalfDayCard halfDay={'evening'} pet={pet} record={records.evening[0]} />
       <FeedPetButton
         onPress={async () => {
           await addRecord();

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
 import { Card, UserPictureBadge } from 'pet-feeder/src/components';
-import { getRecordHourFromTimestamp } from './utils';
-import { Record } from 'pet-feeder/src/types';
+import { getRecordHourFromTimestamp, genderizeWord } from './utils';
+import { Record, Pet } from 'pet-feeder/src/types';
 import theme from 'pet-feeder/src/theme';
 
 const PICTURE_BADGE_SIZE = 40;
@@ -10,12 +10,13 @@ const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
 
 interface Props {
   halfDay: 'morning' | 'evening';
-  petName: string;
+  pet?: Pet;
   record?: Record;
 }
 
 export const HalfDayCard: React.FC<Props> = (props: Props) => {
   const timeLabel = props.halfDay === 'morning' ? 'Ce matin' : 'Ce soir';
+  const petSex = props.pet && props.pet.sex;
   return (
     <Card
       title={
@@ -30,8 +31,10 @@ export const HalfDayCard: React.FC<Props> = (props: Props) => {
         )}
         <Text style={styles.content}>
           {props.record
-            ? `${props.petName} a été nourri par ${props.record.feederName}`
-            : `${props.petName} attend d'être nourrie`}
+            ? `${props.pet && props.pet.name} a été ${genderizeWord('nourri', petSex)} par ${
+                props.record.feederName
+              }`
+            : `${props.pet && props.pet.name} attend d'être ${genderizeWord('nourri', petSex)}`}
         </Text>
         {props.record && (
           <UserPictureBadge

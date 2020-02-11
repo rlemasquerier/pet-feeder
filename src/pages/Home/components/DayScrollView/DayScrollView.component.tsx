@@ -7,7 +7,7 @@ import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
 import { Loader, GenericError } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
-import { usePetName } from 'pet-feeder/src/hooks';
+import { usePet } from 'pet-feeder/src/hooks';
 import { showError } from 'pet-feeder/src/services/toaster';
 
 const GET_DAILY_RECORDS = gql`
@@ -47,12 +47,12 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
   });
 
   const [addRecord, addRecordMutationResult] = useMutation(ADD_RECORD);
-  const petNameQueryResult = usePetName(tribeId);
+  const petQueryResult = usePet(tribeId);
 
   const addRecordLoading = addRecordMutationResult.loading;
   const loading =
-    morningQueryResult.loading || eveningQueryResult.loading || petNameQueryResult.loading;
-  const error = morningQueryResult.error || petNameQueryResult.error;
+    morningQueryResult.loading || eveningQueryResult.loading || petQueryResult.loading;
+  const error = morningQueryResult.error || petQueryResult.error;
 
   if (loading) return <Loader size={30} />;
 
@@ -64,7 +64,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
     evening: eveningQueryResult.data.dailyRecords,
   };
 
-  const petName = petNameQueryResult.petName;
+  const petName = petQueryResult.pet && petQueryResult.pet.name;
 
   const getButtonStatus = () => {
     const now = moment();

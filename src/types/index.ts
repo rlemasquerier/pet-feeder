@@ -9,10 +9,19 @@ export interface User {
   tribeOwner: string[];
 }
 
+export type Sex = 'male' | 'female';
+
+export interface Pet {
+  name: string;
+  sex: Sex;
+  ownerTribeId?: string;
+}
+
 export interface Tribe {
   id: string;
   name: string;
   petName: string;
+  pet: Pet;
   members: string[];
   ownerId: string;
   timestamp: number;

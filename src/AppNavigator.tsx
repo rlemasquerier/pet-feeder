@@ -72,6 +72,7 @@ const ConnectedStack = createStackNavigator(
   {
     [PAGES.HOME]: ConnectedTabNavigator,
     [PAGES.COMPONENTS_LIBRARY_MENU]: ComponentsLibraryStack,
+    [PAGES.CUSTOM_ACTIONS]: { screen: Pages.CustomActions },
   },
   {
     headerMode: 'none',

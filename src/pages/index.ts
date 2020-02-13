@@ -11,3 +11,4 @@ export {
   TabBarPlayground,
   BinarySwitchPlayground,
 } from './ComponentsLibrary';
+export { CustomActions } from './CustomActions';

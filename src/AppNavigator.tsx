@@ -9,13 +9,10 @@ import theme from './theme';
 import * as Pages from './pages';
 import { PAGES } from 'pet-feeder/src/services/navigation';
 
-const ProfileStack = createStackNavigator(
+const ComponentsLibraryStack = createStackNavigator(
   {
-    [PAGES.PROFILE]: {
-      screen: Pages.Profile,
-      navigationOptions: {
-        header: null,
-      },
+    [PAGES.COMPONENTS_LIBRARY_MENU]: {
+      screen: Pages.ComponentsLibraryMenu,
     },
     [PAGES.TAB_BAR_PLAYGROUND]: {
       screen: Pages.TabBarPlayground,
@@ -23,14 +20,12 @@ const ProfileStack = createStackNavigator(
     [PAGES.BINARY_SWITCH_PLAYGROUND]: {
       screen: Pages.BinarySwitchPlayground,
     },
-    [PAGES.COMPONENTS_LIBRARY_MENU]: {
-      screen: Pages.ComponentsLibraryMenu,
-    },
   },
   {
     navigationOptions: {
       title: 'Profil',
     },
+    headerMode: 'none',
   }
 );
 
@@ -54,7 +49,12 @@ const ConnectedTabNavigator = createBottomTabNavigator(
         title: 'Rappels',
       },
     },
-    [PAGES.PROFILE]: ProfileStack,
+    [PAGES.PROFILE]: {
+      screen: Pages.Profile,
+      navigationOptions: {
+        title: 'Profil',
+      },
+    },
   },
   {
     tabBarComponent: (props: ReactNavigationBottomTabBarProps) => (
@@ -65,6 +65,16 @@ const ConnectedTabNavigator = createBottomTabNavigator(
         iconNames={['home3', 'calendar', 'bell', 'user']}
       />
     ),
+  }
+);
+
+const ConnectedStack = createStackNavigator(
+  {
+    [PAGES.HOME]: ConnectedTabNavigator,
+    [PAGES.COMPONENTS_LIBRARY_MENU]: ComponentsLibraryStack,
+  },
+  {
+    headerMode: 'none',
   }
 );
 
@@ -90,7 +100,7 @@ export const RootNavigator: NavigationContainer = createSwitchNavigator({
     screen: Pages.Loader,
   },
   [PAGES.LOGIN]: OnboardingStack,
-  [PAGES.HOME]: ConnectedTabNavigator,
+  [PAGES.HOME]: ConnectedStack,
 });
 
 export const AppNavigator = createAppContainer(RootNavigator);

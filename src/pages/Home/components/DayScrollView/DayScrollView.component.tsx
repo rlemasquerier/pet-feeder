@@ -4,11 +4,12 @@ import moment, { Moment } from 'moment';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
-import { Loader, GenericError } from '../../../../components';
+import { Loader, GenericError, LargeButton } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
 import { usePet } from 'pet-feeder/src/hooks';
 import { showError } from 'pet-feeder/src/services/toaster';
+import theme from 'pet-feeder/src/theme';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -101,6 +102,11 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         status={getButtonStatus()}
         loading={addRecordLoading}
         label={`NOURRIR ${petName.toUpperCase()}`}
+      />
+      <LargeButton
+        label={'Autre action'.toUpperCase()}
+        color={theme.colors.secondaryAction}
+        onPress={() => {}}
       />
     </ScrollView>
   );

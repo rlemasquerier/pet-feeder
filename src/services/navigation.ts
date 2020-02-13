@@ -15,7 +15,8 @@ export type PageNameType =
   | 'JOIN_OR_CREATE_TRIBE'
   | 'COMPONENTS_LIBRARY_MENU'
   | 'TAB_BAR_PLAYGROUND'
-  | 'BINARY_SWITCH_PLAYGROUND';
+  | 'BINARY_SWITCH_PLAYGROUND'
+  | 'CUSTOM_ACTIONS';
 
 export const PAGES: { [key in PageNameType]: PageNameType } = {
   HOME: 'HOME',
@@ -29,6 +30,7 @@ export const PAGES: { [key in PageNameType]: PageNameType } = {
   COMPONENTS_LIBRARY_MENU: 'COMPONENTS_LIBRARY_MENU',
   TAB_BAR_PLAYGROUND: 'TAB_BAR_PLAYGROUND',
   BINARY_SWITCH_PLAYGROUND: 'BINARY_SWITCH_PLAYGROUND',
+  CUSTOM_ACTIONS: 'CUSTOM_ACTIONS',
 };
 
 let topLevelNavigator: NavigationContainerComponent | null = null;

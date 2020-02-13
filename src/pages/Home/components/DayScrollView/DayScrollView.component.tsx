@@ -10,6 +10,7 @@ import { computeDayHalf, dateToString } from '../../../../services';
 import { usePet } from 'pet-feeder/src/hooks';
 import { showError } from 'pet-feeder/src/services/toaster';
 import theme from 'pet-feeder/src/theme';
+import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -106,7 +107,9 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
       <LargeButton
         label={'Autre action'.toUpperCase()}
         color={theme.colors.secondaryAction}
-        onPress={() => {}}
+        onPress={() => {
+          navigator.navigate(PAGES.CUSTOM_ACTIONS);
+        }}
       />
     </ScrollView>
   );

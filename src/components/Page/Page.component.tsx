@@ -27,7 +27,7 @@ const styles = StyleSheet.create<Style>({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: theme.colors.backgroundColor,
   },
 });

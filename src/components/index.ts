@@ -20,3 +20,4 @@ export { GenericError } from './GenericError';
 export { TabBar } from './TabBar';
 export { BinarySwitch } from './BinarySwitch';
 export { Header } from './Header';
+export { TouchableIcon } from './TouchableIcon';

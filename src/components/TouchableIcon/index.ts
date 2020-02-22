@@ -1,0 +1,1 @@
+export { TouchableIcon } from './TouchableIcon';

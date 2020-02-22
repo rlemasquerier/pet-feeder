@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, TextStyle, StyleSheet, ViewStyle, View, TouchableOpacity } from 'react-native';
+import { Text, TextStyle, StyleSheet, ViewStyle, View } from 'react-native';
 import theme from '../../theme';
-import { TopBanner, Icon } from 'pet-feeder/src/components';
+import { TopBanner, TouchableIcon } from 'pet-feeder/src/components';
 import { navigator } from 'pet-feeder/src/services/navigation';
 
 interface Props {
@@ -13,9 +13,12 @@ const BACK_ICON_SIZE = 35;
 export const Header: React.FC<Props> = (props: Props) => {
   return (
     <TopBanner>
-      <TouchableOpacity activeOpacity={0.7} onPress={() => navigator.back()}>
-        <Icon name="cheveron-left" size={BACK_ICON_SIZE} color={theme.colors.white} />
-      </TouchableOpacity>
+      <TouchableIcon
+        name="cheveron-left"
+        size={BACK_ICON_SIZE}
+        color={theme.colors.white}
+        onPress={() => navigator.back()}
+      />
       <Text style={styles.topBannerText}>{props.title}</Text>
       <View style={{ width: BACK_ICON_SIZE }} />
     </TopBanner>

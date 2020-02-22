@@ -11,6 +11,7 @@ import { usePet } from 'pet-feeder/src/hooks';
 import { showError } from 'pet-feeder/src/services/toaster';
 import theme from 'pet-feeder/src/theme';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
+import { createRecord } from 'pet-feeder/src/graphql/mutations';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
@@ -19,14 +20,6 @@ const GET_DAILY_RECORDS = gql`
       feederId
       feederName
       timestamp
-    }
-  }
-`;
-
-const ADD_RECORD = gql`
-  mutation createRecord {
-    createRecord {
-      id
     }
   }
 `;
@@ -48,7 +41,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
     pollInterval: 300000,
   });
 
-  const [addRecord, addRecordMutationResult] = useMutation(ADD_RECORD);
+  const [addRecord, addRecordMutationResult] = useMutation(createRecord);
   const petQueryResult = usePet(tribeId);
 
   const addRecordLoading = addRecordMutationResult.loading;

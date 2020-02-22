@@ -2,6 +2,7 @@ import {
   NavigationActions,
   NavigationContainerComponent,
   NavigationParams,
+  NavigationBackActionPayload,
 } from 'react-navigation';
 
 export type PageNameType =
@@ -46,6 +47,16 @@ export const navigator = {
     }
 
     const action = NavigationActions.navigate({ params, routeName });
+    topLevelNavigator.dispatch(action);
+
+    return true;
+  },
+  back: (options?: NavigationBackActionPayload) => {
+    if (!topLevelNavigator) {
+      return false;
+    }
+
+    const action = NavigationActions.back(options);
     topLevelNavigator.dispatch(action);
 
     return true;

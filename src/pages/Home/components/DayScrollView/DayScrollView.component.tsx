@@ -3,20 +3,23 @@ import { ScrollView } from 'react-native';
 import moment, { Moment } from 'moment';
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import theme from 'pet-feeder/src/theme';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
 import { Loader, GenericError, LargeButton } from '../../../../components';
 import { HalfDayCard } from './HalfDayCard';
 import { computeDayHalf, dateToString } from '../../../../services';
 import { usePet } from 'pet-feeder/src/hooks';
 import { showError } from 'pet-feeder/src/services/toaster';
-import theme from 'pet-feeder/src/theme';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 import { createRecord } from 'pet-feeder/src/graphql/mutations';
+import { Record } from 'pet-feeder/src/types';
+import { ActivityCard } from './ActivityCard';
 
 const GET_DAILY_RECORDS = gql`
   query dailyRecords($dateString: String!, $dayHalf: String) {
     dailyRecords(input: { dateString: $dateString, dayHalf: $dayHalf }) {
       id
+      type
       feederId
       feederName
       timestamp
@@ -85,8 +88,21 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
 
   return (
     <ScrollView>
-      <HalfDayCard halfDay={'morning'} pet={pet} record={records.morning[0]} />
-      <HalfDayCard halfDay={'evening'} pet={pet} record={records.evening[0]} />
+      <HalfDayCard
+        halfDay={'morning'}
+        pet={pet}
+        record={records.morning.filter((record: Record) => record.type === 'food')[0]}
+      />
+      <HalfDayCard
+        halfDay={'evening'}
+        pet={pet}
+        record={records.evening.filter((record: Record) => record.type === 'food')[0]}
+      />
+      {[...records.morning, ...records.evening]
+        .filter(record => record.type !== 'food')
+        .map((record: Record) => {
+          return <ActivityCard record={record} key={record.id} />;
+        })}
       <FeedPetButton
         onPress={async () => {
           await addRecord({ variables: { type: 'food' } });

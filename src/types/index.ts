@@ -67,9 +67,17 @@ export interface AuthenticationInformation {
   email: string;
 }
 
+export type RecordType = 'food' | 'litter';
+
 export interface Record {
   feederId: string;
+  type: RecordType;
   feederName: string;
   id: string;
   timestamp: number;
+}
+
+export interface Activity {
+  activityName: string;
+  activityText: string;
 }

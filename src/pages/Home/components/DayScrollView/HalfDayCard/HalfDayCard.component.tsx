@@ -14,6 +14,8 @@ interface Props {
   record?: Record;
 }
 
+// TODO: Duplicated code with ActivityCard. To refacto.
+
 export const HalfDayCard: React.FC<Props> = (props: Props) => {
   const timeLabel = props.halfDay === 'morning' ? 'Ce matin' : 'Ce soir';
   const petSex = props.pet && props.pet.sex;

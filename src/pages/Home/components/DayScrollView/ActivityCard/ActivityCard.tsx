@@ -10,25 +10,61 @@ const PICTURE_BADGE_SIZE = 40;
 const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
 
 interface Props {
-  record: Record;
+  record?: Record;
+  customTitleExtractor?: (record: Record) => string;
+  customContentExtractor?: (record: Record) => string;
+  fallbackTitle?: string;
+  fallbackContent?: string;
 }
 
 export const ActivityCard: React.FC<Props> = (props: Props) => {
-  const { record } = props;
+  const {
+    record,
+    fallbackTitle,
+    fallbackContent,
+    customContentExtractor,
+    customTitleExtractor,
+  } = props;
+
+  if (!record && !fallbackTitle) {
+    return null;
+  }
+
+  const getActivityTitle = (): string => {
+    if (!record) {
+      return fallbackTitle as string;
+    }
+    if (customTitleExtractor) {
+      return customTitleExtractor(record);
+    }
+    return `${getActivityName(record.type)} à ${getRecordHourFromTimestamp(record.timestamp)}`;
+  };
+
+  const getActivityContent = (): string => {
+    if (!record) {
+      return fallbackContent as string;
+    }
+    if (customContentExtractor) {
+      return customContentExtractor(record);
+    }
+    return `${record.feederName} ${getActivityText(record.type)}`;
+  };
+
   return (
-    <Card
-      title={`${getActivityName(record.type)} à ${getRecordHourFromTimestamp(
-        props.record.timestamp
-      )}`}
-    >
+    <Card title={getActivityTitle()}>
       <View style={styles.contentContainer}>
-        <View style={{ width: PICTURE_BADGE_SIZE, marginHorizontal: PICTURE_BADGE_MARGIN }} />
-        <Text style={styles.content}>{`${record.feederName} ${getActivityText(record.type)}`}</Text>
-        <UserPictureBadge
-          style={{ marginHorizontal: PICTURE_BADGE_MARGIN }}
-          size={PICTURE_BADGE_SIZE}
-          userId={props.record.feederId}
-        />
+        {record && (
+          <View style={{ width: PICTURE_BADGE_SIZE, marginHorizontal: PICTURE_BADGE_MARGIN }} />
+        )}
+
+        <Text style={styles.content}>{getActivityContent()}</Text>
+        {record && (
+          <UserPictureBadge
+            style={{ marginHorizontal: PICTURE_BADGE_MARGIN }}
+            size={PICTURE_BADGE_SIZE}
+            userId={record.feederId}
+          />
+        )}
       </View>
     </Card>
   );

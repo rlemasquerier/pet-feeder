@@ -16,22 +16,19 @@ interface Props {
 
 export const CustomActions: React.FC<Props & NavigationProp> = (props: Props & NavigationProp) => {
   const dayString = props.navigation.getParam('dayString');
+  const dayHalf = props.navigation.getParam('dayHalf');
   const [addRecord, addRecordMutationResult] = useMutation(createRecord, {
     update(cache, { data: { createRecord } }) {
-      /* TODO: Improve this as it is not ideal
-        1) The custom record is added to the afternoon query, but it could be belonging to the morning one
-        2) Would be easier to update a query without variables, but a bigger refacto is needed (work with the "allRecords" query in the app)
-      */
       // @ts-ignore
       const { dailyRecords } = cache.readQuery({
         query: getDailyRecords,
-        variables: { dateString: dayString, dayHalf: 'afternoon' },
+        variables: { dateString: dayString, dayHalf },
       });
       const updatedDailyRecords = dailyRecords.concat([createRecord]);
       cache.writeQuery({
         query: getDailyRecords,
         data: { dailyRecords: updatedDailyRecords },
-        variables: { dateString: dayString, dayHalf: 'afternoon' },
+        variables: { dateString: dayString, dayHalf },
       });
     },
   });

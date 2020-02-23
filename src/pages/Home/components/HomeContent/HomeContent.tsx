@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import moment, { Moment } from 'moment';
+import LinearGradient from 'react-native-linear-gradient';
 import { Calendar } from 'pet-feeder/src/components';
 import { User } from 'pet-feeder/src/types';
 import theme from 'pet-feeder/src/theme';
@@ -25,6 +26,15 @@ export const HomeContent: React.FC<Props> = (props: Props) => {
         <Calendar selectedDate={selectedDate} onDateChange={onDateChange} />
       </View>
       <DayScrollView selectedDate={selectedDate} tribeId={user.tribeMember[0]} />
+      <LinearGradient
+        colors={['#F5F5F500', '#F5F5F580', '#F5F5F5FF']}
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          height: 15,
+          width: '100%',
+        }}
+      />
     </View>
   );
 };

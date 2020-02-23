@@ -54,17 +54,20 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
   const pet = petQueryResult.pet;
   const petName = pet && pet.name;
 
-  const getButtonStatus = () => {
+  const isSelectedDateToday = (): boolean => {
     const now = moment();
     const yesterday = moment().subtract(1, 'day');
     const engagementDate = now.hour() < 3 ? yesterday : now;
-    const isToday = engagementDate.isSame(selectedDate, 'days');
-    if (!isToday) {
+    return engagementDate.isSame(selectedDate, 'days');
+  };
+
+  const getButtonStatus = () => {
+    if (!isSelectedDateToday()) {
       return 'invisible';
     }
     const dayHalf = computeDayHalf(moment());
 
-    if (records[dayHalf].length === 0) {
+    if (records[dayHalf].filter((record: Record) => record.type === 'food').length === 0) {
       return 'active';
     }
     return 'inactive';
@@ -102,13 +105,15 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         loading={addRecordLoading}
         label={`NOURRIR ${petName.toUpperCase()}`}
       />
-      <LargeButton
-        label={'Autre action'.toUpperCase()}
-        color={theme.colors.secondaryAction}
-        onPress={() => {
-          navigator.navigate(PAGES.CUSTOM_ACTIONS, { dayString });
-        }}
-      />
+      {isSelectedDateToday() && (
+        <LargeButton
+          label={'Autre action'.toUpperCase()}
+          color={theme.colors.secondaryAction}
+          onPress={() => {
+            navigator.navigate(PAGES.CUSTOM_ACTIONS, { dayString });
+          }}
+        />
+      )}
     </ScrollView>
   );
 };

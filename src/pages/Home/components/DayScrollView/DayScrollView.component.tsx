@@ -1,7 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import moment, { Moment } from 'moment';
-import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import theme from 'pet-feeder/src/theme';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
@@ -14,18 +13,7 @@ import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 import { createRecord } from 'pet-feeder/src/graphql/mutations';
 import { Record } from 'pet-feeder/src/types';
 import { ActivityCard } from './ActivityCard';
-
-const GET_DAILY_RECORDS = gql`
-  query dailyRecords($dateString: String!, $dayHalf: String) {
-    dailyRecords(input: { dateString: $dateString, dayHalf: $dayHalf }) {
-      id
-      type
-      feederId
-      feederName
-      timestamp
-    }
-  }
-`;
+import { getDailyRecords } from 'pet-feeder/src/graphql/queries';
 
 interface Props {
   selectedDate: Moment;
@@ -34,12 +22,12 @@ interface Props {
 
 export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props) => {
   const dayString = dateToString(selectedDate);
-  const morningQueryResult = useQuery(GET_DAILY_RECORDS, {
+  const morningQueryResult = useQuery(getDailyRecords, {
     variables: { dateString: dayString, dayHalf: 'morning' },
     pollInterval: 300000,
   });
 
-  const eveningQueryResult = useQuery(GET_DAILY_RECORDS, {
+  const eveningQueryResult = useQuery(getDailyRecords, {
     variables: { dateString: dayString, dayHalf: 'afternoon' },
     pollInterval: 300000,
   });
@@ -54,8 +42,9 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
 
   if (loading) return <Loader size={30} />;
 
-  // TODO: Handle this case with a placeholder
-  if (error) return <Loader size={30} />;
+  if (error) {
+    return <GenericError />;
+  }
 
   const records = {
     morning: morningQueryResult.data.dailyRecords,
@@ -117,7 +106,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         label={'Autre action'.toUpperCase()}
         color={theme.colors.secondaryAction}
         onPress={() => {
-          navigator.navigate(PAGES.CUSTOM_ACTIONS);
+          navigator.navigate(PAGES.CUSTOM_ACTIONS, { dayString });
         }}
       />
     </ScrollView>

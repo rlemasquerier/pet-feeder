@@ -1,12 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextStyle, ViewStyle } from 'react-native';
-import { Card, UserPictureBadge } from 'pet-feeder/src/components';
 import { getRecordHourFromTimestamp, genderizeWord } from './utils';
 import { Record, Pet } from 'pet-feeder/src/types';
-import theme from 'pet-feeder/src/theme';
-
-const PICTURE_BADGE_SIZE = 40;
-const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
+import { ActivityCard } from '../ActivityCard';
 
 interface Props {
   halfDay: 'morning' | 'evening';
@@ -19,52 +14,23 @@ interface Props {
 export const HalfDayCard: React.FC<Props> = (props: Props) => {
   const timeLabel = props.halfDay === 'morning' ? 'Ce matin' : 'Ce soir';
   const petSex = props.pet && props.pet.sex;
+
   return (
-    <Card
-      title={
-        props.record
-          ? `${timeLabel} à ${getRecordHourFromTimestamp(props.record.timestamp)}`
-          : timeLabel
+    <ActivityCard
+      record={props.record}
+      fallbackContent={`${props.pet && props.pet.name} attend d'être ${genderizeWord(
+        'nourri',
+        petSex
+      )}`}
+      fallbackTitle={timeLabel}
+      customTitleExtractor={(record: Record) =>
+        `${timeLabel} à ${getRecordHourFromTimestamp(record.timestamp)}`
       }
-    >
-      <View style={styles.contentContainer}>
-        {props.record && (
-          <View style={{ width: PICTURE_BADGE_SIZE, marginHorizontal: PICTURE_BADGE_MARGIN }} />
-        )}
-        <Text style={styles.content}>
-          {props.record
-            ? `${props.pet && props.pet.name} a été ${genderizeWord('nourri', petSex)} par ${
-                props.record.feederName
-              }`
-            : `${props.pet && props.pet.name} attend d'être ${genderizeWord('nourri', petSex)}`}
-        </Text>
-        {props.record && (
-          <UserPictureBadge
-            style={{ marginHorizontal: PICTURE_BADGE_MARGIN }}
-            size={PICTURE_BADGE_SIZE}
-            userId={props.record.feederId}
-          />
-        )}
-      </View>
-    </Card>
+      customContentExtractor={(record: Record) =>
+        `${props.pet && props.pet.name} a été ${genderizeWord('nourri', petSex)} par ${
+          record.feederName
+        }`
+      }
+    />
   );
 };
-
-interface Style {
-  content: TextStyle;
-  contentContainer: ViewStyle;
-}
-
-const styles = StyleSheet.create<Style>({
-  content: {
-    ...theme.fonts.regular,
-    flex: 1,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -20,6 +20,7 @@ import com.horcrux.svg.SvgPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -52,7 +53,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeFirebaseAppPackage(),
           new ReactNativeFirebaseMessagingPackage(),
           new SvgPackage(),
-          new ReanimatedPackage()
+          new ReanimatedPackage(),
+          new LinearGradientPackage()
       );
     }
 

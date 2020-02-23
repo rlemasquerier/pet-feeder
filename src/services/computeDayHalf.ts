@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
 
 export const MORNING = 'morning';
-export const EVENING = 'evening';
+export const EVENING = 'afternoon';
 
 export const computeDayHalf = (date: Moment): typeof MORNING | typeof EVENING => {
   const eveningToMorningThreshold = 3;

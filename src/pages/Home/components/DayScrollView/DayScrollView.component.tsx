@@ -6,6 +6,7 @@ import { Loader, GenericError, LargeButton } from 'pet-feeder/src/components';
 import { Record } from 'pet-feeder/src/types';
 import theme from 'pet-feeder/src/theme';
 import { computeDayHalf, dateToString } from 'pet-feeder/src/services';
+import { MORNING, EVENING } from 'pet-feeder/src/services/computeDayHalf';
 import { showError } from 'pet-feeder/src/services/toaster';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 import { usePet } from 'pet-feeder/src/hooks';
@@ -86,12 +87,12 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
       <HalfDayCard
         halfDay={'morning'}
         pet={pet}
-        record={records.food.morning.filter((record: Record) => record.type === 'food')[0]}
+        record={records.food[MORNING].filter((record: Record) => record.type === 'food')[0]}
       />
       <HalfDayCard
         halfDay={'evening'}
         pet={pet}
-        record={records.food.evening.filter((record: Record) => record.type === 'food')[0]}
+        record={records.food[EVENING].filter((record: Record) => record.type === 'food')[0]}
       />
       {records.others.map((record: Record) => {
         return <ActivityCard record={record} key={record.id} />;

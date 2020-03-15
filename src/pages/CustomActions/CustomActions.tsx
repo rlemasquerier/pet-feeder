@@ -73,6 +73,13 @@ export const CustomActions: React.FC<Props & NavigationProp> = (props: Props & N
           onPress={async () => onAddRecordPress('dishware')}
         />
       </View>
+      <LargeButton
+        style={{ marginVertical: 2 * theme.margins.unit }}
+        label={'Retour'.toUpperCase()}
+        color={theme.colors.secondaryAction}
+        loading={addRecordLoading}
+        onPress={() => navigator.back()}
+      />
     </Page>
   );
 };

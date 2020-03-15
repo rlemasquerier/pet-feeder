@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "run-ios": "react-native run-ios --simulator='iPhone 11'",
+    "run-ios": "react-native run-ios --simulator='iPhone 11 (iOS 13.3)'",
     "run-android": "react-native run-android",
     "start": "react-native start",
     "test": "yarn test:lint && yarn test:types && yarn test:unit",

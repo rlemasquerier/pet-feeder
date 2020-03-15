@@ -5,7 +5,7 @@ import { Record } from '../../../types';
 export const getUserRecordsStats = (recordsList: Record[] | undefined) => {
   const sanitizedList = recordsList || [];
   return [
-    { label: 'Repas', value: sanitizedList.length },
+    { label: 'Activités', value: sanitizedList.length },
     {
       label: 'Matins',
       value: sanitizedList.filter(

@@ -6,20 +6,23 @@ describe('[Service] getUserRecordsStats', () => {
       id: '5d9664124cd54d34075751d5',
       feederId: '5d9663c54cd54d34075751d4',
       feederName: 'James',
+      type: 'food',
       timestamp: 1570137106023,
     },
     {
       id: '5d97a49ee24c799c33bd526b',
       feederId: '5d9663c54cd54d34075751d4',
       feederName: 'James',
+      type: 'food',
       timestamp: 1570219166919,
     },
   ];
   it('should return the correct stats values', () => {
+    // @ts-ignore
     const actual = getUserRecordsStats(mockedUserRecords);
     const expected = [
       {
-        label: 'Repas',
+        label: 'Activités',
         value: 2,
       },
       { label: 'Matins', value: 0 },
@@ -31,7 +34,7 @@ describe('[Service] getUserRecordsStats', () => {
     const actual = getUserRecordsStats([]);
     const expected = [
       {
-        label: 'Repas',
+        label: 'Activités',
         value: 0,
       },
       { label: 'Matins', value: 0 },
@@ -43,7 +46,7 @@ describe('[Service] getUserRecordsStats', () => {
     const actual = getUserRecordsStats(undefined);
     const expected = [
       {
-        label: 'Repas',
+        label: 'Activités',
         value: 0,
       },
       { label: 'Matins', value: 0 },

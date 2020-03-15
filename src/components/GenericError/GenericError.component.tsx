@@ -24,6 +24,7 @@ const styles = StyleSheet.create<Style>({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: theme.colors.backgroundColor,
   },
   text: {
     ...theme.fonts.huge,

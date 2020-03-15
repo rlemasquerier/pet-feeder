@@ -67,7 +67,7 @@ export interface AuthenticationInformation {
   email: string;
 }
 
-export type RecordType = 'food' | 'litter';
+export type RecordType = 'food' | 'litter' | 'trash' | 'cloth' | 'dishware';
 
 export interface Record {
   feederId: string;

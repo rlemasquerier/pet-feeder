@@ -4,8 +4,7 @@ import { BarChart as SVGBarChart } from 'react-native-svg-charts';
 import { Text as SVGText } from 'react-native-svg';
 import theme from './../../theme';
 
-const HEIGHT = 300;
-
+const HEIGHT = 200;
 const CONTENT_PADDING = 4 * theme.margins.unit;
 const LABEL_WIDTH = (Dimensions.get('window').width - 2 * CONTENT_PADDING) / 4;
 
@@ -52,7 +51,7 @@ export class BarChart extends Component<Props, {}> {
     return (
       <View style={styles.container}>
         <SVGBarChart
-          style={{ height: 200 }}
+          style={{ height: HEIGHT }}
           data={rawData}
           svg={{ fill }}
           contentInset={{ top: 30, bottom: 30 }}
@@ -82,10 +81,9 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    height: HEIGHT,
+    paddingBottom: 3 * theme.margins.unit,
     justifyContent: 'center',
     alignItems: 'stretch',
-    paddingHorizontal: CONTENT_PADDING,
   },
   labelsContainer: {
     justifyContent: 'space-around',

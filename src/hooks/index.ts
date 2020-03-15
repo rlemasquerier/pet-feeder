@@ -8,6 +8,14 @@ export const useCurrentUser = () => {
   return { loading, error, user, refetchUser: refetch };
 };
 
+export const useCurrentTribe = (tribeId?: string) => {
+  const { loading, error, data } = useQuery<{ tribeById: Tribe }>(getTribeById, {
+    variables: { id: tribeId },
+  });
+  const tribe = data && data.tribeById;
+  return { loading, error, tribe };
+};
+
 export const usePet = (tribeId: string) => {
   const { loading, error, data } = useQuery<{ tribeById: Tribe }>(getTribeById, {
     variables: { id: tribeId },

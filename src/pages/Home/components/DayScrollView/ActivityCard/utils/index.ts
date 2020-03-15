@@ -9,6 +9,18 @@ const activityMapper: { [key in RecordType | 'default']: Activity } = {
     activityName: 'Nourriture',
     activityText: 'a donné à manger',
   },
+  trash: {
+    activityName: 'Poubelles',
+    activityText: 'a vidé les poubelles',
+  },
+  cloth: {
+    activityName: 'Serpillère',
+    activityText: 'a passé la serpillère',
+  },
+  dishware: {
+    activityName: 'Vaisselle',
+    activityText: 'a rangé la vaisselle',
+  },
   default: {
     activityName: 'Activité',
     activityText: 'a réalisé une activité',

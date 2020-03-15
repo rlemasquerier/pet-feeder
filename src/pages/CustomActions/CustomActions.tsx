@@ -7,6 +7,7 @@ import { createRecord } from 'pet-feeder/src/graphql/mutations';
 import { navigator } from 'pet-feeder/src/services/navigation';
 import { getDailyRecords } from 'pet-feeder/src/graphql/queries';
 import { NavigationProp } from 'react-navigation-stack/lib/typescript/types';
+import { RecordType } from 'pet-feeder/src/types';
 
 interface Props {
   navigation: {
@@ -34,18 +35,42 @@ export const CustomActions: React.FC<Props & NavigationProp> = (props: Props & N
   });
   const addRecordLoading = addRecordMutationResult.loading;
 
+  const onAddRecordPress = async (type: RecordType) => {
+    await addRecord({ variables: { type } });
+    navigator.back();
+  };
+
   return (
     <Page>
       <Header title="Autres actions" />
       <View style={styles.container}>
         <LargeButton
+          style={{ marginVertical: 2 * theme.margins.unit }}
           label={'Litière'.toUpperCase()}
           color={theme.colors.secondary}
           loading={addRecordLoading}
-          onPress={async () => {
-            await addRecord({ variables: { type: 'litter' } });
-            navigator.back();
-          }}
+          onPress={async () => onAddRecordPress('litter')}
+        />
+        <LargeButton
+          style={{ marginVertical: 2 * theme.margins.unit }}
+          label={'Poubelles'.toUpperCase()}
+          color={theme.colors.secondary}
+          loading={addRecordLoading}
+          onPress={async () => onAddRecordPress('trash')}
+        />
+        <LargeButton
+          style={{ marginVertical: 2 * theme.margins.unit }}
+          label={'Serpillère'.toUpperCase()}
+          color={theme.colors.secondary}
+          loading={addRecordLoading}
+          onPress={async () => onAddRecordPress('cloth')}
+        />
+        <LargeButton
+          style={{ marginVertical: 2 * theme.margins.unit }}
+          label={'Vaisselle'.toUpperCase()}
+          color={theme.colors.secondary}
+          loading={addRecordLoading}
+          onPress={async () => onAddRecordPress('dishware')}
         />
       </View>
     </Page>

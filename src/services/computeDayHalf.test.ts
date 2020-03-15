@@ -6,8 +6,8 @@ describe('[Service] Compute day half', () => {
     const date = moment('08/04/2004 07:55:33', 'DD/MM/YYY hh:mm:ss');
     expect(computeDayHalf(date)).toEqual('morning');
   });
-  it('should return evening if it is the evening', () => {
+  it('should return afternoon if it is the evening', () => {
     const date = moment('08/04/2004 15:55:33', 'DD/MM/YYY hh:mm:ss');
-    expect(computeDayHalf(date)).toEqual('evening');
+    expect(computeDayHalf(date)).toEqual('afternoon');
   });
 });

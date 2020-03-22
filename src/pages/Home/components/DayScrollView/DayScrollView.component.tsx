@@ -109,6 +109,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
       />
       {isSelectedDateToday() && (
         <LargeButton
+          style={{ marginBottom: 5 * theme.margins.unit }}
           label={'Autre action'.toUpperCase()}
           color={theme.colors.secondaryAction}
           onPress={() => {

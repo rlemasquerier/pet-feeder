@@ -6,7 +6,6 @@ export const joinTribe = gql`
       id
       name
       ownerId
-      members
       timestamp
     }
   }

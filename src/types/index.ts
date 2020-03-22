@@ -22,7 +22,7 @@ export interface Tribe {
   name: string;
   petName: string;
   pet: Pet;
-  members: string[];
+  members: User[];
   ownerId: string;
   timestamp: number;
 }

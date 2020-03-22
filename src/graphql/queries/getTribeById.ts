@@ -11,7 +11,15 @@ export const getTribeById = gql`
         sex
       }
       ownerId
-      members
+      members {
+        id
+        email
+        name
+        role
+        profilePictureUrl
+        tribeMember
+        tribeOwner
+      }
       timestamp
     }
   }

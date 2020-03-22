@@ -38,7 +38,7 @@ export const Statistics: React.FC<{}> = () => {
       ? getUserRecordsStats(records.data.records.filter(record => record.feederId === user.id))
       : [];
   const recordsData =
-    records.data && records.data.records
+    records.data && records.data.records && tribe
       ? getAllUsersRecordsCount(records.data && records.data.records, tribe.members)
       : [];
   return (
@@ -63,8 +63,8 @@ export const Statistics: React.FC<{}> = () => {
                   }}
                 >
                   {tribe &&
-                    tribe.members.map(memberId => (
-                      <UserPictureBadge key={memberId} userId={memberId} size={40} />
+                    tribe.members.map(user => (
+                      <UserPictureBadge key={user.id} userId={user.id} size={40} />
                     ))}
                 </View>
               </>

@@ -11,7 +11,6 @@ export const createTribe = gql`
         sex
       }
       ownerId
-      members
       timestamp
     }
   }

@@ -39,7 +39,7 @@ export const Statistics: React.FC<{}> = () => {
       : [];
   const recordsData =
     records.data && records.data.records
-      ? getAllUsersRecordsCount(records.data && records.data.records)
+      ? getAllUsersRecordsCount(records.data && records.data.records, tribe.members)
       : [];
   return (
     <Page>

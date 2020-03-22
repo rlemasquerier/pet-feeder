@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Screen } from './Screen';
 import { Profile } from './Profile';
 import { Value } from 'react-native-reanimated';
-import { withTransition } from 'react-native-redash';
+import { withSpringTransition } from 'react-native-redash';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 
 export const Menu = () => {
   const open = new Value<0 | 1>(0);
-  const transition = withTransition(open);
+  const transition = withSpringTransition(open);
   return (
     <View style={styles.container}>
       <Screen onPress={() => open.setValue(1)} transition={transition} />

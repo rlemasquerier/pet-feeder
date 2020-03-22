@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Screen } from './Screen';
 import { Profile } from './Profile';
+import { Value } from 'react-native-reanimated';
+import { withTransition } from 'react-native-redash';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,12 +17,13 @@ const styles = StyleSheet.create({
 });
 
 export const Menu = () => {
-  const [open, setOpen] = useState(false);
+  const open = new Value<0 | 1>(0);
+  const transition = withTransition(open);
   return (
     <View style={styles.container}>
-      <Screen onPress={() => setOpen(true)} open={open} />
+      <Screen onPress={() => open.setValue(1)} transition={transition} />
       <View style={styles.layer} pointerEvents="box-none">
-        <Profile open={open} onPress={() => setOpen(false)} />
+        <Profile transition={transition} open={open} />
       </View>
     </View>
   );

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { alpha, perspective } from './Constants';
+import Animated from 'react-native-reanimated';
+import { bInterpolate } from 'react-native-redash';
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
@@ -25,17 +27,17 @@ const styles = StyleSheet.create({
 
 interface ScreenProps {
   onPress: () => void;
-  open: boolean;
+  transition: Animated.Node<number>;
 }
 
-export const Screen = ({ open, onPress }: ScreenProps) => {
-  const rotateY = open ? `${-alpha}rad` : '0rad';
-  const scale = open ? 0.9 : 1;
-  const opacity = open ? 0.5 : 0;
-  const borderRadius = open ? 20 : 0;
+export const Screen = ({ transition, onPress }: ScreenProps) => {
+  const rotateY = bInterpolate(transition, 0, -alpha);
+  const scale = bInterpolate(transition, 1, 0.9);
+  const opacity = bInterpolate(transition, 0, 0.5);
+  const borderRadius = bInterpolate(transition, 0, 20);
   return (
     <>
-      <View
+      <Animated.View
         style={[
           styles.container,
           {
@@ -55,8 +57,8 @@ export const Screen = ({ open, onPress }: ScreenProps) => {
             <Text style={styles.label}>Show Menu</Text>
           </View>
         </TouchableOpacity>
-      </View>
-      <View
+      </Animated.View>
+      <Animated.View
         pointerEvents="none"
         style={{
           ...StyleSheet.absoluteFillObject,

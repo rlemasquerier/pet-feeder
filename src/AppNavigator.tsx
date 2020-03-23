@@ -8,7 +8,6 @@ import { TabBar } from './components';
 import theme from './theme';
 import * as Pages from './pages';
 import { PAGES } from 'pet-feeder/src/services/navigation';
-import { Menu } from './pages/ComponentsLibrary/AnimatedMenu/Menu';
 
 const ComponentsLibraryStack = createStackNavigator(
   {
@@ -20,6 +19,9 @@ const ComponentsLibraryStack = createStackNavigator(
     },
     [PAGES.BINARY_SWITCH_PLAYGROUND]: {
       screen: Pages.BinarySwitchPlayground,
+    },
+    [PAGES.ANIMATED_MENU_PLAYGROUND]: {
+      screen: Pages.AnimatedMenu,
     },
   },
   {
@@ -100,7 +102,7 @@ const OnboardingStack = createStackNavigator(
 
 export const RootNavigator: NavigationContainer = createSwitchNavigator({
   [PAGES.LOADER]: {
-    screen: Menu,
+    screen: Pages.Loader,
   },
   [PAGES.LOGIN]: OnboardingStack,
   [PAGES.HOME]: ConnectedStack,

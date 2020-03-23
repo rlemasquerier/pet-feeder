@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Menu = () => {
+export const AnimatedMenu = () => {
   const open = new Value<0 | 1>(0);
   const transition = withSpringTransition(open);
   return (

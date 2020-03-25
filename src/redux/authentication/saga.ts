@@ -5,6 +5,7 @@ import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
 import { PAGES } from 'pet-feeder/src/services/navigation';
+import { showError } from 'pet-feeder/src/services/toaster.ts';
 
 export function* loginSaga(action: LoginRequestAction): SagaIterator {
   try {
@@ -21,6 +22,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     }
   } catch (error) {
     yield put(apiCallError('authentication', error));
+    showError("Informations d'identifications non valides. Veuillez réessayer.");
     // eslint-disable-next-line no-console
     console.warn('[loginSaga/error]', error.message);
   }

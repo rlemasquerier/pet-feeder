@@ -22,7 +22,20 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     }
   } catch (error) {
     yield put(apiCallError('authentication', error));
-    showError("Informations d'identifications non valides. Veuillez réessayer.");
+    if (error.response == undefined) {
+      showError("Problème de connexion au serveur. Vérifiez votre connexion ou l'état du serveur.");
+    } else {
+      switch (error.response.status) {
+        case 403: {
+          showError('Veuillez entrer vos identifiants.');
+          break;
+        }
+        case 404: {
+          showError("Informations d'identifications non valides. Veuillez réessayer.");
+          break;
+        }
+      }
+    }
     // eslint-disable-next-line no-console
     console.warn('[loginSaga/error]', error.message);
   }

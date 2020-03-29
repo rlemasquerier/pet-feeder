@@ -1,5 +1,6 @@
 import { SagaIterator } from 'redux-saga';
 import { takeLatest, call, put } from 'redux-saga/effects';
+import { AxiosError } from 'axios';
 import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT } from './reducer';
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
 import { login, LoginAxiosResponse } from '../../api/apiClient';
@@ -7,8 +8,7 @@ import { navigator } from '../../services/navigation';
 import { PAGES } from 'pet-feeder/src/services/navigation';
 import { showError } from 'pet-feeder/src/services/toaster.ts';
 
-// eslint-disable-next-line
-function handleLoginError(error: any) {
+function handleLoginError(error: AxiosError) {
   if (error.response == undefined) {
     showError('Oups, il semble que tu sois déconnecté');
   } else {

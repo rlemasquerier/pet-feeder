@@ -3,7 +3,7 @@ import { takeLatest, call, put } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
 import { authenticationActionCreators, LoginRequestAction, LOGIN_REQUEST, LOGOUT } from './reducer';
 import { apiCallStart, apiCallSuccess, apiCallError } from '../api/reducer';
-import { login, LoginAxiosResponse } from '../../api/apiClient';
+import { login } from '../../api/apiClient';
 import { navigator } from '../../services/navigation';
 import { PAGES } from 'pet-feeder/src/services/navigation';
 import { showError } from 'pet-feeder/src/services/toaster.ts';
@@ -33,7 +33,7 @@ export function* loginSaga(action: LoginRequestAction): SagaIterator {
     const { email, password } = action.payload;
     const { options } = action.meta;
     yield put(apiCallStart('authentication'));
-    const loginResult: LoginAxiosResponse = yield call(login, email, password);
+    const loginResult = yield call(login, email, password);
     yield put(authenticationActionCreators.loginSuccess(loginResult.data));
     yield put(apiCallSuccess('authentication'));
     if (options && options.redirectPage) {

@@ -76,8 +76,9 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js",
-    enableHermes: false,
+        entryFile   : "index.js",
+        enableHermes: false,
+        bundleInProduction: true,
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -155,6 +156,12 @@ android {
             keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
             keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
         }
+        production {
+            storeFile file(String.valueOf(System.getenv("GRADLE_KEYSTORE")))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+        }
     }
     buildTypes {
         debug {
@@ -166,13 +173,18 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
+        production {
+            initWith release
+            signingConfig signingConfigs.production
+            matchingFallbacks = ['release']
+        }
     }
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2, "arm64-v8a": 3, "x86_64": 4]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =

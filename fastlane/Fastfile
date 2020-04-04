@@ -262,7 +262,7 @@ platform :android do
   lane :build_production do |options|
     set_keys
     gradle(
-      task: "bundleProduction",
+      task: "assembleProduction",
       project_dir: ENV['ANDROID_PROJECT_DIR']
     )
     restore_files

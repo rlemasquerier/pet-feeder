@@ -3,6 +3,7 @@ import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
 import theme from './../../theme';
 import { LargeButton, Icon, Page, Loader } from '../../components';
 import { PROFILE_PICTURE_SIZE, ProfilePicture } from './ProfilePicture';
+import environment from 'pet-feeder/src/environment';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
 
@@ -63,14 +64,16 @@ export const Profile: React.FC<{}> = () => {
           color={theme.colors.secondary}
           onPress={() => {}}
         />
-        <LargeButton
-          style={{ width: 200 }}
-          label="Librairie"
-          color={theme.colors.secondary}
-          onPress={() => {
-            navigator.navigate(PAGES.COMPONENTS_LIBRARY_MENU);
-          }}
-        />
+        {environment.ENV !== 'production' && (
+          <LargeButton
+            style={{ width: 200 }}
+            label="Librairie"
+            color={theme.colors.secondary}
+            onPress={() => {
+              navigator.navigate(PAGES.COMPONENTS_LIBRARY_MENU);
+            }}
+          />
+        )}
       </View>
     </Page>
   );

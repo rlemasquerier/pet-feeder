@@ -243,9 +243,26 @@ platform :android do
   end
 
   lane :build do |options|
+    if ENV['ENV'] === 'staging' then
+      build_staging
+    elsif ENV['ENV'] === 'production' then
+      build_production
+    end
+  end
+
+  lane :build_staging do |options|
     set_keys
     gradle(
       task: "assembleRelease",
+      project_dir: ENV['ANDROID_PROJECT_DIR']
+    )
+    restore_files
+  end
+
+  lane :build_production do |options|
+    set_keys
+    gradle(
+      task: "bundleProduction",
       project_dir: ENV['ANDROID_PROJECT_DIR']
     )
     restore_files

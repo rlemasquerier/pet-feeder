@@ -98,6 +98,16 @@ fastlane android set_keys
 fastlane android build
 ```
 
+### android build_staging
+```
+fastlane android build_staging
+```
+
+### android build_production
+```
+fastlane android build_production
+```
+
 ### android deploy_hockey
 ```
 fastlane android deploy_hockey

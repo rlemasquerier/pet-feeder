@@ -74,6 +74,12 @@ export const Profile: React.FC<{}> = () => {
             }}
           />
         )}
+        <Text
+          onPress={() => navigator.navigate(PAGES.PRIVACY_POLICY)}
+          style={{ textDecorationLine: 'underline' }}
+        >
+          Politique de confidentialité
+        </Text>
       </View>
     </Page>
   );

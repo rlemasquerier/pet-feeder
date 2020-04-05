@@ -12,3 +12,4 @@ export {
   BinarySwitchPlayground,
 } from './ComponentsLibrary';
 export { CustomActions } from './CustomActions';
+export { PrivacyPolicy } from './PrivacyPolicy';

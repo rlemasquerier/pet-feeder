@@ -8,6 +8,8 @@ import { navigator } from 'pet-feeder/src/services/navigation';
 import { getDailyRecords } from 'pet-feeder/src/graphql/queries';
 import { NavigationProp } from 'react-navigation-stack/lib/typescript/types';
 import { RecordType } from 'pet-feeder/src/types';
+import { useCurrentUser } from 'pet-feeder/src/hooks';
+import { withBlockedUserCheck } from 'pet-feeder/src/services/user';
 
 interface Props {
   navigation: {
@@ -18,6 +20,7 @@ interface Props {
 export const CustomActions: React.FC<Props & NavigationProp> = (props: Props & NavigationProp) => {
   const dayString = props.navigation.getParam('dayString');
   const dayHalf = props.navigation.getParam('dayHalf');
+  const { user } = useCurrentUser();
   const [addRecord, addRecordMutationResult] = useMutation(createRecord, {
     update(cache, { data: { createRecord } }) {
       // @ts-ignore
@@ -35,10 +38,10 @@ export const CustomActions: React.FC<Props & NavigationProp> = (props: Props & N
   });
   const addRecordLoading = addRecordMutationResult.loading;
 
-  const onAddRecordPress = async (type: RecordType) => {
-    await addRecord({ variables: { type } });
+  const onAddRecordPress = withBlockedUserCheck(async (type: RecordType) => {
+    addRecord({ variables: { type } });
     navigator.back();
-  };
+  }, user);
 
   return (
     <Page>

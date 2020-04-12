@@ -6,6 +6,7 @@ export const getConnectedUser = gql`
       id
       email
       name
+      status
       role
       tribeMember
       tribeOwner

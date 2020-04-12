@@ -17,6 +17,7 @@ import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
 import { HalfDayCard } from './HalfDayCard';
 import { ActivityCard } from './ActivityCard';
 import { arrangeRecords } from './utils';
+import { genderizeWord } from './HalfDayCard/utils';
 
 interface Props {
   selectedDate: Moment;
@@ -79,7 +80,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
     return 'inactive';
   };
 
-  if (!petName) {
+  if (!pet || !petName) {
     showError("Oups, une erreur est survenue. Il semblerait que ton animal n'ait pas de nom !");
     return <GenericError />;
   }
@@ -108,6 +109,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         status={getButtonStatus()}
         loading={addRecordLoading}
         label={`NOURRIR ${petName.toUpperCase()}`}
+        inactiveLabel={`${petName.toUpperCase()} A ÉTÉ ${genderizeWord('NOURRI', pet.sex)}`}
       />
       {isSelectedDateToday() && (
         <LargeButton

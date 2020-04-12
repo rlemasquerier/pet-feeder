@@ -7,6 +7,7 @@ interface Props {
   onPress: () => void;
   status: 'active' | 'inactive' | 'invisible';
   label: string;
+  inactiveLabel?: string;
   loading?: boolean;
 }
 
@@ -27,7 +28,7 @@ export const FeedPetButton: React.FC<Props> = (props: Props) => {
       return (
         <View style={styles.container}>
           <LargeButton
-            label="GAÏA A ETE NOURRIE"
+            label={props.inactiveLabel || props.label}
             color={theme.colors.secondary}
             onPress={props.onPress}
             disabled

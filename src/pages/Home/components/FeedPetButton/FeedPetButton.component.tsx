@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React from 'react';
 import { View, ViewStyle, StyleSheet } from 'react-native';
 import { LargeButton, LottieAnimation } from '../../../../components';
 import theme from './../../../../theme';
@@ -10,40 +10,38 @@ interface Props {
   loading?: boolean;
 }
 
-export class FeedPetButton extends Component<Props> {
-  public render(): ReactNode {
-    switch (this.props.status) {
-      case 'active':
-        return (
-          <View style={styles.container}>
-            <LargeButton
-              label={this.props.label}
-              color={theme.colors.secondary}
-              onPress={this.props.onPress}
-              loading={this.props.loading}
-            />
-          </View>
-        );
-      case 'inactive':
-        return (
-          <View style={styles.container}>
-            <LargeButton
-              label="GAÏA A ETE NOURRIE"
-              color={theme.colors.secondary}
-              onPress={this.props.onPress}
-              disabled
-            />
-          </View>
-        );
-      default:
-        return (
-          <View style={styles.animation}>
-            <LottieAnimation size={150} name={theme.animations.cat} />
-          </View>
-        );
-    }
+export const FeedPetButton: React.FC<Props> = (props: Props) => {
+  switch (props.status) {
+    case 'active':
+      return (
+        <View style={styles.container}>
+          <LargeButton
+            label={props.label}
+            color={theme.colors.secondary}
+            onPress={props.onPress}
+            loading={props.loading}
+          />
+        </View>
+      );
+    case 'inactive':
+      return (
+        <View style={styles.container}>
+          <LargeButton
+            label="GAÏA A ETE NOURRIE"
+            color={theme.colors.secondary}
+            onPress={props.onPress}
+            disabled
+          />
+        </View>
+      );
+    default:
+      return (
+        <View style={styles.animation}>
+          <LottieAnimation size={150} name={theme.animations.cat} />
+        </View>
+      );
   }
-}
+};
 
 interface Style {
   container: ViewStyle;

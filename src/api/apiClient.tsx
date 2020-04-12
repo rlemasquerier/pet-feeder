@@ -56,6 +56,7 @@ export const uploadPicture = async (
   };
 
   const body = new FormData();
+  // @ts-ignore
   body.append('image', file);
 
   const response = await fetch(`${API_URL}/upload`, {

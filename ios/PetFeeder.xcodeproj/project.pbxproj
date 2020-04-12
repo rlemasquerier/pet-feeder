@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -35,6 +36,7 @@
 		8B0B6DC9AC3E442D87EDBA26 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56174F1B08E149238B9C9D4C /* Entypo.ttf */; };
 		9516A1D72CDF420498256998 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B57C83572F54C0C9EBCE81C /* Zocial.ttf */; };
 		95BE05A8B7D7B6969A0F8E39 /* libPods-PetFeeder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 915B3AC5C4B858A57A09CBB3 /* libPods-PetFeeder.a */; };
+		9C66E86CCC31494AB103FACE /* MADEGoodTimeGrotesk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F083547CD844C61908506AA /* MADEGoodTimeGrotesk.otf */; };
 		A483388A69374D3EA218FC6A /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68636C13C5C0405AAC0674D4 /* EvilIcons.ttf */; };
 		BAE8694E1B484777969E8527 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FF25CDC08254BB6A2F80AF7 /* Foundation.ttf */; };
 		D470D66072B841A991DB21B6 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 900B6F813292482880AD4A6A /* AntDesign.ttf */; };
@@ -42,7 +44,6 @@
 		D8DCFE2F4020435BA9921661 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7DEB54E2927421DB4646888 /* Fontisto.ttf */; };
 		E2922B0296CD4E40BE452127 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFDB92B60D484DE2B1262788 /* FontAwesome5_Brands.ttf */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
-		9C66E86CCC31494AB103FACE /* MADEGoodTimeGrotesk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6F083547CD844C61908506AA /* MADEGoodTimeGrotesk.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -377,6 +378,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		68636C13C5C0405AAC0674D4 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		6E5BA0B4387619E30A11B5D9 /* libPods-PetFeederTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PetFeederTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F083547CD844C61908506AA /* MADEGoodTimeGrotesk.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MADEGoodTimeGrotesk.otf; path = ../assets/fonts/MADEGoodTimeGrotesk/MADEGoodTimeGrotesk.otf; sourceTree = "<group>"; };
 		7218EB3F52F4188FB671950E /* Pods-PetFeeder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFeeder.release.xcconfig"; path = "Pods/Target Support Files/Pods-PetFeeder/Pods-PetFeeder.release.xcconfig"; sourceTree = "<group>"; };
 		7423D129CE4E322CF9A23B3C /* libPods-PetFeeder-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PetFeeder-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
@@ -399,7 +401,6 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FF137E8F490747D0867F3E34 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FFDB92B60D484DE2B1262788 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
-		6F083547CD844C61908506AA /* MADEGoodTimeGrotesk.otf */ = {isa = PBXFileReference; name = "MADEGoodTimeGrotesk.otf"; path = "../assets/fonts/MADEGoodTimeGrotesk/MADEGoodTimeGrotesk.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -716,14 +717,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F509A36226534B5FABEC7D43 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			path = Application;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -756,7 +749,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 940;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = Datmos;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 6Q29SBM79K;
@@ -1179,6 +1172,20 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\n../node_modules/@sentry/cli/bin/sentry-cli react-native xcode ../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
+		50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
+		};
 		624A6270977AD718B2E319D9 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1259,20 +1266,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetFeeder/Pods-PetFeeder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			name = "Upload Debug Symbols to Sentry";
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
 		};
 /* End PBXShellScriptBuildPhase section */
 

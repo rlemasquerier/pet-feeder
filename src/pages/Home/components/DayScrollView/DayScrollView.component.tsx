@@ -9,9 +9,10 @@ import { computeDayHalf, dateToString } from 'pet-feeder/src/services';
 import { MORNING, EVENING } from 'pet-feeder/src/services/computeDayHalf';
 import { showError } from 'pet-feeder/src/services/toaster';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
-import { usePet } from 'pet-feeder/src/hooks';
+import { usePet, useCurrentUser } from 'pet-feeder/src/hooks';
 import { createRecord } from 'pet-feeder/src/graphql/mutations';
 import { getDailyRecords } from 'pet-feeder/src/graphql/queries';
+import { withBlockedUserCheck } from 'pet-feeder/src/services/user';
 import { FeedPetButton } from '../FeedPetButton/FeedPetButton.component';
 import { HalfDayCard } from './HalfDayCard';
 import { ActivityCard } from './ActivityCard';
@@ -25,6 +26,7 @@ interface Props {
 export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props) => {
   const dayString = dateToString(selectedDate);
   const dayHalf = computeDayHalf(moment());
+  const { user } = useCurrentUser();
 
   const morningQueryResult = useQuery(getDailyRecords, {
     variables: { dateString: dayString, dayHalf: 'morning' },
@@ -98,11 +100,11 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         return <ActivityCard record={record} key={record.id} />;
       })}
       <FeedPetButton
-        onPress={async () => {
-          await addRecord({ variables: { type: 'food' } });
+        onPress={withBlockedUserCheck(async () => {
+          addRecord({ variables: { type: 'food' } });
           morningQueryResult.refetch();
           eveningQueryResult.refetch();
-        }}
+        }, user)}
         status={getButtonStatus()}
         loading={addRecordLoading}
         label={`NOURRIR ${petName.toUpperCase()}`}

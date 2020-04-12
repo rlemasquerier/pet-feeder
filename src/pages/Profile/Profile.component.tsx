@@ -62,7 +62,9 @@ export const Profile: React.FC<{}> = () => {
           style={{ width: 200 }}
           label="Modifier"
           color={theme.colors.secondary}
-          onPress={() => {}}
+          onPress={() => {
+            return;
+          }}
         />
         {environment.ENV !== 'production' && (
           <LargeButton

@@ -1,3 +1,5 @@
+export type UserStatus = 'active' | 'blocked';
+
 export interface User {
   id: string;
   name: string;
@@ -7,6 +9,7 @@ export interface User {
   profilePictureUrl?: string;
   tribeMember: string[];
   tribeOwner: string[];
+  status: UserStatus;
 }
 
 export type Sex = 'male' | 'female';

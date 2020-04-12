@@ -101,7 +101,7 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
       })}
       <FeedPetButton
         onPress={withBlockedUserCheck(async () => {
-          addRecord({ variables: { type: 'food' } });
+          await addRecord({ variables: { type: 'food' } });
           morningQueryResult.refetch();
           eveningQueryResult.refetch();
         }, user)}

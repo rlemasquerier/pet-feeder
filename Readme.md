@@ -1,7 +1,7 @@
 # Requirements
 
-- XCode 
-- Android Studio 
+- XCode
+- Android Studio
 - XCode tools
 - [node](https://nodejs.org/en/)
 - [yarn](https://yarnpkg.com/en/)
@@ -12,15 +12,15 @@
 
 ## Decrypt secret files
 
-1. Install transcrypt: 
+1. Install transcrypt:
    ```bash
    brew install transcrypt
    ```
 2. Ask a project's developper for the transcrypt password
 3. Run the following decrypt command
-    ```bash
-    transcrypt -c aes-256-cbc -p '<password>'
-    ```
+   ```bash
+   transcrypt -c aes-256-cbc -p '<password>'
+   ```
 
 All your secret files (including .secret keystores) are decrypted and you are now able to deploy to any environment.
 
@@ -84,6 +84,17 @@ yarn deploy -e staging -o android -t soft
 
 ```bash
 yarn deploy -e staging -o ios -t soft
+```
+
+## Production
+
+### Hard deploy
+
+#### Android
+
+```bash
+bundle exec fastlane android deploy --env=production
+
 ```
 
 # Environments

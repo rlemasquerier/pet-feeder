@@ -173,7 +173,7 @@ platform :ios do
         deploy_hockey
       elsif ENV['DEPLOYMENT_PLATFORM'] === 'appcenter' then
         deploy_appCenter
-      else
+      elsif ENV['DEPLOYMENT_PLATFORM'] === 'store' then
         pilot(
           distribute_external: false,
           skip_waiting_for_build_processing: true

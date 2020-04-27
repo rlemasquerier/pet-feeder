@@ -64,7 +64,6 @@ interface Style {
 
 const styles = StyleSheet.create<Style>({
   container: {
-    flex: 1,
     alignItems: 'center',
     marginVertical: 3 * theme.margins.unit,
     paddingVertical: 2 * theme.margins.unit,

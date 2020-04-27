@@ -8,6 +8,8 @@ import {
   ImageStyle,
   Text,
   TextStyle,
+  TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import { NavigationScreenProps } from 'react-navigation';
 import { Formik } from 'formik';
@@ -35,30 +37,37 @@ export class Login extends Component<NavigationScreenProps & Props, {}> {
   };
   public render(): ReactNode {
     return (
-      <KeyboardAvoidingView style={styles.page}>
-        <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
-        <View style={styles.welcomeTextContainer}>
-          <Text style={styles.text}>Bonjour !</Text>
-        </View>
-        <View />
-        <View style={styles.container}>
-          <View style={styles.formContainer}>
-            <Formik
-              onSubmit={this.onSubmitForm}
-              initialValues={initialValues}
-              component={LoginForm}
-            />
-            <View style={styles.bottomContainer}>
-              <Text
-                style={styles.signupText}
-                onPress={() => this.props.navigation.navigate(PAGES.SIGNUP)}
-              >
-                {"Pas encore de compte ? S'inscrire"}
-              </Text>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        activeOpacity={1}
+        onPress={Keyboard.dismiss}
+        accessible={false}
+      >
+        <KeyboardAvoidingView style={styles.page}>
+          <Image source={theme.images.loginBackground} style={styles.image} resizeMode="stretch" />
+          <View style={styles.welcomeTextContainer}>
+            <Text style={styles.text}>Bonjour !</Text>
+          </View>
+          <View />
+          <View style={styles.container}>
+            <View style={styles.formContainer}>
+              <Formik
+                onSubmit={this.onSubmitForm}
+                initialValues={initialValues}
+                component={LoginForm}
+              />
+              <View style={styles.bottomContainer}>
+                <Text
+                  style={styles.signupText}
+                  onPress={() => this.props.navigation.navigate(PAGES.SIGNUP)}
+                >
+                  {"Pas encore de compte ? S'inscrire"}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
     );
   }
 }

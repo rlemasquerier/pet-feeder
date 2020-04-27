@@ -3,7 +3,7 @@ import { Image, ImageStyle, StyleSheet, View, ViewStyle, Text, TextStyle } from 
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, FormikActions } from 'formik';
-import { Page } from 'pet-feeder/src/components';
+import { Page, KeyboardAvoidingView } from 'pet-feeder/src/components';
 import { ContainerProps } from './Signup.container';
 import { SignupForm, Values } from './SignupForm';
 import { User, UserInput } from 'pet-feeder/src/types';
@@ -93,9 +93,9 @@ export const Signup: React.FC<Props> = (props: Props) => {
       <View style={styles.textContainer}>
         <Text style={styles.text}>Créer un compte</Text>
       </View>
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Formik onSubmit={onSubmitForm} initialValues={initialValues} component={SignupForm} />
-      </View>
+      </KeyboardAvoidingView>
     </Page>
   );
 };

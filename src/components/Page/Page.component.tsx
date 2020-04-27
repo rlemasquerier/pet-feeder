@@ -2,12 +2,22 @@ import React, { Component, ReactNode } from 'react';
 import { StatusBar, SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
 import theme from './../../theme';
 
-export class Page extends Component<{}, {}> {
+interface Props {
+  statusBarColor?: string;
+}
+
+export class Page extends Component<Props, {}> {
   public render(): ReactNode {
+    const statusBarColor = this.props.statusBarColor;
     return (
       <>
         <StatusBar barStyle="light-content" />
-        <SafeAreaView style={styles.statusBar} />
+        <SafeAreaView
+          style={[
+            styles.statusBar,
+            !!statusBarColor && { backgroundColor: this.props.statusBarColor },
+          ]}
+        />
         <SafeAreaView style={styles.container}>{this.props.children}</SafeAreaView>
       </>
     );

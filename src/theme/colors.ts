@@ -9,6 +9,7 @@ const baseColors = {
   mediumPlusGrey: '#d6d6d6',
   red: '#F5544F',
   brown: '#3C3C3B',
+  transparent: 'rgba(0, 0, 0, 0)',
 };
 
 const styleguideColors = {
@@ -24,6 +25,7 @@ const styleguideColors = {
   secondaryAction: baseColors.brown,
   text: baseColors.brown,
   backgroundColor: baseColors.lightGrey,
+  inputBackgroundColor: baseColors.transparent,
 };
 
 export default {

@@ -63,6 +63,6 @@ const styles = StyleSheet.create<Style>({
   },
   inputStyle: {
     width: '100%',
-    backgroundColor: theme.colors.backgroundColor,
+    backgroundColor: theme.colors.inputBackgroundColor,
   },
 });

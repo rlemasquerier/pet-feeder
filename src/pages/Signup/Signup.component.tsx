@@ -1,5 +1,15 @@
 import React from 'react';
-import { Image, ImageStyle, StyleSheet, View, ViewStyle, Text, TextStyle } from 'react-native';
+import {
+  Image,
+  ImageStyle,
+  StyleSheet,
+  View,
+  ViewStyle,
+  Text,
+  TextStyle,
+  TouchableOpacity,
+  Keyboard,
+} from 'react-native';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Formik, FormikActions } from 'formik';
@@ -93,9 +103,16 @@ export const Signup: React.FC<Props> = (props: Props) => {
       <View style={styles.textContainer}>
         <Text style={styles.text}>Créer un compte</Text>
       </View>
-      <KeyboardAvoidingView style={styles.container}>
-        <Formik onSubmit={onSubmitForm} initialValues={initialValues} component={SignupForm} />
-      </KeyboardAvoidingView>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        activeOpacity={1}
+        onPress={Keyboard.dismiss}
+        accessible={false}
+      >
+        <KeyboardAvoidingView style={styles.container}>
+          <Formik onSubmit={onSubmitForm} initialValues={initialValues} component={SignupForm} />
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
     </Page>
   );
 };

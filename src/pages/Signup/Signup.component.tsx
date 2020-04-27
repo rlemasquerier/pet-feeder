@@ -79,7 +79,7 @@ export const Signup: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Page>
+    <Page statusBarColor={theme.colors.error}>
       <Image
         source={theme.images.signupBackgroundTop}
         style={styles.imageTop}

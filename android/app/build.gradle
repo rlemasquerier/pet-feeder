@@ -78,8 +78,8 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-        enableHermes: false,
-        bundleInProduction: true,
+        enableHermes           : false,
+        bundleInProduction     : true,
         devDisabledInProduction: true
 ]
 
@@ -142,6 +142,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode _versionCode
         versionName _versionName
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -205,6 +206,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:1.0.3'
+
     implementation project(':react-native-webview')
     implementation project(':react-native-code-push')
     implementation project(':react-native-permissions')
@@ -226,13 +229,13 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-      exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 
     if (enableHermes) {

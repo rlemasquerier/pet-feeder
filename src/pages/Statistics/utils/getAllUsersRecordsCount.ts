@@ -4,6 +4,7 @@ export const getAllUsersRecordsCount = (records: Record[], users: User[]) => {
   return users.map((user: User) => {
     return {
       user: user.name,
+      userId: user.id,
       count: getUserRecordsCountById(records, user.id),
     };
   });

@@ -21,6 +21,8 @@ import { getRecords } from 'pet-feeder/src/graphql/queries';
 import { getUserRecordsStats, getAllUsersRecordsCount } from './utils';
 import { Record } from 'pet-feeder/src/types';
 import { useCurrentUser, useCurrentTribe } from 'pet-feeder/src/hooks';
+import { Medal } from './components/Medal';
+import { getRankById } from './utils/getRank';
 
 export const Statistics: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
@@ -41,6 +43,11 @@ export const Statistics: React.FC<{}> = () => {
     records.data && records.data.records && tribe
       ? getAllUsersRecordsCount(records.data && records.data.records, tribe.members)
       : [];
+  const rank =
+    records.data &&
+    records.data.records &&
+    tribe &&
+    getRankById(records.data && records.data.records, tribe.members, user.id);
   return (
     <Page>
       <Animated.ScrollView
@@ -84,6 +91,7 @@ export const Statistics: React.FC<{}> = () => {
             : theme.images.profilePicturePlaceholder
         }
       />
+      {!!rank && <Medal rank={rank} />}
     </Page>
   );
 };

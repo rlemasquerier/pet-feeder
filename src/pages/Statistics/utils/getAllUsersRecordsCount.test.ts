@@ -75,11 +75,12 @@ describe('[Service] getAllUsersRecordsCount', () => {
       const expected = [
         {
           user: 'James',
+          userId: '5d9663c54cd54d34075751d4',
           count: 2,
         },
-        { user: 'Jean-Michel', count: 3 },
-        { user: 'Zidane', count: 1 },
-        { user: 'InvisibleMan', count: 0 },
+        { user: 'Jean-Michel', userId: '5d9663c54cd54d34075751d5', count: 3 },
+        { user: 'Zidane', userId: '5d9663c54cd54d34075751d6', count: 1 },
+        { user: 'InvisibleMan', userId: '12345', count: 0 },
       ];
       expect(actual).toEqual(expected);
     });

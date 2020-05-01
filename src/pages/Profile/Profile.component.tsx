@@ -1,39 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 import { ProfileDetails } from './ProfileDetails';
 import { TribeMenu } from './TribeMenu';
-import { Value } from 'react-native-reanimated';
-import { withSpringTransition } from 'react-native-redash';
-import { Page } from 'pet-feeder/src/components';
 import theme from 'pet-feeder/src/theme';
+import { pageWithAnimatedMenu } from 'pet-feeder/src/hoc/PageWithAnimatedMenu/pageWithAnimatedMenu';
 
 export const Profile = () => {
-  const open = new Value<0 | 1>(0);
-  const transition = withSpringTransition(open);
-  return (
-    <Page>
-      <View style={styles.container}>
-        <ProfileDetails onPress={() => open.setValue(1)} transition={transition} />
-        <View style={styles.layer} pointerEvents="box-none">
-          <TribeMenu transition={transition} open={open} />
-        </View>
-      </View>
-    </Page>
-  );
+  const AnimatedProfilePage = pageWithAnimatedMenu(ProfileDetails, TribeMenu);
+  return <AnimatedProfilePage pageContainerStyle={styles.profilePageContainer} />;
 };
 
 interface Style {
-  container: ViewStyle;
-  layer: ViewStyle;
+  profilePageContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
-  container: {
+  profilePageContainer: {
     flex: 1,
-    backgroundColor: theme.colors.black,
-  },
-  layer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 16,
+    paddingVertical: 3 * theme.margins.unit,
+    backgroundColor: theme.colors.backgroundColor,
   },
 });

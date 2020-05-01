@@ -12,9 +12,6 @@ export const ComponentsLibraryMenu: React.FC<{}> = () => {
       <Text style={styles.text} onPress={() => navigator.navigate(PAGES.BINARY_SWITCH_PLAYGROUND)}>
         Binary Switch
       </Text>
-      <Text style={styles.text} onPress={() => navigator.navigate(PAGES.ANIMATED_MENU_PLAYGROUND)}>
-        Animated Menu
-      </Text>
     </View>
   );
 };

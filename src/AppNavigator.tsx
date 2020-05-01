@@ -20,9 +20,6 @@ const ComponentsLibraryStack = createStackNavigator(
     [PAGES.BINARY_SWITCH_PLAYGROUND]: {
       screen: Pages.BinarySwitchPlayground,
     },
-    [PAGES.ANIMATED_MENU_PLAYGROUND]: {
-      screen: Pages.AnimatedMenu,
-    },
   },
   {
     navigationOptions: {

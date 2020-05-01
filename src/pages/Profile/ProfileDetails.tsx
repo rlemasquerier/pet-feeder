@@ -5,11 +5,11 @@ import Animated from 'react-native-reanimated';
 import { bInterpolate } from 'react-native-redash';
 import {} from 'react-native';
 import theme from '../../theme';
-import { LargeButton, Icon, Loader } from '../../components';
+import { LargeButton, Icon, Loader, UserPictureBadge } from '../../components';
 import environment from 'pet-feeder/src/environment';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
 import { navigator, PAGES } from 'pet-feeder/src/services/navigation';
-import { ProfilePicture } from './ProfilePicture';
+import { User } from 'pet-feeder/src/types';
 
 const CENTRAL_ICONS_AREA_WIDTH = 200;
 const CENTRAL_ICONS_AREA_HEIGHT = 40;
@@ -28,52 +28,24 @@ interface Style {
   detailsItem: ViewStyle;
 }
 
-const styles = StyleSheet.create<Style>({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 16,
-    paddingVertical: 3 * theme.margins.unit,
-    backgroundColor: theme.colors.backgroundColor,
-  },
-  text: {
-    ...theme.fonts.regular,
-  },
-  header: {
-    width: '100%',
-    backgroundColor: theme.colors.banner,
-  },
-  content: {
-    flex: 1,
-
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  username: {
-    ...theme.fonts.title,
-    marginBottom: 5 * theme.margins.unit,
-  },
-  centralIconsArea: {
-    width: CENTRAL_ICONS_AREA_WIDTH,
-    height: CENTRAL_ICONS_AREA_HEIGHT,
-    borderRadius: CENTRAL_ICONS_AREA_HEIGHT / 2,
-    backgroundColor: theme.colors.placeholderColor,
-    marginBottom: 15 * theme.margins.unit,
-  },
-  centralIconsContainer: {
-    position: 'absolute',
-    top: CENTRAL_ICONS_SIZE / 2,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  detailsItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 3 * theme.margins.unit,
-  },
-});
+const UserDetails = (props: { user: User }) => {
+  const { user } = props;
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <UserPictureBadge userId={user.id} size={150} />
+      <Text style={styles.username}>{user.name}</Text>
+      <View style={styles.detailsItem}>
+        <Icon
+          style={{ marginRight: 3 * theme.margins.unit }}
+          name="mail2"
+          size={30}
+          color={theme.colors.primary}
+        />
+        <Text style={styles.text}>{user.email}</Text>
+      </View>
+    </View>
+  );
+};
 
 interface ProfileDetailsProps {
   onPress: () => void;
@@ -107,35 +79,31 @@ export const ProfileDetails = ({ transition, onPress }: ProfileDetailsProps) => 
           },
         ]}
       >
-        <ProfilePicture user={user} />
-        <Text style={styles.username}>{user.name}</Text>
-        <View>
-          <View style={styles.detailsItem}>
-            <Icon
-              style={{ marginRight: 3 * theme.margins.unit }}
-              name="mail2"
-              size={30}
-              color={theme.colors.primary}
-            />
-            <Text style={styles.text}>{user.email}</Text>
-          </View>
-        </View>
-        <LargeButton
-          style={{ width: 200 }}
-          label="Ma Coloc"
-          color={theme.colors.secondary}
-          onPress={onPress}
-        />
-        {environment.ENV !== 'production' && (
+        <UserDetails user={user} />
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <LargeButton
-            style={{ width: 200 }}
-            label="Librairie"
+            style={{ width: 200, marginBottom: 3 * theme.margins.unit }}
+            label="Ma Coloc"
             color={theme.colors.secondary}
-            onPress={() => {
-              navigator.navigate(PAGES.COMPONENTS_LIBRARY_MENU);
-            }}
+            onPress={onPress}
           />
-        )}
+          {environment.ENV !== 'production' && (
+            <LargeButton
+              style={{ width: 200 }}
+              label="Librairie"
+              color={theme.colors.secondary}
+              onPress={() => {
+                navigator.navigate(PAGES.COMPONENTS_LIBRARY_MENU);
+              }}
+            />
+          )}
+        </View>
         <Text
           onPress={() => navigator.navigate(PAGES.PRIVACY_POLICY)}
           style={{ textDecorationLine: 'underline' }}
@@ -154,3 +122,50 @@ export const ProfileDetails = ({ transition, onPress }: ProfileDetailsProps) => 
     </>
   );
 };
+
+const styles = StyleSheet.create<Style>({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderRadius: 16,
+    paddingVertical: 3 * theme.margins.unit,
+    backgroundColor: theme.colors.backgroundColor,
+  },
+  text: {
+    ...theme.fonts.regular,
+  },
+  header: {
+    width: '100%',
+    backgroundColor: theme.colors.banner,
+  },
+  content: {
+    flex: 1,
+
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  username: {
+    ...theme.fonts.title,
+    marginVertical: 3 * theme.margins.unit,
+  },
+  centralIconsArea: {
+    width: CENTRAL_ICONS_AREA_WIDTH,
+    height: CENTRAL_ICONS_AREA_HEIGHT,
+    borderRadius: CENTRAL_ICONS_AREA_HEIGHT / 2,
+    backgroundColor: theme.colors.placeholderColor,
+    marginBottom: 15 * theme.margins.unit,
+  },
+  centralIconsContainer: {
+    position: 'absolute',
+    top: CENTRAL_ICONS_SIZE / 2,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  detailsItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 3 * theme.margins.unit,
+  },
+});

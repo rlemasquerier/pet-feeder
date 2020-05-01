@@ -1,103 +1,74 @@
 import React from 'react';
-import { alpha, perspective } from './Constants';
-import { Content, width } from './Content';
-import Animated, {
-  Value,
-  useCode,
-  block,
-  cond,
-  and,
-  neq,
-  diff,
-  set,
-  eq,
-  not,
-  interpolate,
-  Clock,
-  clockRunning,
-  stopClock,
-  divide,
-} from 'react-native-reanimated';
-import {
-  bInterpolate,
-  onGestureEvent,
-  clamp,
-  snapPoint,
-  spring,
-  timing,
-} from 'react-native-redash';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import theme from 'pet-feeder/src/theme';
+import { withMenuAnimation } from 'pet-feeder/src/hoc/PageWithAnimatedMenu/withMenuAnimation';
 
-const MIN = ((-4 * width) / Math.PI) * alpha;
-const MAX = 0;
-const MARGIN = 100;
+const d = Dimensions.get('window');
+export const width = d.width * 0.75;
+export const height = d.height * 0.5;
 
-interface TribeMenuProps {
-  open: Animated.Value<0 | 1>;
-  transition: Animated.Node<number>;
-}
+const Row = (props: { label: string }) => (
+  <View style={styles.row}>
+    <Text style={styles.label}>{props.label}</Text>
+  </View>
+);
 
-export const TribeMenu = ({ open, transition: openingTransition }: TribeMenuProps) => {
-  const clock = new Clock();
-  const isDone = new Value(0);
-  const transition = new Value(0);
-  const state = new Value(State.UNDETERMINED);
-  const translationX = new Value(0);
-  const x = clamp(translationX, MIN, MAX + MARGIN);
-  const velocityX = new Value(0);
-  const gestureHandler = onGestureEvent({ state, translationX, velocityX });
-  const gestureTransition = interpolate(x, {
-    inputRange: [MIN, MAX],
-    outputRange: [0, 1],
-  });
-  const snapTo = eq(snapPoint(x, velocityX, [MIN, MAX]), MAX);
-  const isOpening = and(neq(diff(openingTransition), 0), open);
-  useCode(
-    () =>
-      block([
-        cond(isOpening, set(transition, openingTransition)),
-        cond(eq(state, State.BEGAN), stopClock(clock)),
-        cond(eq(state, State.ACTIVE), [set(isDone, 0), set(transition, gestureTransition)]),
-        cond(and(eq(state, State.END), not(isDone)), [
-          set(
-            transition,
-            cond(
-              eq(snapTo, 1),
-              spring({
-                clock,
-                velocity: divide(velocityX, -MIN),
-                from: gestureTransition,
-                to: 1,
-              }),
-              timing({ clock, from: gestureTransition, to: 0 })
-            )
-          ),
-          cond(not(clockRunning(clock)), [set(isDone, 1), cond(eq(snapTo, 0), set(open, 0))]),
-        ]),
-      ]),
-    [open, openingTransition, transition]
-  );
+export const TribeMenu = withMenuAnimation(() => (
+  <View style={styles.container}>
+    <Image source={theme.images.profilePicturePlaceholder} style={styles.avatar} />
+    <Text style={styles.title}>James Bond</Text>
+    <Text style={styles.handle}>@jb</Text>
+    <View style={styles.divider} />
+    <View>
+      <Row label="Tribe code: AZER" />
+      <Row label="Your pet: Dingo" />
+      <Row label="Sex: Male" />
+    </View>
+  </View>
+));
 
-  const translateX = bInterpolate(transition, MIN, MAX);
-  const opacity = bInterpolate(transition, 0, 1);
-  const rotateY = bInterpolate(transition, alpha, 0);
-
-  return (
-    <PanGestureHandler {...gestureHandler}>
-      <Animated.View
-        style={{
-          opacity,
-          transform: [
-            perspective,
-            { translateX },
-            { translateX: -width / 2 },
-            { rotateY },
-            { translateX: width / 2 },
-          ],
-        }}
-      >
-        <Content />
-      </Animated.View>
-    </PanGestureHandler>
-  );
-};
+const styles = StyleSheet.create({
+  container: {
+    width,
+    height,
+    borderRadius: 24,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gradient: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 24,
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  title: {
+    fontWeight: 'bold',
+    marginTop: 16,
+  },
+  handle: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#D8DAE0',
+    width: '100%',
+    marginVertical: 32,
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 8,
+  },
+  icon: {
+    marginRight: 8,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+});

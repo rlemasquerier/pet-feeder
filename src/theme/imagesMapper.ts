@@ -6,6 +6,7 @@ const images = {
   bronzeMedal: require('./images/bronze-medal.png'),
   silverMedal: require('./images/silver-medal.png'),
   goldMedal: require('./images/gold-medal.png'),
+  greyCat: require('./images/grey-cat.png'),
 };
 
 export default images;

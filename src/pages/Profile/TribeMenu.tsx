@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import theme from 'pet-feeder/src/theme';
 import { withMenuAnimation } from 'pet-feeder/src/hoc/PageWithAnimatedMenu/withMenuAnimation';
 import { useCurrentTribe, useCurrentUser } from 'pet-feeder/src/hooks';
-import { Loader, GenericError } from 'pet-feeder/src/components';
+import { Loader, GenericError, LargeButton } from 'pet-feeder/src/components';
 import { Sex } from 'pet-feeder/src/types';
 
 const petGenderTranslator = (gender: Sex) => {
@@ -41,10 +41,15 @@ export const TribeMenu = withMenuAnimation(() => {
       </View>
       <Text style={styles.title}>{tribe.name}</Text>
       <View style={styles.divider} />
-      <View>
+      <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
         <Row label={`Animal: ${tribe.pet.name}`} />
         <Row label={`Genre: ${petGenderTranslator(tribe.pet.sex)}`} />
-        <Row label="Générer un code" />
+        <LargeButton
+          style={{ marginTop: 5 * theme.margins.unit, width: '100%' }}
+          label="Générer un code"
+          onPress={() => {}}
+          color={theme.colors.secondary}
+        />
       </View>
     </>
   );

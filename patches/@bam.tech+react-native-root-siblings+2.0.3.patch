@@ -1,0 +1,13 @@
+diff --git a/node_modules/@bam.tech/react-native-root-siblings/lib/AppRegistryInjection.js b/node_modules/@bam.tech/react-native-root-siblings/lib/AppRegistryInjection.js
+index 4d8928c..1d7bc09 100644
+--- a/node_modules/@bam.tech/react-native-root-siblings/lib/AppRegistryInjection.js
++++ b/node_modules/@bam.tech/react-native-root-siblings/lib/AppRegistryInjection.js
+@@ -27,7 +27,7 @@ if (!(emitter instanceof EventEmitter)) {
+             return class extends Component {
+                 static displayName = `Root(${appKey})`;
+ 
+-                componentWillMount() {
++                componentDidMount() {
+                     this._update = this._update.bind(this);
+                     emitter.addListener('siblings.update', this._update);
+                 };

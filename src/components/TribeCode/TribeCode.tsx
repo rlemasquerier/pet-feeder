@@ -6,12 +6,13 @@ const CHARACTER_CONTAINER_WIDTH = 40;
 
 interface Props {
   code: string;
+  style?: ViewStyle;
 }
 
 export const TribeCode: React.FC<Props> = (props: Props) => {
-  const { code } = props;
+  const { code, style } = props;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {code.split('').map((character, index) => (
         <View
           key={index}

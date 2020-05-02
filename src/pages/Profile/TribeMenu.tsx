@@ -1,11 +1,7 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import theme from 'pet-feeder/src/theme';
 import { withMenuAnimation } from 'pet-feeder/src/hoc/PageWithAnimatedMenu/withMenuAnimation';
-
-const d = Dimensions.get('window');
-export const width = d.width * 0.75;
-export const height = d.height * 0.5;
 
 const Row = (props: { label: string }) => (
   <View style={styles.row}>
@@ -14,7 +10,7 @@ const Row = (props: { label: string }) => (
 );
 
 export const TribeMenu = withMenuAnimation(() => (
-  <View style={styles.container}>
+  <>
     <Image source={theme.images.profilePicturePlaceholder} style={styles.avatar} />
     <Text style={styles.title}>James Bond</Text>
     <Text style={styles.handle}>@jb</Text>
@@ -24,18 +20,10 @@ export const TribeMenu = withMenuAnimation(() => (
       <Row label="Your pet: Dingo" />
       <Row label="Sex: Male" />
     </View>
-  </View>
+  </>
 ));
 
 const styles = StyleSheet.create({
-  container: {
-    width,
-    height,
-    borderRadius: 24,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   gradient: {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 24,

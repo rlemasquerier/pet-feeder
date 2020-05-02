@@ -9,13 +9,14 @@ import { HOCProps as MenuHOCProps } from './withMenuAnimation';
 
 interface HOCProps {
   pageContainerStyle: ViewStyle;
+  menuContainerStyle: ViewStyle;
 }
 
 export const pageWithAnimatedMenu = (
   WrappedPage: React.FC<PageHOCProps>,
   WrappedMenu: React.FC<MenuHOCProps>
 ) => {
-  const HOC = ({ pageContainerStyle }: HOCProps) => {
+  const HOC = ({ pageContainerStyle, menuContainerStyle }: HOCProps) => {
     const open = new Value<0 | 1>(0);
     const transition = withSpringTransition(open);
     return (
@@ -27,7 +28,7 @@ export const pageWithAnimatedMenu = (
             transition={transition}
           />
           <View style={styles.layer} pointerEvents="box-none">
-            <WrappedMenu transition={transition} open={open} />
+            <WrappedMenu containerStyle={menuContainerStyle} transition={transition} open={open} />
           </View>
         </View>
       </Page>

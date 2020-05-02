@@ -7,11 +7,17 @@ import { pageWithAnimatedMenu } from 'pet-feeder/src/hoc/PageWithAnimatedMenu/pa
 
 export const Profile = () => {
   const AnimatedProfilePage = pageWithAnimatedMenu(ProfileDetails, TribeMenu);
-  return <AnimatedProfilePage pageContainerStyle={styles.profilePageContainer} />;
+  return (
+    <AnimatedProfilePage
+      pageContainerStyle={styles.profilePageContainer}
+      menuContainerStyle={styles.menuContainer}
+    />
+  );
 };
 
 interface Style {
   profilePageContainer: ViewStyle;
+  menuContainer: ViewStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -22,5 +28,11 @@ const styles = StyleSheet.create<Style>({
     borderRadius: 16,
     paddingVertical: 3 * theme.margins.unit,
     backgroundColor: theme.colors.backgroundColor,
+  },
+  menuContainer: {
+    borderRadius: 24,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

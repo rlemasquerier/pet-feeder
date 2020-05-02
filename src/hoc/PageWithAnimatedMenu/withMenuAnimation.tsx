@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View, ViewStyle } from 'react-native';
 import { alpha, perspective } from './Constants';
 import Animated, {
   Value,
@@ -36,13 +36,19 @@ const MIN = ((-4 * width) / Math.PI) * alpha;
 const MAX = 0;
 const MARGIN = 100;
 
+interface WrappedComponentProps {
+  width: number;
+  height: number;
+}
+
 export interface HOCProps {
   open: Animated.Value<0 | 1>;
   transition: Animated.Node<number>;
+  containerStyle: ViewStyle;
 }
 
-export const withMenuAnimation = (WrappedComponent: React.FC) => {
-  const HOC = ({ open, transition: openingTransition, ...props }: HOCProps) => {
+export const withMenuAnimation = (WrappedComponent: React.FC<WrappedComponentProps>) => {
+  const HOC = ({ open, transition: openingTransition, containerStyle, ...props }: HOCProps) => {
     const clock = new Clock();
     const isDone = new Value(0);
     const transition = new Value(0);
@@ -101,7 +107,9 @@ export const withMenuAnimation = (WrappedComponent: React.FC) => {
             ],
           }}
         >
-          <WrappedComponent {...props} />
+          <View style={{ width, height, ...containerStyle }}>
+            <WrappedComponent width={width} height={height} {...props} />
+          </View>
         </Animated.View>
       </PanGestureHandler>
     );

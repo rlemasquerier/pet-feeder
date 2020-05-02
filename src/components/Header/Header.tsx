@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, TextStyle, StyleSheet, ViewStyle, View } from 'react-native';
 import theme from '../../theme';
-import { TopBanner, TouchableIcon } from 'pet-feeder/src/components';
+import { TopBanner } from 'pet-feeder/src/components/TopBanner';
+import { TouchableIcon } from 'pet-feeder/src/components/TouchableIcon';
 import { navigator } from 'pet-feeder/src/services/navigation';
 
 interface Props {

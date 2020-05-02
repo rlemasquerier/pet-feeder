@@ -7,7 +7,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { Icon } from 'pet-feeder/src/components';
+import { Icon } from 'pet-feeder/src/components/Icon';
 import { IconName } from '../../Icon/Icon.component';
 import theme from 'pet-feeder/src/theme';
 

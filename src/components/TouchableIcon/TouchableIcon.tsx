@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Icon } from 'pet-feeder/src/components';
+import { Icon } from 'pet-feeder/src/components/Icon';
 import { IconName } from '../Icon/Icon.component';
 
 interface Props {

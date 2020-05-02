@@ -31,8 +31,8 @@ const styles = StyleSheet.create<Style>({
   },
   menuContainer: {
     borderRadius: 24,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: theme.colors.backgroundColor,
   },
 });

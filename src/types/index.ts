@@ -84,3 +84,9 @@ export interface Activity {
   activityName: string;
   activityText: string;
 }
+
+export interface CustomAction {
+  id: string;
+  name: string;
+  description: string;
+}

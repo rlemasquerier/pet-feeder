@@ -10,11 +10,17 @@ import {
 } from 'pet-feeder/src/components/AnimatedHeader/AnimatedHeader';
 import theme from './../../theme';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
+import { getAvailableCustomActions } from 'pet-feeder/src/graphql/queries';
+import { useQuery } from 'react-apollo';
+import { CustomAction } from 'pet-feeder/src/types';
 
 export const Reminders: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
   const [notificationsAllowed, setNotificationsAllowed] = useState<boolean>(true);
   const { user } = useCurrentUser();
+  const { data: customActionsData } = useQuery(getAvailableCustomActions);
+  const availableCustomActions = customActionsData && customActionsData.customActions;
+
   if (!user) {
     return <Loader size={100} />;
   }
@@ -36,6 +42,19 @@ export const Reminders: React.FC<{}> = () => {
           leftTextStyle={styles.checkboxText}
           leftText={'Recevoir une notifications lorsque mon chat a été nourri.e'}
         />
+        <Text style={styles.text}>Mes Autres Actions</Text>
+        {availableCustomActions &&
+          availableCustomActions.map((customAction: CustomAction) => (
+            <CheckBox
+              key={customAction.name}
+              style={styles.checkboxContainer}
+              onClick={() => {}}
+              checkBoxColor={theme.colors.secondaryAction}
+              isChecked={notificationsAllowed}
+              leftTextStyle={styles.checkboxText}
+              leftText={customAction.name}
+            />
+          ))}
       </Animated.ScrollView>
       <AnimatedHeader
         scrollY={scrollY}
@@ -69,6 +88,7 @@ const styles = StyleSheet.create<Style>({
   },
   text: {
     ...theme.fonts.regular,
+    marginTop: 2 * theme.margins.unit,
     fontSize: 20,
     paddingVertical: 3 * theme.margins.unit,
   },

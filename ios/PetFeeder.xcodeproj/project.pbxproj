@@ -368,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "rm \"./PetFeeder/GoogleService-Info.plist\"\n";
+			shellScript = "cp \"./PetFeeder/GoogleService-Info.tech.petfeeder.staging.plist\" \"./PetFeeder/GoogleService-Info.plist\"\n";
 		};
 		50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;

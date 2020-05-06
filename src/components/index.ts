@@ -21,3 +21,4 @@ export { TabBar } from './TabBar';
 export { BinarySwitch } from './BinarySwitch';
 export { Header } from './Header';
 export { TouchableIcon } from './TouchableIcon';
+export { CheckBox } from './CheckBox';

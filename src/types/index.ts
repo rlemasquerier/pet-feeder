@@ -27,6 +27,7 @@ export interface Tribe {
   pet: Pet;
   members: User[];
   ownerId: string;
+  customActions: CustomAction[];
   timestamp: number;
 }
 

@@ -20,6 +20,11 @@ export const getTribeById = gql`
         tribeMember
         tribeOwner
       }
+      customActions {
+        id
+        name
+        description
+      }
       timestamp
     }
   }

@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Text, TextStyle, StyleSheet, ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { onScroll } from 'react-native-redash';
-import CheckBox from 'react-native-check-box';
-import { Page, Loader } from '../../components';
+import { Page, Loader, CheckBox } from '../../components';
 import {
   AnimatedHeader,
   HEADER_DIMENSIONS,
@@ -12,7 +11,7 @@ import theme from './../../theme';
 import { useCurrentUser } from 'pet-feeder/src/hooks';
 import { getAvailableCustomActions } from 'pet-feeder/src/graphql/queries';
 import { useQuery } from 'react-apollo';
-import { CustomAction } from 'pet-feeder/src/types';
+import { CustomActionsSettings } from './components/CustomActionsSettings';
 
 export const Reminders: React.FC<{}> = () => {
   const [scrollY] = useState<Animated.Value<number>>(new Animated.Value(0));
@@ -33,28 +32,15 @@ export const Reminders: React.FC<{}> = () => {
       >
         <Text style={styles.text}>Mes Rappels</Text>
         <CheckBox
-          style={styles.checkboxContainer}
-          onClick={() => {
+          onPress={() => {
             setNotificationsAllowed(!notificationsAllowed);
           }}
-          checkBoxColor={theme.colors.secondaryAction}
+          color={theme.colors.secondaryAction}
           isChecked={notificationsAllowed}
-          leftTextStyle={styles.checkboxText}
-          leftText={'Recevoir une notifications lorsque mon chat a été nourri.e'}
+          label={'Recevoir une notifications lorsque mon chat a été nourri.e'}
         />
         <Text style={styles.text}>Mes Autres Actions</Text>
-        {availableCustomActions &&
-          availableCustomActions.map((customAction: CustomAction) => (
-            <CheckBox
-              key={customAction.name}
-              style={styles.checkboxContainer}
-              onClick={() => {}}
-              checkBoxColor={theme.colors.secondaryAction}
-              isChecked={notificationsAllowed}
-              leftTextStyle={styles.checkboxText}
-              leftText={customAction.name}
-            />
-          ))}
+        <CustomActionsSettings availableCustomActions={availableCustomActions} />
       </Animated.ScrollView>
       <AnimatedHeader
         scrollY={scrollY}
@@ -75,8 +61,6 @@ export const Reminders: React.FC<{}> = () => {
 interface Style {
   container: ViewStyle;
   text: TextStyle;
-  checkboxContainer: ViewStyle;
-  checkboxText: TextStyle;
 }
 
 const styles = StyleSheet.create<Style>({
@@ -91,14 +75,5 @@ const styles = StyleSheet.create<Style>({
     marginTop: 2 * theme.margins.unit,
     fontSize: 20,
     paddingVertical: 3 * theme.margins.unit,
-  },
-  checkboxContainer: {
-    flex: 1,
-    paddingVertical: 2 * theme.margins.unit,
-    borderBottomWidth: 1,
-  },
-  checkboxText: {
-    color: theme.colors.text,
-    marginRight: 4 * theme.margins.unit,
   },
 });

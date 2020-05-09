@@ -23,7 +23,8 @@ export const getTribeById = gql`
       customActions {
         id
         name
-        description
+        displayedDescription
+        displayedInAction
       }
       timestamp
     }

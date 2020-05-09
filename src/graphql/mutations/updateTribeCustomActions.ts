@@ -7,7 +7,8 @@ export const updateTribeCustomActions = gql`
       customActions {
         id
         name
-        description
+        displayedDescription
+        displayedInAction
       }
     }
   }

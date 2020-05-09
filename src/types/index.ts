@@ -88,6 +88,7 @@ export interface Activity {
 
 export interface CustomAction {
   id: string;
-  name: string;
-  description: string;
+  name: RecordType;
+  displayedDescription: string;
+  displayedInAction: string;
 }

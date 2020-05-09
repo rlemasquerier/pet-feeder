@@ -86,11 +86,11 @@ export const CustomActionsSettings: React.FC<Props> = (props: Props) => {
       {availableCustomActions &&
         availableCustomActions.map((customAction: CustomAction) => (
           <CheckBox
-            key={customAction.name}
+            key={customAction.id}
             onPress={() => onAvailableCustomActionPress(customAction.id)}
             color={theme.colors.secondaryAction}
             isChecked={isCustomActionEnabled(customAction.id)}
-            label={customAction.name}
+            label={customAction.displayedDescription}
           />
         ))}
     </>

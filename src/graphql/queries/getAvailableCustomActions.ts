@@ -5,7 +5,8 @@ export const getAvailableCustomActions = gql`
     customActions {
       id
       name
-      description
+      displayedDescription
+      displayedInAction
     }
   }
 `;

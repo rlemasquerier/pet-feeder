@@ -86,9 +86,9 @@ export interface Activity {
   activityText: string;
 }
 
-export interface CustomAction {
+export type CustomAction = {
   id: string;
   name: RecordType;
   displayedDescription: string;
   displayedInAction: string;
-}
+};

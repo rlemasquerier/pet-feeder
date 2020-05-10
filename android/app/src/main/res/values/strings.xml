@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <resources>
-    <string name="reactNativeCodePush_androidDeploymentKey" moduleConfig="true" />
-    <string name="CodePushDeploymentKey">dummy</string>
+    <string name="reactNativeCodePush_androidDeploymentKey" moduleConfig="true"/>
+    <string name="CodePushDeploymentKey"/>
 </resources>

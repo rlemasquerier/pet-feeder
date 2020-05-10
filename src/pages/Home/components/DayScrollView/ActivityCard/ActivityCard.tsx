@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, TextStyle, StyleSheet, View, ViewStyle } from 'react-native';
+import * as R from 'ramda';
+import { useQuery } from 'react-apollo';
 import theme from 'pet-feeder/src/theme';
 import { Card, UserPictureBadge } from 'pet-feeder/src/components';
-import { Record } from 'pet-feeder/src/types';
-import { getActivityName, getActivityText } from './utils';
+import { Record, CustomAction } from 'pet-feeder/src/types';
 import { getRecordHourFromTimestamp } from '../HalfDayCard/utils';
+import { getAvailableCustomActions } from 'pet-feeder/src/graphql/queries';
 
 const PICTURE_BADGE_SIZE = 40;
 const PICTURE_BADGE_MARGIN = 3 * theme.margins.unit;
@@ -26,6 +28,17 @@ export const ActivityCard: React.FC<Props> = (props: Props) => {
     customTitleExtractor,
   } = props;
 
+  const { data: customActionsData } = useQuery(getAvailableCustomActions);
+
+  if (!customActionsData) {
+    return null;
+  }
+
+  const normalizedCustomActions = R.indexBy<CustomAction>(
+    R.prop<string>('name'),
+    customActionsData.customActions
+  );
+
   if (!record && !fallbackTitle) {
     return null;
   }
@@ -37,7 +50,9 @@ export const ActivityCard: React.FC<Props> = (props: Props) => {
     if (customTitleExtractor) {
       return customTitleExtractor(record);
     }
-    return `${getActivityName(record.type)} à ${getRecordHourFromTimestamp(record.timestamp)}`;
+    return `${
+      normalizedCustomActions[record.type].displayedDescription
+    } à ${getRecordHourFromTimestamp(record.timestamp)}`;
   };
 
   const getActivityContent = (): string => {
@@ -47,7 +62,7 @@ export const ActivityCard: React.FC<Props> = (props: Props) => {
     if (customContentExtractor) {
       return customContentExtractor(record);
     }
-    return `${record.feederName} ${getActivityText(record.type)}`;
+    return `${record.feederName} ${normalizedCustomActions[record.type].displayedInAction}`;
   };
 
   return (

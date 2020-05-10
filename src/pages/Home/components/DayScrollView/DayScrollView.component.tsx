@@ -109,7 +109,10 @@ export const DayScrollView: React.FC<Props> = ({ selectedDate, tribeId }: Props)
         status={getButtonStatus()}
         loading={addRecordLoading}
         label={`NOURRIR ${petName.toUpperCase()}`}
-        inactiveLabel={`${petName.toUpperCase()} A ÉTÉ ${genderizeWord('NOURRI', pet.sex)}`}
+        inactiveLabel={`${petName.toUpperCase()} A ÉTÉ ${genderizeWord(
+          'nourri',
+          pet.sex
+        ).toUpperCase()}`}
       />
       {isSelectedDateToday() && (
         <LargeButton

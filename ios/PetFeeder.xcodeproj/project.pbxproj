@@ -350,7 +350,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"./PetFeeder/GoogleService-Info.\"$PRODUCT_BUNDLE_IDENTIFIER\".plist\" \"./PetFeeder/GoogleService-Info.plist\"\n\n";
+			shellScript = "mv \"./PetFeeder/GoogleService-Info.plist\" \"./PetFeeder/GoogleService-Info.plist.backup\"\ncp \"./PetFeeder/GoogleService-Info.\"$PRODUCT_BUNDLE_IDENTIFIER\".plist\" \"./PetFeeder/GoogleService-Info.plist\"\n\n";
 		};
 		42859CCD245F030400A838AE /* Clean GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -368,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cp \"./PetFeeder/GoogleService-Info.tech.petfeeder.staging.plist\" \"./PetFeeder/GoogleService-Info.plist\"\n";
+			shellScript = "rm \"./PetFeeder/GoogleService-Info.plist\"\nmv \"./PetFeeder/GoogleService-Info.plist.backup\" \"./PetFeeder/GoogleService-Info.plist\"\n";
 		};
 		50B7EF97F08A42AD94EBE484 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;

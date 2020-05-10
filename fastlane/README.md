@@ -88,6 +88,16 @@ fastlane ios add_devices
 fastlane android restore_files
 ```
 
+### android set_codepush_key
+```
+fastlane android set_codepush_key
+```
+
+### android unset_codepush_key
+```
+fastlane android unset_codepush_key
+```
+
 ### android set_keys
 ```
 fastlane android set_keys
